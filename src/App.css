@@ -5,7 +5,7 @@ html {
 
 body {
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 body.opacity-100 {
@@ -25,6 +25,12 @@ body.opacity-100 {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .glass-card {
+  background: rgba(16, 23, 41, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 @keyframes float {
@@ -61,4 +67,19 @@ body.opacity-100 {
 .blur-backdrop {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+}
+
+/* Theme transition classes */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark mode specific styles */
+.dark body {
+  background-color: hsl(224, 71%, 4%);
+  color: hsl(213, 31%, 91%);
+}
+
+.dark .theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
