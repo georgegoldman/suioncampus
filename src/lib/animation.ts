@@ -12,6 +12,13 @@ export const getStaggeredDelay = (index: number, baseDelay = 0.1): string => {
   return `${delay}s`;
 };
 
+// Helper for staggered children animations
+export const staggeredChildren = (staggerDuration = 0.1, initialDelay = 0) => {
+  return (index: number): string => {
+    return `${initialDelay + (index * staggerDuration)}s`;
+  };
+};
+
 // Animation variants for framer-motion
 export const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
