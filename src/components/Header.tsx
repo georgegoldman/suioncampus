@@ -3,9 +3,12 @@ import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { scrollToElement } from '@/lib/animation';
 import { ThemeToggle } from './ThemeToggle';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,31 +30,44 @@ const Header = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-sui-blue rounded-full flex items-center justify-center">
-            <span className="text-white font-bold">S</span>
-          </div>
-          <h1 className="text-lg font-semibold">Sui On Campus</h1>
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-sui-blue rounded-full flex items-center justify-center">
+              <span className="text-white font-bold">S</span>
+            </div>
+            <h1 className="text-lg font-semibold">Sui On Campus</h1>
+          </Link>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          <button
-            onClick={() => scrollToElement('mission')}
-            className="text-foreground/80 hover:text-foreground transition-colors"
-          >
-            Mission
-          </button>
-          <button
-            onClick={() => scrollToElement('team')}
-            className="text-foreground/80 hover:text-foreground transition-colors"
-          >
-            Team
-          </button>
-          <button
-            onClick={() => scrollToElement('events')}
-            className="text-foreground/80 hover:text-foreground transition-colors"
-          >
-            Events
-          </button>
+          {isHomePage ? (
+            <>
+              <button
+                onClick={() => scrollToElement('mission')}
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Mission
+              </button>
+              <button
+                onClick={() => scrollToElement('team')}
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Team
+              </button>
+              <button
+                onClick={() => scrollToElement('events')}
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Events
+              </button>
+            </>
+          ) : (
+            <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
+              Home
+            </Link>
+          )}
+          <Link to="/gallery" className="text-foreground/80 hover:text-foreground transition-colors">
+            Gallery
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4">
