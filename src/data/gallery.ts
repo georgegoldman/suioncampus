@@ -12,29 +12,29 @@ export interface GalleryImage {
 export const galleryImages: GalleryImage[] = [
   {
     id: '1',
-    src: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format&fit=crop&q=80',
-    alt: 'Hackathon participants working on laptops',
+    src: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//hack.jpeg',
+    alt: ' 2024 Hackerfest winners',
     category: 'hackathon',
-    year: 2023,
-    title: 'Sui Summer Hackathon',
-    description: 'Students collaborating on blockchain projects during our summer hackathon event.'
+    year: 2024,
+    title: 'Sui On Campus Lagos Hackerfest',
+    description: 'Students building on  SUI blockchain projects during our summer hackathon event.'
   },
   {
     id: '2',
-    src: 'https://images.unsplash.com/photo-1540317580384-e5d43867caa6?w=800&auto=format&fit=crop&q=80',
-    alt: 'Workshop presentation',
+    src: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//workshop.jpeg',
+    alt: 'Move Workshop ',
     category: 'workshop',
-    year: 2023,
-    title: 'Blockchain Fundamentals Workshop',
-    description: 'Introducing students to the core principles of blockchain technology.'
+    year: 2025,
+    title: 'Sui Blockchain Fundamentals Workshop',
+    description: 'Introducing students to the core principles of Move technology.'
   },
   {
     id: '3',
-    src: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&auto=format&fit=crop&q=80',
+    src: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//confrence.jpeg',
     alt: 'Conference audience',
     category: 'event',
     year: 2023,
-    title: 'Sui On Campus Launch',
+    title: 'Sui On Campus Interactive session with builders',
     description: 'The official launch event of our Sui On Campus initiative.'
   },
   {

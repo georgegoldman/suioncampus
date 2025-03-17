@@ -13,44 +13,43 @@ export type TeamMember = {
 
 export const teamMembers: TeamMember[] = [
   {
-    name: 'Alex Rivera',
-    role: 'Founder & Director',
-    bio: 'Blockchain enthusiast with 5+ years experience in educational initiatives across top universities.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80',
+    name: 'Ogoyi Thompson',
+    role: 'Founder & Team Lead',
+    bio: 'SUI Ambassador and Founder Sui On Campus .',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/sign/suioncampus/GiIt06dXYAAI-3U.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdWlvbmNhbXB1cy9HaUl0MDZkWFlBQUktM1UuanBlZyIsImlhdCI6MTc0MjE2NzczOSwiZXhwIjozMzE4OTY3NzM5fQ.xIDIhEFEASKKgqG9m9Vs2oQ6Zcttyn6xUWhMXERt6gg',
     socials: {
-      x: '#',
+      x: 'https://x.com/thompsonogoyi',
       linkedin: '#',
-      github: '#'
+      
     }
   },
   {
-    name: 'Sophia Chen',
-    role: 'Technical Lead',
-    bio: 'Computer Science PhD with expertise in blockchain infrastructure and smart contract development.',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&q=80',
+    name: 'Lois Choji',
+    role: 'Head of Data Collection',
+    bio: 'Sui Ambassador.',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//choji.jpeg',
     socials: {
-      x: '#',
+      x: 'https://x.com/Lois_choji',
       linkedin: '#',
-      github: '#'
     }
   },
   {
-    name: 'Marcus Johnson',
-    role: 'Community Manager',
-    bio: 'Community builder passionate about bringing blockchain technology to underrepresented groups.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&q=80',
+    name: 'Mr Anayo',
+    role: 'Program Manager',
+    bio: 'Program Manager at Sui On Campus',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//anayo.jpeg',
     socials: {
-      x: '#',
+      x: 'https://x.com/AnayoPhd',
       linkedin: '#'
     }
   },
   {
-    name: 'Leila Patel',
-    role: 'Education Coordinator',
-    bio: 'Former lecturer with expertise in creating accessible blockchain curriculum for all skill levels.',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&q=80',
+    name: 'Mr Breakforth',
+    role: 'Logistic Lead',
+    bio: 'Logistic Lead at Sui On Campus',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//breakforth.jpeg',
     socials: {
-      x: '#',
+      x: 'https://x.com/breakforth1998',
       linkedin: '#'
     }
   }

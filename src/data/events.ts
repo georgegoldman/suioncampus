@@ -14,11 +14,11 @@ export type Event = {
 export const events: Event[] = [
   {
     id: 'sui-summer-hack-2023',
-    title: 'Sui Summer Hackathon 2023',
+    title: 'Road To Overflow',
     description: 'A global hackathon challenging students to build innovative dApps on Sui.',
-    date: 'July 10-31, 2023',
-    location: 'Global (Virtual)',
-    image: 'https://images.unsplash.com/photo-1540304453527-62f979142a17?w=800&h=500&fit=crop&q=80',
+    date: 'March 16-22, 2023',
+    location: 'Abuja',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//overflowabj.jpeg',
     type: 'hackathon',
     isPast: true
   },
