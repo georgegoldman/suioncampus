@@ -5,10 +5,20 @@ import { Button } from '@/components/ui/button';
 import MotionDiv from './ui/MotionDiv';
 import { staggeredChildren } from '@/lib/animation';
 import { events } from '@/data/events';
+import { useAuth } from '@/contexts/AuthContext';
+import EventRegistrationForm from './EventRegistrationForm';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 const EventsSection = () => {
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'past'>('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'hackathon' | 'workshop' | 'meetup'>('all');
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
+  const [isRegistrationFormOpen, setIsRegistrationFormOpen] = useState(false);
+  
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   
   const getDelay = staggeredChildren(0.2, 0.2);
   
@@ -25,6 +35,25 @@ const EventsSection = () => {
   
   const handleTypeFilterChange = (newFilter: 'all' | 'hackathon' | 'workshop' | 'meetup') => {
     setTypeFilter(newFilter);
+  };
+
+  const handleRegisterClick = (event: typeof events[0]) => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to register for events.",
+      });
+      navigate('/sign-in');
+      return;
+    }
+    
+    setSelectedEvent(event);
+    setIsRegistrationFormOpen(true);
+  };
+  
+  const closeRegistrationForm = () => {
+    setIsRegistrationFormOpen(false);
+    setSelectedEvent(null);
   };
   
   return (
@@ -147,6 +176,7 @@ const EventsSection = () => {
                     {event.registrationLink && !event.isPast && (
                       <Button
                         className="w-full bg-sui-blue hover:bg-sui-blue-dark text-white"
+                        onClick={() => handleRegisterClick(event)}
                       >
                         Register Now
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -180,6 +210,14 @@ const EventsSection = () => {
           </Button>
         </MotionDiv>
       </div>
+
+      {selectedEvent && (
+        <EventRegistrationForm 
+          event={selectedEvent}
+          isOpen={isRegistrationFormOpen}
+          onClose={closeRegistrationForm}
+        />
+      )}
     </section>
   );
 };

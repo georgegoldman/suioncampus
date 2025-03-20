@@ -1,17 +1,21 @@
 
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { LogIn, Menu, UserPlus } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useAuth } from '@/contexts/AuthContext';
+import UserMenu from './UserMenu';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +33,6 @@ const Header = () => {
   const navItems = [
     { text: 'Home', href: '/' },
     { text: 'Gallery', href: '/gallery' },
-    { text: 'Admin', href: '/admin' },
   ];
 
   return (
@@ -52,6 +55,9 @@ const Header = () => {
         {isMobile ? (
           <div className="flex items-center gap-4">
             <ThemeToggle />
+            {user ? (
+              <UserMenu />
+            ) : null}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -74,6 +80,22 @@ const Header = () => {
                       {item.text}
                     </Link>
                   ))}
+                  {!user && (
+                    <>
+                      <Link 
+                        to="/sign-in"
+                        className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Sign In
+                      </Link>
+                      <Link 
+                        to="/sign-up"
+                        className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Sign Up
+                      </Link>
+                    </>
+                  )}
                 </nav>
               </SheetContent>
             </Sheet>
@@ -96,7 +118,30 @@ const Header = () => {
                 </Link>
               ))}
             </nav>
-            <ThemeToggle />
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              {user ? (
+                <UserMenu />
+              ) : (
+                <>
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center gap-2"
+                    onClick={() => navigate('/sign-in')}
+                  >
+                    <LogIn className="h-4 w-4" />
+                    Sign In
+                  </Button>
+                  <Button 
+                    className="bg-sui-blue hover:bg-sui-blue-dark text-white"
+                    onClick={() => navigate('/sign-up')}
+                  >
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    Sign Up
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>
