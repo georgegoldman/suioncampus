@@ -9,6 +9,7 @@ export type Event = {
   type: 'hackathon' | 'workshop' | 'meetup';
   registrationLink?: string;
   isPast?: boolean;
+  isPinned?: boolean;
 };
 
 export const events: Event[] = [

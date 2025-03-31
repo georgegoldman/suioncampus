@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { Calendar, MapPin, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, Pin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MotionDiv from './ui/MotionDiv';
 import { staggeredChildren } from '@/lib/animation';
@@ -142,7 +143,7 @@ const EventsSection = () => {
                       alt={event.title}
                       className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                         event.type === 'hackathon' ? 'bg-sui-blue text-white' :
                         event.type === 'workshop' ? 'bg-green-500 text-white' :
@@ -150,6 +151,12 @@ const EventsSection = () => {
                       }`}>
                         {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
                       </span>
+                      {event.isPinned && (
+                        <span className="bg-sui-blue/80 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center">
+                          <Pin className="h-3 w-3 mr-1" />
+                          Featured
+                        </span>
+                      )}
                     </div>
                     {event.isPast && (
                       <div className="absolute top-4 right-4">

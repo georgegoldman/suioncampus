@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Calendar, MapPin, Edit, Trash2, Eye } from 'lucide-react';
+import { Calendar, MapPin, Edit, Trash2, Eye, Pin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '@/components/ui/button';
@@ -31,9 +31,10 @@ interface EventsTableProps {
   onEdit: (event: Event) => void;
   onDelete: (eventId: string) => void;
   onViewParticipants?: (eventId: string) => void;
+  onTogglePin?: (eventId: string, isPinned: boolean) => void;
 }
 
-const EventsTable = ({ events, onEdit, onDelete, onViewParticipants }: EventsTableProps) => {
+const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin }: EventsTableProps) => {
   const [eventToDelete, setEventToDelete] = useState<string | null>(null);
   const { toast } = useToast();
   
@@ -68,7 +69,10 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants }: EventsTab
                 <TableRow key={event.id}>
                   <TableCell className="font-medium">
                     <div className="flex flex-col">
-                      <span>{event.title}</span>
+                      <span className="flex items-center">
+                        {event.isPinned && <Pin className="h-3.5 w-3.5 mr-1.5 text-sui-blue" />}
+                        {event.title}
+                      </span>
                       <span className="text-xs text-muted-foreground md:hidden">
                         {event.type} · {event.date}
                       </span>
@@ -97,6 +101,19 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants }: EventsTab
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end space-x-2">
+                      {onTogglePin && (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className={`h-8 ${event.isPinned ? 'bg-sui-blue/10 text-sui-blue' : ''}`}
+                          onClick={() => onTogglePin(event.id, !event.isPinned)}
+                        >
+                          <Pin className="h-3.5 w-3.5" />
+                          <span className="sr-only md:not-sr-only md:ml-2">
+                            {event.isPinned ? 'Unpin' : 'Pin'}
+                          </span>
+                        </Button>
+                      )}
                       {onViewParticipants && (
                         <Button 
                           variant="outline" 

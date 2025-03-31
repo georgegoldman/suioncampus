@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
 import EventForm from './EventForm';
 import EventsTable from './EventsTable';
 
@@ -25,6 +26,7 @@ const EventsManagementPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<'all' | 'hackathon' | 'workshop' | 'meetup'>('all');
   const [dateFilter, setDateFilter] = useState<'all' | 'past' | 'upcoming'>('all');
+  const { toast } = useToast();
   
   // Filter events based on search and filters
   const filteredEvents = events.filter(event => {
@@ -67,6 +69,20 @@ const EventsManagementPage = () => {
   const handleAddNew = () => {
     setEditingEvent(undefined);
     setShowEventForm(true);
+  };
+  
+  const handleTogglePin = (eventId: string, isPinned: boolean) => {
+    // In a real app, you would call an API to update the event
+    setEvents(events.map(event => 
+      event.id === eventId 
+        ? { ...event, isPinned } 
+        : event
+    ));
+    
+    toast({
+      title: isPinned ? 'Event pinned' : 'Event unpinned',
+      description: `The event has been ${isPinned ? 'pinned to' : 'removed from'} the homepage.`,
+    });
   };
   
   return (
@@ -167,6 +183,7 @@ const EventsManagementPage = () => {
             events={filteredEvents} 
             onEdit={handleEditEvent}
             onDelete={handleDeleteEvent}
+            onTogglePin={handleTogglePin}
             onViewParticipants={(eventId) => {
               console.log(`View participants for event: ${eventId}`);
               // This would navigate to a participants view in a real app
