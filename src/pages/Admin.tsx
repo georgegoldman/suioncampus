@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileText, Users } from 'lucide-react';
@@ -13,12 +14,6 @@ const Admin = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("events");
   
-  // Redirect if not admin
-  if (user && !user.isAdmin) {
-    navigate('/');
-    return null;
-  }
-
   // If not logged in
   if (!user) {
     navigate('/sign-in');

@@ -63,14 +63,12 @@ const UserMenu = () => {
             <span>My Events</span>
           </Link>
         </DropdownMenuItem>
-        {user.isAdmin && (
-          <DropdownMenuItem asChild>
-            <Link to="/admin" className="cursor-pointer">
-              <LayoutDashboard className="mr-2 h-4 w-4" />
-              <span>Admin Dashboard</span>
-            </Link>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem asChild>
+          <Link to="/admin" className="cursor-pointer">
+            <LayoutDashboard className="mr-2 h-4 w-4" />
+            <span>Admin Dashboard</span>
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-500 focus:text-red-500">
           <LogOut className="mr-2 h-4 w-4" />
