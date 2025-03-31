@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { LogIn, Menu, UserPlus } from 'lucide-react';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from './UserMenu';
+import Logo from './Logo';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,12 +46,7 @@ const Header = () => {
       )}
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
-        <Link 
-          to="/" 
-          className="text-xl md:text-2xl font-bold flex items-center"
-        >
-          <span className="text-gradient">Sui On Campus</span>
-        </Link>
+        <Logo />
         
         {isMobile ? (
           <div className="flex items-center gap-4">
@@ -67,9 +63,9 @@ const Header = () => {
               <SheetContent>
                 <nav className="flex flex-col gap-6 mt-12">
                   {navItems.map((item) => (
-                    <Link 
+                    <a 
                       key={item.text}
-                      to={item.href}
+                      href={item.href}
                       className={cn(
                         "text-lg font-medium transition-colors",
                         location.pathname === item.href ? 
@@ -78,22 +74,22 @@ const Header = () => {
                       )}
                     >
                       {item.text}
-                    </Link>
+                    </a>
                   ))}
                   {!user && (
                     <>
-                      <Link 
-                        to="/sign-in"
+                      <a 
+                        href="/sign-in"
                         className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
                       >
                         Sign In
-                      </Link>
-                      <Link 
-                        to="/sign-up"
+                      </a>
+                      <a 
+                        href="/sign-up"
                         className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
                       >
                         Sign Up
-                      </Link>
+                      </a>
                     </>
                   )}
                 </nav>
@@ -104,9 +100,9 @@ const Header = () => {
           <div className="flex items-center gap-8">
             <nav className="flex items-center gap-8">
               {navItems.map((item) => (
-                <Link 
+                <a 
                   key={item.text}
-                  to={item.href}
+                  href={item.href}
                   className={cn(
                     "font-medium transition-colors hover:text-sui-blue",
                     location.pathname === item.href ? 
@@ -115,7 +111,7 @@ const Header = () => {
                   )}
                 >
                   {item.text}
-                </Link>
+                </a>
               ))}
             </nav>
             <div className="flex items-center gap-4">

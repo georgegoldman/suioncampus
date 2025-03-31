@@ -1,229 +1,146 @@
 
-import { useState } from 'react';
-import { Calendar, MapPin, ArrowRight, Pin } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import MotionDiv from './ui/MotionDiv';
-import { staggeredChildren } from '@/lib/animation';
-import { events } from '@/data/events';
-import { useAuth } from '@/contexts/AuthContext';
-import EventRegistrationForm from './EventRegistrationForm';
+import { Calendar, MapPin, Users, ExternalLink, Filter } from 'lucide-react';
+import { events, Event } from '@/data/events';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
 
-const EventsSection = () => {
-  const [filter, setFilter] = useState<'all' | 'upcoming' | 'past'>('all');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'hackathon' | 'workshop' | 'meetup'>('all');
-  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
-  const [isRegistrationFormOpen, setIsRegistrationFormOpen] = useState(false);
-  
-  const { user } = useAuth();
+// Correct the type issue with the size property
+const EventCard = ({ event }: { event: Event }) => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   
-  const getDelay = staggeredChildren(0.2, 0.2);
-  
-  const filteredEvents = events.filter(event => {
-    if (filter === 'upcoming' && event.isPast) return false;
-    if (filter === 'past' && !event.isPast) return false;
-    if (typeFilter !== 'all' && event.type !== typeFilter) return false;
-    return true;
-  });
-  
-  const handleFilterChange = (newFilter: 'all' | 'upcoming' | 'past') => {
-    setFilter(newFilter);
-  };
-  
-  const handleTypeFilterChange = (newFilter: 'all' | 'hackathon' | 'workshop' | 'meetup') => {
-    setTypeFilter(newFilter);
+  // Define date badge color based on event type
+  const getBadgeColor = (type: Event['type']) => {
+    switch (type) {
+      case 'hackathon':
+        return 'bg-blue-500/10 text-blue-500';
+      case 'workshop':
+        return 'bg-emerald-500/10 text-emerald-500';
+      case 'meetup':
+        return 'bg-amber-500/10 text-amber-500';
+      default:
+        return 'bg-gray-500/10 text-gray-500';
+    }
   };
 
-  const handleRegisterClick = (event: typeof events[0]) => {
-    if (!user) {
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to register for events.",
-      });
-      navigate('/sign-in');
-      return;
-    }
-    
-    setSelectedEvent(event);
-    setIsRegistrationFormOpen(true);
-  };
-  
-  const closeRegistrationForm = () => {
-    setIsRegistrationFormOpen(false);
-    setSelectedEvent(null);
-  };
-  
   return (
-    <section id="events" className="py-20 bg-gray-50 dark:bg-sui-navy-light/20">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto mb-16">
-          <MotionDiv animation="fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Events & Hackathons</h2>
-            <p className="text-foreground/70 text-lg text-center mb-8">
-              Discover our upcoming events and past hackathons, designed to educate and inspire the next generation of blockchain builders.
-            </p>
-          </MotionDiv>
-          
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <Button
-              variant={filter === 'all' ? 'default' : 'outline'}
-              className={filter === 'all' ? 'bg-sui-blue hover:bg-sui-blue-dark' : ''}
-              onClick={() => handleFilterChange('all')}
-            >
-              All Events
-            </Button>
-            <Button
-              variant={filter === 'upcoming' ? 'default' : 'outline'}
-              className={filter === 'upcoming' ? 'bg-sui-blue hover:bg-sui-blue-dark' : ''}
-              onClick={() => handleFilterChange('upcoming')}
-            >
-              Upcoming
-            </Button>
-            <Button
-              variant={filter === 'past' ? 'default' : 'outline'}
-              className={filter === 'past' ? 'bg-sui-blue hover:bg-sui-blue-dark' : ''}
-              onClick={() => handleFilterChange('past')}
-            >
-              Past Events
-            </Button>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button
-              variant={typeFilter === 'all' ? 'default' : 'outline'}
-              size="sm"
-              className={typeFilter === 'all' ? 'bg-sui-purple hover:bg-sui-purple-dark' : ''}
-              onClick={() => handleTypeFilterChange('all')}
-            >
-              All Types
-            </Button>
-            <Button
-              variant={typeFilter === 'hackathon' ? 'default' : 'outline'}
-              size="sm"
-              className={typeFilter === 'hackathon' ? 'bg-sui-purple hover:bg-sui-purple-dark' : ''}
-              onClick={() => handleTypeFilterChange('hackathon')}
-            >
-              Hackathons
-            </Button>
-            <Button
-              variant={typeFilter === 'workshop' ? 'default' : 'outline'}
-              size="sm"
-              className={typeFilter === 'workshop' ? 'bg-sui-purple hover:bg-sui-purple-dark' : ''}
-              onClick={() => handleTypeFilterChange('workshop')}
-            >
-              Workshops
-            </Button>
-            <Button
-              variant={typeFilter === 'meetup' ? 'default' : 'outline'}
-              size="sm"
-              className={typeFilter === 'meetup' ? 'bg-sui-purple hover:bg-sui-purple-dark' : ''}
-              onClick={() => handleTypeFilterChange('meetup')}
-            >
-              Meetups
-            </Button>
-          </div>
+    <div className="bg-card border rounded-xl overflow-hidden hover-lift transition-all group">
+      <div className="aspect-video relative overflow-hidden">
+        <img 
+          src={event.image} 
+          alt={event.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getBadgeColor(event.type)}`}>
+            {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+          </span>
         </div>
+        {event.isPinned && (
+          <div className="absolute top-0 right-0 bg-sui-blue text-white text-xs px-2 py-1 m-2 rounded">
+            Featured
+          </div>
+        )}
+      </div>
+      
+      <div className="p-5">
+        <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+        <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map((event, i) => (
-              <MotionDiv 
-                key={event.id} 
-                animation="fade-in" 
-                delay={getDelay(i)}
-                className="group"
-              >
-                <div className="bg-white dark:bg-sui-navy-light/30 rounded-xl overflow-hidden hover-lift h-full flex flex-col border border-gray-100 dark:border-white/5">
-                  <div className="relative aspect-video overflow-hidden">
-                    <img 
-                      src={event.image} 
-                      alt={event.title}
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        event.type === 'hackathon' ? 'bg-sui-blue text-white' :
-                        event.type === 'workshop' ? 'bg-green-500 text-white' :
-                        'bg-sui-purple text-white'
-                      }`}>
-                        {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
-                      </span>
-                      {event.isPinned && (
-                        <span className="bg-sui-blue/80 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center">
-                          <Pin className="h-3 w-3 mr-1" />
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    {event.isPast && (
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-foreground/70 text-white px-3 py-1 rounded-full text-xs font-medium">
-                          Past Event
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6 flex-grow flex flex-col">
-                    <h3 className="text-xl font-medium mb-2">{event.title}</h3>
-                    <p className="text-foreground/70 text-sm mb-4 flex-grow">{event.description}</p>
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-sm text-foreground/70">
-                        <Calendar className="h-4 w-4 mr-2 text-sui-blue" />
-                        {event.date}
-                      </div>
-                      <div className="flex items-center text-sm text-foreground/70">
-                        <MapPin className="h-4 w-4 mr-2 text-sui-blue" />
-                        {event.location}
-                      </div>
-                    </div>
-                    {event.registrationLink && !event.isPast && (
-                      <Button
-                        className="w-full bg-sui-blue hover:bg-sui-blue-dark text-white"
-                        onClick={() => handleRegisterClick(event)}
-                      >
-                        Register Now
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    )}
-                    {!event.registrationLink && (
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                      >
-                        View Details
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </MotionDiv>
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12">
-              <p className="text-foreground/70">No events found matching your filters.</p>
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center text-sm text-muted-foreground">
+            <Calendar className="h-4 w-4 mr-2" /> {event.date}
+          </div>
+          <div className="flex items-center text-sm text-muted-foreground">
+            <MapPin className="h-4 w-4 mr-2" /> {event.location}
+          </div>
+          {!event.isPast && (
+            <div className="flex items-center text-sm text-emerald-500">
+              <Users className="h-4 w-4 mr-2" /> Registration Open
             </div>
           )}
         </div>
         
-        <MotionDiv animation="fade-in" delay={0.8} className="mt-16 text-center">
-          <Button
-            className="bg-sui-blue hover:bg-sui-blue-dark text-white font-medium rounded-full px-8 py-6 transition-all hover:shadow-lg hover:shadow-sui-blue/20"
+        <div className="flex justify-between items-center">
+          <Button 
+            variant={event.isPast ? "outline" : "default"} 
+            className={event.isPast ? "" : "bg-sui-blue hover:bg-sui-blue-dark"}
+            onClick={() => navigate(`/events/${event.id}`)}
           >
-            View All Events
-            <ArrowRight className="ml-2 h-4 w-4" />
+            {event.isPast ? 'View Details' : 'Register Now'}
           </Button>
-        </MotionDiv>
+          
+          {event.isPast && (
+            <Button variant="ghost" size="icon">
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
+    </div>
+  );
+};
 
-      {selectedEvent && (
-        <EventRegistrationForm 
-          event={selectedEvent}
-          isOpen={isRegistrationFormOpen}
-          onClose={closeRegistrationForm}
-        />
-      )}
+const EventsSection = () => {
+  const [activeTab, setActiveTab] = useState('all');
+  const [filteredEvents, setFilteredEvents] = useState(events);
+
+  useEffect(() => {
+    if (activeTab === 'all') {
+      setFilteredEvents(events);
+    } else if (activeTab === 'upcoming') {
+      setFilteredEvents(events.filter(event => !event.isPast));
+    } else if (activeTab === 'past') {
+      setFilteredEvents(events.filter(event => event.isPast));
+    } else {
+      setFilteredEvents(events.filter(event => event.type === activeTab));
+    }
+  }, [activeTab]);
+
+  return (
+    <section id="events" className="py-20">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Upcoming Events</h2>
+            <p className="text-muted-foreground max-w-md">
+              Join us at our upcoming events, workshops, and hackathons at universities across the country.
+            </p>
+          </div>
+          <Button 
+            variant="outline" 
+            onClick={() => {}}
+            className="flex items-center gap-2 self-start md:self-auto"
+          >
+            <Filter className="h-4 w-4" />
+            Filter Events
+          </Button>
+        </div>
+        
+        <Tabs defaultValue="all" onValueChange={setActiveTab}>
+          <TabsList className="mb-8 w-full max-w-md mx-auto grid grid-cols-4">
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="hackathon">Hackathons</TabsTrigger>
+            <TabsTrigger value="workshop">Workshops</TabsTrigger>
+            <TabsTrigger value="meetup">Meetups</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value={activeTab} className="mt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredEvents.map(event => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+            
+            {filteredEvents.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-lg text-muted-foreground">No events found for this category.</p>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
+      </div>
     </section>
   );
 };

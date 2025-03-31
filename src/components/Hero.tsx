@@ -1,14 +1,15 @@
 
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MotionDiv from './ui/MotionDiv';
 import { scrollToElement } from '@/lib/animation';
 import { events } from '@/data/events';
-import { useNavigate } from 'react-router-dom';
+import EventRegistrationModal from './EventRegistrationModal';
 
 const Hero = () => {
-  const navigate = useNavigate();
   const pinnedEvent = events.find(event => event.isPinned);
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   
   return (
     <section className="min-h-screen flex items-center pt-20 pb-10 overflow-hidden">
@@ -93,7 +94,7 @@ const Hero = () => {
                       <p className="text-white/70 mb-6">{pinnedEvent.description}</p>
                       <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
-                        onClick={() => navigate(`/events/${pinnedEvent.id}`)}
+                        onClick={() => setShowRegistrationModal(true)}
                       >
                         Register Now
                       </Button>
@@ -123,6 +124,12 @@ const Hero = () => {
           </MotionDiv>
         </div>
       </div>
+      
+      <EventRegistrationModal 
+        isOpen={showRegistrationModal}
+        onClose={() => setShowRegistrationModal(false)}
+        event={pinnedEvent}
+      />
     </section>
   );
 };
