@@ -29,7 +29,7 @@ export const events: Event[] = [
     description: 'Hands-on workshop teaching the fundamentals of developing on the Sui blockchain.',
     date: 'September 15, 2023',
     location: 'Stanford University',
-    image: 'https://images.unsplash.com/photo-1540304453527-62f979142a17?w=800&h=500&fit=crop&q=80',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev3.jpeg',
     type: 'workshop',
     isPast: true
   },
@@ -39,7 +39,7 @@ export const events: Event[] = [
     description: 'Networking event connecting students with industry professionals.',
     date: 'October 5, 2023',
     location: 'MIT',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=500&fit=crop&q=80',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev1.jpeg',
     type: 'meetup',
     isPast: true
   },
@@ -49,7 +49,7 @@ export const events: Event[] = [
     description: 'Our largest hackathon yet, with $50k in prizes and mentorship from top Sui developers.',
     date: 'February 15-28, 2024',
     location: 'Global (Virtual)',
-    image: 'https://images.unsplash.com/photo-1561489413-985b06da5bee?w=800&h=500&fit=crop&q=80',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev2.jpeg',
     type: 'hackathon',
     registrationLink: '#',
     isPinned: true
@@ -60,7 +60,7 @@ export const events: Event[] = [
     description: 'A series of workshops covering advanced topics in Sui development.',
     date: 'March - April, 2024',
     location: 'Multiple Universities',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop&q=80',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/wk1.jpeg',
     type: 'workshop',
     registrationLink: '#'
   }

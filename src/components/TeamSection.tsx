@@ -2,6 +2,9 @@
 import React from 'react';
 import { teamMembers } from '@/data/team';
 import MotionDiv from './ui/MotionDiv';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { ArrowUpIcon, GithubIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
 
 const TeamSection = () => {
   return (

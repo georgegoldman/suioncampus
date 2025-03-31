@@ -1,4 +1,4 @@
-
+import { ArrowUpIcon, GithubIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
 export type TeamMember = {
   name: string;
   role: string;
@@ -27,10 +27,10 @@ export const teamMembers: TeamMember[] = [
     name: 'Lois Choji',
     role: 'Head of Data Collection',
     bio: 'Sui Ambassador.',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//choji.jpeg',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/choji.jpg',
     socials: {
       x: 'https://x.com/Lois_choji',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/lois-choji-4a24271a4',
     }
   },
   {
@@ -40,12 +40,62 @@ export const teamMembers: TeamMember[] = [
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//anayo.jpeg',
     socials: {
       x: 'https://x.com/AnayoPhd',
+      linkedin: 'https://www.linkedin.com/in/emmanuel-anayo-8107a2349?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+    }
+  },
+  {
+    name: 'Nunubee',
+    role: 'Head of Media',
+    bio: 'Media lead at Sui On Campus',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/bawo.jpg',
+    socials: {
+      x: 'https://x.com/_nunubee',
       linkedin: '#'
     }
   },
   {
+    name: 'Mykel Tyopev',
+    role: 'Legal Adviser ',
+    bio: 'Sui on Campus Student Club Coordinator ',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/mykel.jpg',
+    socials: {
+      x: 'https://x.com/mykeltyopev',
+      linkedin: '#'
+    }
+  },
+  {
+    name: 'George-Goldman',
+    role: 'Devrel  ',
+    bio: 'Developer Relation Lead',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/gold.jpg',
+    socials: {
+      x: 'http://X.com/0xgeorgegoldman',
+      linkedin: 'http://linkedin.com/in/georgegoldmanjohn'
+    }
+  },
+  {
+    name: 'Ngbede',
+    role: 'Community Manager ',
+    bio: 'Community Manager at Sui On Campus',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ngbede.jpg',
+    socials: {
+      x: 'http://X.com/Iam_Ngbede',
+      linkedin: '#'
+    }
+  },
+  {
+    name: 'Michael Drey',
+    role: 'Graphic Designer',
+    bio: 'Graphic Designer at Sui On Campus',
+    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/design%20.jpg',
+    socials: {
+      x: 'http://X.com/mdgraphics04',
+      linkedin: 'https://www.linkedin.com/in/md-graphics-b92b77228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+    }
+  },
+  {
     name: 'Mr Breakforth',
-    role: 'Logistic Lead',
+    role: 'Head Developer Marketer & Event Coordination',
     bio: 'Logistic Lead at Sui On Campus',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//breakforth.jpeg',
     socials: {
