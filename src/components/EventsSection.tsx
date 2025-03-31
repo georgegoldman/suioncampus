@@ -5,10 +5,12 @@ import { Calendar, MapPin, Users, ExternalLink, Filter } from 'lucide-react';
 import { events, Event } from '@/data/events';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import EventRegistrationModal from './EventRegistrationModal';
 
 // Correct the type issue with the size property
 const EventCard = ({ event }: { event: Event }) => {
   const navigate = useNavigate();
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   
   // Define date badge color based on event type
   const getBadgeColor = (type: Event['type']) => {
@@ -66,7 +68,7 @@ const EventCard = ({ event }: { event: Event }) => {
           <Button 
             variant={event.isPast ? "outline" : "default"} 
             className={event.isPast ? "" : "bg-sui-blue hover:bg-sui-blue-dark"}
-            onClick={() => navigate(`/events/${event.id}`)}
+            onClick={() => event.isPast ? navigate(`/events/${event.id}`) : setShowRegistrationModal(true)}
           >
             {event.isPast ? 'View Details' : 'Register Now'}
           </Button>
@@ -78,6 +80,12 @@ const EventCard = ({ event }: { event: Event }) => {
           )}
         </div>
       </div>
+      
+      <EventRegistrationModal
+        isOpen={showRegistrationModal}
+        onClose={() => setShowRegistrationModal(false)}
+        event={event}
+      />
     </div>
   );
 };

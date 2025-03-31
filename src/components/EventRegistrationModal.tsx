@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +14,10 @@ import { useToast } from '@/hooks/use-toast';
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
   university: z.string().min(2, { message: "Please enter your university." }),
+  courseMajor: z.string().min(2, { message: "Please enter your course/major." }),
+  experience: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -33,7 +37,10 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       university: '',
+      courseMajor: '',
+      experience: '',
     },
   });
 
@@ -96,12 +103,58 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
             
             <FormField
               control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+234 (000) 000-0000" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
               name="university"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>University</FormLabel>
                   <FormControl>
                     <Input placeholder="Stanford University" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="courseMajor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Course/Major</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Computer Science" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="experience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Blockchain Experience (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea 
+                      placeholder="Tell us about your experience with blockchain technologies..." 
+                      className="resize-none min-h-[100px]"
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
