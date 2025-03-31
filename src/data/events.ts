@@ -65,3 +65,11 @@ export const events: Event[] = [
     registrationLink: '#'
   }
 ];
+
+// Function to update pinned status - ensures only one event is pinned at a time
+export const updatePinnedStatus = (eventId: string): Event[] => {
+  return events.map(event => ({
+    ...event,
+    isPinned: event.id === eventId
+  }));
+};

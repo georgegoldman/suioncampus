@@ -75,10 +75,16 @@ const Hero = () => {
             <div className="relative w-full aspect-square md:aspect-auto md:h-[600px]">
               <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-sui-blue/20 to-sui-purple/20 rounded-3xl blur-3xl opacity-60"></div>
               <div className="absolute inset-10 glass rounded-3xl overflow-hidden hover-lift">
-                <div className="absolute inset-0 bg-sui-navy-dark/30"></div>
                 {pinnedEvent ? (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white text-center px-6">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center z-0" 
+                      style={{ backgroundImage: `url(${pinnedEvent.image})` }}
+                    >
+                      <div className="absolute inset-0 bg-sui-navy-dark/70"></div>
+                    </div>
+                    
+                    <div className="text-white text-center px-6 z-10 relative">
                       <div className="w-20 h-20 rounded-full glass mx-auto flex items-center justify-center mb-6">
                         <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>

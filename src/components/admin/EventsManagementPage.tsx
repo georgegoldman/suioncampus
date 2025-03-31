@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { PlusCircle, Filter } from 'lucide-react';
-import { Event, events as initialEvents } from '@/data/events';
+import { Event, events as initialEvents, updatePinnedStatus } from '@/data/events';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -72,17 +72,29 @@ const EventsManagementPage = () => {
   };
   
   const handleTogglePin = (eventId: string, isPinned: boolean) => {
-    // In a real app, you would call an API to update the event
-    setEvents(events.map(event => 
-      event.id === eventId 
-        ? { ...event, isPinned } 
-        : event
-    ));
-    
-    toast({
-      title: isPinned ? 'Event pinned' : 'Event unpinned',
-      description: `The event has been ${isPinned ? 'pinned to' : 'removed from'} the homepage.`,
-    });
+    // Only proceed if the event is being pinned (not unpinned)
+    if (isPinned) {
+      // Use the updatePinnedStatus function to ensure only one event is pinned
+      const updatedEvents = updatePinnedStatus(eventId);
+      setEvents(updatedEvents);
+      
+      toast({
+        title: 'Event pinned',
+        description: 'The event has been pinned to the homepage. Any previously pinned event has been unpinned.',
+      });
+    } else {
+      // If we're unpinning, just update that specific event
+      setEvents(events.map(event => 
+        event.id === eventId 
+          ? { ...event, isPinned: false } 
+          : event
+      ));
+      
+      toast({
+        title: 'Event unpinned',
+        description: 'The event has been removed from the homepage.',
+      });
+    }
   };
   
   return (
