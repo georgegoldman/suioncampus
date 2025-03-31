@@ -51,7 +51,8 @@ export const events: Event[] = [
     location: 'Global (Virtual)',
     image: 'https://images.unsplash.com/photo-1561489413-985b06da5bee?w=800&h=500&fit=crop&q=80',
     type: 'hackathon',
-    registrationLink: '#'
+    registrationLink: '#',
+    isPinned: true
   },
   {
     id: 'spring-workshop-series',

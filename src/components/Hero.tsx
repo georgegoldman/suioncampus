@@ -87,7 +87,7 @@ const Hero = () => {
                       <p className="text-white/70 mb-6">{pinnedEvent.description}</p>
                       <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
-                        onClick={() => scrollToElement('events')}
+                        onClick={() => navigate(`/events/${pinnedEvent.id}`)}
                       >
                         Register Now
                       </Button>
@@ -101,7 +101,10 @@ const Hero = () => {
                       </div>
                       <h3 className="text-xl md:text-2xl font-medium mb-4">Hackathon Starting Soon</h3>
                       <p className="text-white/70 mb-6">Join our next global hackathon and build the future of Web3</p>
-                      <Button className="bg-white text-sui-navy hover:bg-white/90 rounded-full">
+                      <Button 
+                        className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
+                        onClick={() => scrollToElement('events')}
+                      >
                         Register Now
                       </Button>
                     </div>
