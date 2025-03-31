@@ -67,7 +67,7 @@ const UserMenu = () => {
           <DropdownMenuItem asChild>
             <Link to="/admin" className="cursor-pointer">
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              <span>Admin</span>
+              <span>Admin Dashboard</span>
             </Link>
           </DropdownMenuItem>
         )}
