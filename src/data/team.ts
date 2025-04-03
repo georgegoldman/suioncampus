@@ -15,7 +15,7 @@ export const teamMembers: TeamMember[] = [
   {
     name: 'Ogoyi Thompson',
     role: 'Founder & Team Lead',
-    bio: 'SUI Ambassador and Founder Sui On Campus .',
+    bio: 'Founder of Sui On Campus .',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/sign/suioncampus/GiIt06dXYAAI-3U.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJzdWlvbmNhbXB1cy9HaUl0MDZkWFlBQUktM1UuanBlZyIsImlhdCI6MTc0MjE2NzczOSwiZXhwIjozMzE4OTY3NzM5fQ.xIDIhEFEASKKgqG9m9Vs2oQ6Zcttyn6xUWhMXERt6gg',
     socials: {
       x: 'https://x.com/thompsonogoyi',

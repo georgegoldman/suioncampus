@@ -15,12 +15,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 const UserMenu = () => {
-  const { user, signOut } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleSignOut = () => {
-    signOut();
+    logout();
     toast({
       title: 'Signed out',
       description: 'You have been signed out successfully.',
@@ -63,12 +63,15 @@ const UserMenu = () => {
             <span>My Events</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        {user.admin && (
+          <DropdownMenuItem asChild>
           <Link to="/admin" className="cursor-pointer">
             <LayoutDashboard className="mr-2 h-4 w-4" />
             <span>Admin Dashboard</span>
           </Link>
         </DropdownMenuItem>
+        )}
+        
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-500 focus:text-red-500">
           <LogOut className="mr-2 h-4 w-4" />

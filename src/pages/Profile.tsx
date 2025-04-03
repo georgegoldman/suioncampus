@@ -3,6 +3,7 @@ import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import EventList from '@/components/EventList';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -35,10 +36,7 @@ const Profile = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-card rounded-xl p-6 border">
-              <h3 className="text-xl font-semibold mb-4">Your Registered Events</h3>
-              <p className="text-muted-foreground">You haven't registered for any events yet.</p>
-            </div>
+            <EventList registeredEventIds={user.attending_events} />
             
             <div className="bg-card rounded-xl p-6 border">
               <h3 className="text-xl font-semibold mb-4">Account Settings</h3>
