@@ -32,7 +32,7 @@ const Header = () => {
   const isHomePage = location.pathname === '/';
   
   const navItems = [
-    { text: 'Home', href: '/' },
+    { text: 'Events', href: '/events' },
     { text: 'Gallery', href: '/gallery' },
   ];
 

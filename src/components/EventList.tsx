@@ -15,7 +15,6 @@ const EventList = ({ registeredEventIds }) => {
 
         const x = registeredEventIds.map(event => event.$oid );
         console.log(x);
-        
 
         api.post(`/events/multiple`, x)
         .then(({data}) => {

@@ -4,12 +4,21 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 
 export type User = {
-  id: string;
   name: string;
   email: string;
-  avatar?: string;
+  tel?: string;
+  wallet: string;
+  password: string;
+  stack: string[];
+  graduate: boolean;
+  user_type: string;
+  role: string|[];
+  level: number;
+  department: string;
+  university: string;
+  student: string;
+  attending_events: string[];
   admin?: boolean;
-  attending_events?: [string]
 };
 
 type AuthContextType = {
@@ -18,7 +27,22 @@ type AuthContextType = {
   isLoading: boolean;
   login: (email:string, password:string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
-  signup: (name: string, email: string, wallet: string, password: string, attending_events: []) => Promise<void>;
+  signup: (
+    name: string,
+    email: string,
+    tel: string,
+    wallet: string,
+    password: string,
+    stack: string[],
+    graduate: boolean,
+    user_type: string,
+    role: string|[],
+    level: number | string,
+    department: string,
+    university: string,
+    student: string,
+    attending_events: string[]
+  ) => Promise<void>;
   logout: () => void;
 };
 
@@ -87,18 +111,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // setIsLoading(true);
   };
   // signup function
-  const signup = async (name: string, email: string, wallet: string, password: string, attending_events: []) => {
+  const signup = async (
+    name: string,
+    email: string,
+    tel: string,
+    wallet: string,
+    password: string,
+    stack: string[],
+    graduate: boolean,
+    user_type: string,
+    role: string|[],
+    level: number,
+    department: string,
+    university: string,
+    student: string,
+    attending_events: string[]
+  ) => {
+    
     setIsLoading(true);
     try {
-      await api.post(`/user`, {name, email, wallet, password, attending_events});
+      
+      await api.post(`/user`, {
+        name,
+        email,
+        tel, // You may need to collect this from the form if required
+        wallet,
+        password,
+        stack,
+        graduate,
+        user_type,
+        role,
+        level: Number(level),
+        department,
+        university,
+        student,
+        attending_events,
+        admin: false // assuming default for signups unless otherwise specified
+      });
     } catch (error) {
-      
-      
-      throw new Error(error);
+      throw new Error(error); // add type assertion to fix TS error
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
+  
 
   const logout = () => {
     localStorage.removeItem("user");
