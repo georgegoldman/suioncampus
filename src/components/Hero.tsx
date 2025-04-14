@@ -1,15 +1,48 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MotionDiv from './ui/MotionDiv';
 import { scrollToElement } from '@/lib/animation';
-import { events } from '@/data/events';
+import { EventItem, fetchEvents,  updatePinnedStatus} from '@/data/events';
 import EventRegistrationModal from './EventRegistrationModal';
 
-const Hero = () => {
-  const pinnedEvent = events.find(event => event.isPinned);
+const Hero = (eventId: string) => {
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [pinnedEvent, setPinnedEvent] = useState<EventItem | null>(null);
+
+  // First, fetch your events
+  useEffect(() => {
+    const getEvents = async () => {
+      try {
+        const fetchedEvents = await fetchEvents();
+        setEvents(fetchedEvents);
+        
+        // Find pinned event from fetched events
+        const pinned = fetchedEvents.find(event => event.isPinned);
+        if (pinned) {
+          setPinnedEvent(pinned);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    
+    getEvents();
+  }, []);
+
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const eventsData = fetchEvents()
+      .then(pullEvents=> {
+        setEvents(pullEvents);
+      });
+    };
+    
+    getEvents();
+  }, []);
   
   return (
     <section className="min-h-screen flex items-center pt-20 pb-10 overflow-hidden">
@@ -89,7 +122,7 @@ const Hero = () => {
                       <div className="w-20 h-20 rounded-full glass mx-auto flex items-center justify-center mb-6">
                         <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.title}</h3>
+                      <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.name}</h3>
                       <p className="text-white/70 mb-2">{pinnedEvent.date} • {pinnedEvent.location}</p>
                       <p className="text-white/70 mb-6">{pinnedEvent.description}</p>
                       <Button 

@@ -32,11 +32,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Event } from '@/data/events';
+import { EventItem } from '@/data/events';
 
 // Define form schema
 const formSchema = z.object({
-  title: z.string().min(3, { message: 'Title must be at least 3 characters' }),
+  name: z.string().min(3, { message: 'name must be at least 3 characters' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters' }),
   date: z.date({ required_error: 'Please select a date' }),
   location: z.string().min(3, { message: 'Location must be at least 3 characters' }),
@@ -48,7 +48,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface EventFormProps {
-  event?: Event; // Optional for editing
+  event?: EventItem; // Optional for editing
   onSuccess: () => void;
 }
 
@@ -60,7 +60,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: event ? {
-      title: event.title,
+      name: event.name,
       description: event.description,
       date: event.date ? new Date(event.date) : undefined,
       location: event.location,
@@ -68,7 +68,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
       imageUrl: event.image,
       registrationLink: event.registrationLink || '',
     } : {
-      title: '',
+      name: '',
       description: '',
       location: '',
       type: 'hackathon',
@@ -95,7 +95,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
-        title: event ? 'Event updated!' : 'Event created!',
+        name: event ? 'Event updated!' : 'Event created!',
         description: event 
           ? 'Your event has been successfully updated.' 
           : 'Your event has been successfully created.',
@@ -128,7 +128,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
-            name="title"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Event Title</FormLabel>

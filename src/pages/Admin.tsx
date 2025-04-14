@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileText, Users } from 'lucide-react';
 
@@ -8,17 +8,50 @@ import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import EventsManagementPage from '@/components/admin/EventsManagementPage';
+import api from '@/api';
 
 const Admin = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("events");
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   
   // If not logged in
-  if (!user) {
-    navigate('/sign-in');
-    return null;
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/sign-in');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+          const res = await api.get(
+            "/events/upcoming"
+          );
+          console.log(res.data)
+          setEvents(res.data || [])
+        } catch (err) {
+          if (err.response?.status === 404) {
+            setError("No events found");
+            setEvents([]);
+          } else {
+            setError(err.response?.data?.message || "Failed to fetch events");
+          }
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchEvents();
+    }
+  , []);
+
+  if (!user) return null; // to avoid rendering before redirect
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -45,7 +78,7 @@ const Admin = () => {
               </TabsList>
               
               <TabsContent value="events" className="space-y-8">
-                <EventsManagementPage />
+                <EventsManagementPage  />
               </TabsContent>
               
               <TabsContent value="team" className="space-y-8">

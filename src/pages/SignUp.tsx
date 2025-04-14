@@ -292,7 +292,7 @@ const SignUp = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="random">Random</SelectItem>
-                          <SelectItem value="student">Student</SelectItem>
+                          <SelectItem value="hacker">Hacker</SelectItem>
                           <SelectItem value="coreteam">Coreteam</SelectItem>
                         </SelectContent>
                       </Select>
@@ -319,13 +319,11 @@ const SignUp = () => {
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="frontend">Frontend</SelectItem>
                         <SelectItem value="backend">Backend</SelectItem>
-                        <SelectItem value="fullstack">Fullstack</SelectItem>
-                        <SelectItem value="blockchain-dev">Blockchain Developer</SelectItem>
+                        <SelectItem value="frontend">Frontend</SelectItem>
+                        <SelectItem value="smartcontract-dev">Smartcontract dev</SelectItem>
+                        <SelectItem value="product-manager">Product manager</SelectItem>
                         <SelectItem value="uiux">UIUX</SelectItem>
-                        <SelectItem value="project-manager">Project Manager</SelectItem>
-                        <SelectItem value="product-manager">Product Manager</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>

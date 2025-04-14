@@ -57,12 +57,6 @@ const UserMenu = () => {
             <span>Profile</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/my-events" className="cursor-pointer">
-            <Settings className="mr-2 h-4 w-4" />
-            <span>My Events</span>
-          </Link>
-        </DropdownMenuItem>
         {user.admin && (
           <DropdownMenuItem asChild>
           <Link to="/admin" className="cursor-pointer">

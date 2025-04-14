@@ -24,11 +24,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Event } from '@/data/events';
+import { EventItem } from '@/data/events';
 
 interface EventsTableProps {
-  events: Event[];
-  onEdit: (event: Event) => void;
+  events: EventItem[];
+  onEdit: (event: EventItem) => void;
   onDelete: (eventId: string) => void;
   onViewParticipants?: (eventId: string) => void;
   onTogglePin?: (eventId: string, isPinned: boolean) => void;
@@ -71,7 +71,7 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
                     <div className="flex flex-col">
                       <span className="flex items-center">
                         {event.isPinned && <Pin className="h-3.5 w-3.5 mr-1.5 text-sui-blue" />}
-                        {event.title}
+                        {event.name}
                       </span>
                       <span className="text-xs text-muted-foreground md:hidden">
                         {event.type} · {event.date}
@@ -150,7 +150,7 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
                           <AlertDialogHeader>
                             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                              This will permanently delete the event "{event.title}". 
+                              This will permanently delete the event "{event.name}". 
                               This action cannot be undone.
                             </AlertDialogDescription>
                           </AlertDialogHeader>

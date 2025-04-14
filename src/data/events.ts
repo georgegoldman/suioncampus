@@ -1,7 +1,9 @@
 
-export type Event = {
+import api from "@/api";
+
+export type EventItem = {
   id: string;
-  title: string;
+  name: string;
   description: string;
   date: string;
   location: string;
@@ -12,63 +14,38 @@ export type Event = {
   isPinned?: boolean;
 };
 
-export const events: Event[] = [
-  {
-    id: 'sui-summer-hack-2023',
-    title: 'Road To Overflow',
-    description: 'A global hackathon challenging students to build innovative dApps on Sui.',
-    date: 'March 16-22, 2023',
-    location: 'Abuja',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//overflowabj.jpeg',
-    type: 'hackathon',
-    isPast: true
-  },
-  {
-    id: 'sui-workshop-stanford',
-    title: 'Sui Development Workshop',
-    description: 'Hands-on workshop teaching the fundamentals of developing on the Sui blockchain.',
-    date: 'September 15, 2023',
-    location: 'Stanford University',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev3.jpeg',
-    type: 'workshop',
-    isPast: true
-  },
-  {
-    id: 'blockchain-meetup-mit',
-    title: 'Blockchain Innovation Meetup',
-    description: 'Networking event connecting students with industry professionals.',
-    date: 'October 5, 2023',
-    location: 'MIT',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev1.jpeg',
-    type: 'meetup',
-    isPast: true
-  },
-  {
-    id: 'winter-hack-2024',
-    title: 'Winter Hack 2024',
-    description: 'Our largest hackathon yet, with $50k in prizes and mentorship from top Sui developers.',
-    date: 'February 15-28, 2024',
-    location: 'Global (Virtual)',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/ev2.jpeg',
-    type: 'hackathon',
-    registrationLink: '#',
-    isPinned: true
-  },
-  {
-    id: 'spring-workshop-series',
-    title: 'Spring Workshop Series',
-    description: 'A series of workshops covering advanced topics in Sui development.',
-    date: 'March - April, 2024',
-    location: 'Multiple Universities',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ev/wk1.jpeg',
-    type: 'workshop',
-    registrationLink: '#'
+
+
+export const fetchEvents = async (): Promise<EventItem[]>  => {
+  try {
+    const response = await api.get('/events');
+    const data = response.data;
+
+    // Map the API response to the structure your app expects
+    const events = data.map((event) => ({
+      id: event._id.$oid,
+      name: event.name,
+      description: event.description,
+      date: `${new Date(event.start_time).toLocaleDateString()} - ${new Date(event.end_time).toLocaleDateString()}`,
+      location: event.location,
+      image: event.image_url || '', // If no image URL, provide a default or empty string
+      type: event.event_type,
+      isPast: new Date(event.end_time) < new Date(), // Check if the event is in the past
+      isPinned: event.pinned || false, // Default value for pinned
+      registrationLink: '', // You can set a registration link here if needed
+    }));
+
+    return events;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    return []; // Return an empty array in case of an error
   }
-];
+}
 
 // Function to update pinned status - ensures only one event is pinned at a time
-export const updatePinnedStatus = (eventId: string): Event[] => {
-  return events.map(event => ({
+export const updatePinnedStatus = async (eventId: string): Promise<EventItem[]> => {
+  const theEvents = await fetchEvents(); // Await the events data
+  return theEvents.map(event => ({
     ...event,
     isPinned: event.id === eventId
   }));

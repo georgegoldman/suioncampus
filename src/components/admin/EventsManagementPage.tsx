@@ -1,7 +1,7 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlusCircle, Filter } from 'lucide-react';
-import { Event, events as initialEvents, updatePinnedStatus } from '@/data/events';
+import {  fetchEvents as eventFunction, EventItem, updatePinnedStatus } from '@/data/events';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,18 +20,32 @@ import EventForm from './EventForm';
 import EventsTable from './EventsTable';
 
 const EventsManagementPage = () => {
-  const [events, setEvents] = useState<Event[]>(initialEvents);
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [showEventForm, setShowEventForm] = useState(false);
-  const [editingEvent, setEditingEvent] = useState<Event | undefined>(undefined);
+  const [editingEvent, setEditingEvent] = useState<EventItem | undefined>(undefined);
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<'all' | 'hackathon' | 'workshop' | 'meetup'>('all');
   const [dateFilter, setDateFilter] = useState<'all' | 'past' | 'upcoming'>('all');
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Fetch the events when the component mounts
+    const fetchAndSetEvents = async () => {
+      try {
+        const fetchedEvents = await eventFunction();
+        setEvents(fetchedEvents); // Update the state with the fetched events
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchAndSetEvents(); // Call the function to fetch and set events
+  }, []);
   
   // Filter events based on search and filters
   const filteredEvents = events.filter(event => {
     // Search filter
-    const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const matchesSearch = event.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          event.location.toLowerCase().includes(searchQuery.toLowerCase());
     
@@ -56,7 +70,7 @@ const EventsManagementPage = () => {
     }
   };
   
-  const handleEditEvent = (event: Event) => {
+  const handleEditEvent = (event: EventItem) => {
     setEditingEvent(event);
     setShowEventForm(true);
   };
@@ -73,16 +87,27 @@ const EventsManagementPage = () => {
   
   const handleTogglePin = (eventId: string, isPinned: boolean) => {
     // Only proceed if the event is being pinned (not unpinned)
-    if (isPinned) {
-      // Use the updatePinnedStatus function to ensure only one event is pinned
-      const updatedEvents = updatePinnedStatus(eventId);
-      setEvents(updatedEvents);
-      
+    // This is where you're calling the update function
+if (isPinned) {
+  // Ensure that updatePinnedStatus is not returning a Promise
+  const updatedEvents = updatePinnedStatus(eventId).then(updatedEvents => {
+    setEvents(updatedEvents);
+    toast({
+      title: 'Event pinned',
+      description: 'The event has been pinned to the homepage. Any previously pinned event has been unpinned.',
+    });
+  }) // this should be a synchronous operation
+  .catch(error => {
+    console.error('Error updating pinned status:', error);
       toast({
-        title: 'Event pinned',
-        description: 'The event has been pinned to the homepage. Any previously pinned event has been unpinned.',
+        title: 'Error',
+        description: 'Failed to pin the event.',
+        variant: 'destructive',
       });
-    } else {
+  }) // Now it's directly setting the updated events array
+  
+  
+} else {
       // If we're unpinning, just update that specific event
       setEvents(events.map(event => 
         event.id === eventId 

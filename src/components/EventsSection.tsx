@@ -2,18 +2,18 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Users, ExternalLink, Filter } from 'lucide-react';
-import { events, Event } from '@/data/events';
+import { fetchEvents, EventItem } from '@/data/events';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventRegistrationModal from './EventRegistrationModal';
 
 // Correct the type issue with the size property
-const EventCard = ({ event }: { event: Event }) => {
+const EventCard = ({ event }: { event: EventItem }) => {
   const navigate = useNavigate();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   
   // Define date badge color based on event type
-  const getBadgeColor = (type: Event['type']) => {
+  const getBadgeColor = (type: EventItem['type']) => {
     switch (type) {
       case 'hackathon':
         return 'bg-blue-500/10 text-blue-500';
@@ -31,7 +31,7 @@ const EventCard = ({ event }: { event: Event }) => {
       <div className="aspect-video relative overflow-hidden">
         <img 
           src={event.image} 
-          alt={event.title}
+          alt={event.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
@@ -47,7 +47,7 @@ const EventCard = ({ event }: { event: Event }) => {
       </div>
       
       <div className="p-5">
-        <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+        <h3 className="text-xl font-bold mb-2">{event.name}</h3>
         <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
         
         <div className="space-y-2 mb-4">
@@ -92,7 +92,22 @@ const EventCard = ({ event }: { event: Event }) => {
 
 const EventsSection = () => {
   const [activeTab, setActiveTab] = useState('all');
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [filteredEvents, setFilteredEvents] = useState(events);
+
+
+  useEffect(() => {
+    const getEvents = async () => {
+      try {
+        const fetchedEvents = await fetchEvents();
+        setEvents(fetchedEvents); // This should properly set the events state
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    
+    getEvents();
+  }, []);
 
   useEffect(() => {
     if (activeTab === 'all') {
