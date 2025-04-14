@@ -154,8 +154,8 @@ const Events = () => {
                           >
                             {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
                             <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                              <div className="text-sm font-bold text-gray-700">{event.start_time}</div>
-                              <div className="text-xs text-gray-500">{event.end_time}</div>
+                              <div className="text-sm font-bold text-gray-700">{event.start_date}</div>
+                              <div className="text-xs text-gray-500">{event.end_date}</div>
                             </div>
   
                             {/* Dot */}
@@ -165,7 +165,7 @@ const Events = () => {
                             <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
-                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_time}</div>
+                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_date}</div>
                                   <div className="text-md font-semibold">{event.name}</div>
                                   <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div>
   
@@ -211,8 +211,8 @@ const Events = () => {
                           >
                             {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
                             <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                              <div className="text-sm font-bold text-gray-700">{event.start_time}</div>
-                              <div className="text-xs text-gray-500">{event.end_time}</div>
+                              <div className="text-sm font-bold text-gray-700">{event.start_date}</div>
+                              <div className="text-xs text-gray-500">{event.end_date}</div>
                             </div>
   
                             {/* Dot */}
@@ -222,7 +222,7 @@ const Events = () => {
                             <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
-                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_time}</div>
+                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_date}</div>
                                   <div className="text-md font-semibold">{event.name}</div>
                                   <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div>
   
