@@ -98,7 +98,8 @@ const Header = () => {
           </div>
         ) : (
           <div className="flex items-center gap-8">
-            <nav className="flex items-center gap-8">
+            {user ? (<>
+              <nav className="flex items-center gap-8">
               {navItems.map((item) => (
                 <a 
                   key={item.text}
@@ -114,6 +115,9 @@ const Header = () => {
                 </a>
               ))}
             </nav>
+            </>) : (
+              <></>
+            )}
             <div className="flex items-center gap-4">
               <ThemeToggle />
               {user ? (
