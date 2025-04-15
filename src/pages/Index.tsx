@@ -30,9 +30,9 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <EventsSection />
         <Mission />
         <TeamSection />
-        <EventsSection />
       </main>
       <Footer />
     </div>

@@ -62,7 +62,9 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent>
                 <nav className="flex flex-col gap-6 mt-12">
-                  {navItems.map((item) => (
+                  {user ? (
+                    <>
+                    {navItems.map((item) => (
                     <a 
                       key={item.text}
                       href={item.href}
@@ -76,6 +78,8 @@ const Header = () => {
                       {item.text}
                     </a>
                   ))}
+                    </>
+                  ) : null}
                   {!user && (
                     <>
                       <a 
