@@ -6,6 +6,8 @@ import Mission from '@/components/Mission';
 import TeamSection from '@/components/TeamSection';
 import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
+import EventCarousel from '@/components/EventCarousel';
+
 
 const Index = () => {
   useEffect(() => {
@@ -29,6 +31,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main>
+        <EventCarousel />
         <Hero />
         <EventsSection />
         <Mission />

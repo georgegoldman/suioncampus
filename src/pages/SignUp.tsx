@@ -293,7 +293,7 @@ const SignUp = () => {
                         <SelectContent>
                           <SelectItem value="random">Random</SelectItem>
                           <SelectItem value="hacker">Hacker</SelectItem>
-                          <SelectItem value="coreteam">Coreteam</SelectItem>
+                          {/* <SelectItem value="coreteam">Coreteam</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </FormControl>

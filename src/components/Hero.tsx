@@ -61,8 +61,11 @@ const Hero = (eventId: string) => {
             <MotionDiv animation="fade-in" delay={0.4}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance">
                 <span className="text-gradient">Sui On Campus</span> <br />
-                Empowering the next generation
+                
               </h1>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-balance" >
+              Empowering the next generation
+              </h3>
             </MotionDiv>
             
             <MotionDiv animation="fade-in" delay={0.6}>
