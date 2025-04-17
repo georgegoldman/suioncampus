@@ -8,7 +8,7 @@ export type EventItem = {
   date: string;
   location: string;
   image: string;
-  type: 'hackathon' | 'workshop' | 'meetup';
+  type: 'hackerthon' | 'workshop' | 'meetup';
   registrationLink?: string;
   isPast?: boolean;
   isPinned?: boolean;
@@ -20,6 +20,7 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
   try {
     const response = await api.get('/events');
     const data = response.data;
+    
 
     // Map the API response to the structure your app expects
     const events = data.map((event) => ({
@@ -30,10 +31,14 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
       location: event.location,
       image: event.image_url || '', // If no image URL, provide a default or empty string
       type: event.event_type,
-      isPast: new Date(event.end_time) < new Date(), // Check if the event is in the past
+      start_time: event.start_time,
+      end_time: event.end_time,
+      isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
     }));
+
+    
 
     return events;
   } catch (error) {

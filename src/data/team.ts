@@ -64,9 +64,9 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'George-Goldman',
-    role: 'Devrel  ',
-    bio: 'Developer Relation Lead',
+    name: 'Onyedikachi George-Goldman John',
+    role: 'Developer Relations',
+    bio: 'Developer Relations Lead',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/gold.jpg',
     socials: {
       x: 'http://X.com/0xgeorgegoldman',

@@ -15,7 +15,7 @@ const EventCard = ({ event }: { event: EventItem }) => {
   // Define date badge color based on event type
   const getBadgeColor = (type: EventItem['type']) => {
     switch (type) {
-      case 'hackathon':
+      case 'hackerthon':
         return 'bg-blue-500/10 text-blue-500';
       case 'workshop':
         return 'bg-emerald-500/10 text-emerald-500';
@@ -101,6 +101,7 @@ const EventsSection = () => {
       try {
         const fetchedEvents = await fetchEvents();
         setEvents(fetchedEvents); // This should properly set the events state
+        console.log("hello");
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -111,15 +112,17 @@ const EventsSection = () => {
 
   useEffect(() => {
     if (activeTab === 'all') {
-      setFilteredEvents(events);
-    } else if (activeTab === 'upcoming') {
       setFilteredEvents(events.filter(event => !event.isPast));
-    } else if (activeTab === 'past') {
-      setFilteredEvents(events.filter(event => event.isPast));
-    } else {
-      setFilteredEvents(events.filter(event => event.type === activeTab));
+    } else if (activeTab === 'hackerthon') {
+      setFilteredEvents(events.filter(event => event.type === "hackerthon" && !event.isPast));
+    } else if (activeTab === 'workshop') {
+      setFilteredEvents(events.filter(event => event.type === "workshop" && !event.isPast));
+    } else if (activeTab === 'meetup') {
+      setFilteredEvents(events.filter(event => event.type === "meetup" && !event.isPast));
+    }else {
+      setFilteredEvents(events.filter(event => event.type === activeTab && !event.isPast));
     }
-  }, [activeTab]);
+  }, [activeTab, events]);
 
   return (
     <section id="events" className="py-20">
@@ -144,7 +147,7 @@ const EventsSection = () => {
         <Tabs defaultValue="all" onValueChange={setActiveTab}>
           <TabsList className="mb-8 w-full max-w-md mx-auto grid grid-cols-4">
             <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="hackathon">Hackathons</TabsTrigger>
+            <TabsTrigger value="hackerthon">Hackerthons</TabsTrigger>
             <TabsTrigger value="workshop">Workshops</TabsTrigger>
             <TabsTrigger value="meetup">Meetups</TabsTrigger>
           </TabsList>
