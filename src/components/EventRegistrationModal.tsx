@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Event } from '@/data/events';
+import { EventItem } from '@/data/events';
 import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
@@ -25,7 +25,7 @@ type FormValues = z.infer<typeof formSchema>;
 interface EventRegistrationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  event: Event | null;
+  event: EventItem | null;
 }
 
 const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationModalProps) => {
@@ -52,7 +52,7 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
       setIsSubmitting(false);
       toast({
         title: "Registration successful!",
-        description: `You have successfully registered for ${event?.title}.`,
+        description: `You have successfully registered for ${event?.name}.`,
       });
       form.reset();
       onClose();
@@ -65,9 +65,9 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Register for {event.title}</DialogTitle>
+          <DialogTitle>Register for {event.name}</DialogTitle>
           <DialogDescription>
-            {event.date} • {event.location}
+            {event.start_date} • {event.location}
           </DialogDescription>
         </DialogHeader>
         

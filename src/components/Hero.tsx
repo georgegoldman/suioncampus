@@ -45,7 +45,7 @@ const Hero = (eventId: string) => {
   }, []);
   
   return (
-    <section className="min-h-screen flex items-center pt-20 pb-10 overflow-hidden">
+    <section className="min-h-[70vh] flex items-center pt-4 pb-10 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
@@ -126,7 +126,7 @@ const Hero = (eventId: string) => {
                         <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>
                       <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.name}</h3>
-                      <p className="text-white/70 mb-2">{pinnedEvent.date} • {pinnedEvent.location}</p>
+                      <p className="text-white/70 mb-2">{pinnedEvent.start_date} • {pinnedEvent.location}</p>
                       <p className="text-white/70 mb-6">{pinnedEvent.description}</p>
                       <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"

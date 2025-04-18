@@ -5,7 +5,8 @@ export type EventItem = {
   id: string;
   name: string;
   description: string;
-  date: string;
+  end_date: string;
+  start_date: string
   location: string;
   image: string;
   type: 'hackerthon' | 'workshop' | 'meetup';
@@ -14,6 +15,31 @@ export type EventItem = {
   isPinned?: boolean;
 };
 
+export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
+  try {
+    const response = await api.get('/pinned_event');
+    const data = response.data;
+    // map the api to the structure
+    const events = data.map((event) => ({
+      id: event._id.$oid,
+      name: event.name,
+      description: event.description,
+      date: `${new Date(event.start_time).toLocaleDateString()} - ${new Date(event.end_time).toLocaleDateString()}`,
+      location: event.location,
+      image: event.image_url || '', // If no image URL, provide a default or empty string
+      type: event.event_type,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
+      isPinned: event.pinned || false, // Default value for pinned
+      registrationLink: '', // You can set a registration link here if needed
+    }));
+    return events;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    return;
+  }
+}
 
 
 export const fetchEvents = async (): Promise<EventItem[]>  => {
@@ -22,7 +48,7 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
     const data = response.data;
     
 
-    // Map the API response to the structure your app expects
+    // Map the API response to the structure 
     const events = data.map((event) => ({
       id: event._id.$oid,
       name: event.name,

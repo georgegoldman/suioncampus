@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Event } from '@/data/events';
+import { EventItem } from '@/data/events';
 
 const registrationSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters' }),
@@ -36,7 +36,7 @@ const registrationSchema = z.object({
 type RegistrationFormValues = z.infer<typeof registrationSchema>;
 
 interface EventRegistrationFormProps {
-  event: Event;
+  event: EventItem;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -66,7 +66,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({ event, is
       
       toast({
         title: 'Registration successful',
-        description: `You have successfully registered for ${event.title}. We'll be in touch soon!`,
+        description: `You have successfully registered for ${event.name}. We'll be in touch soon!`,
       });
       onClose();
       form.reset();
@@ -85,7 +85,7 @@ const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({ event, is
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Register for {event.title}</DialogTitle>
+          <DialogTitle>Register for {event.name}</DialogTitle>
           <DialogDescription>
             Complete the form below to register for this event. We'll send you further details via email.
           </DialogDescription>

@@ -33,12 +33,14 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { EventItem } from '@/data/events';
+import {UploadComponent} from '@/components/Cloudinary'
 
 // Define form schema
 const formSchema = z.object({
   name: z.string().min(3, { message: 'name must be at least 3 characters' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters' }),
-  date: z.date({ required_error: 'Please select a date' }),
+  start_date: z.date({ required_error: 'Please select a date' }),
+  end_date: z.date({ required_error: 'Please select a date' }),
   location: z.string().min(3, { message: 'Location must be at least 3 characters' }),
   type: z.enum(['hackathon', 'workshop', 'meetup']),
   imageUrl: z.string().url({ message: 'Please enter a valid URL' }).optional(),
@@ -62,7 +64,8 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
     defaultValues: event ? {
       name: event.name,
       description: event.description,
-      date: event.date ? new Date(event.date) : undefined,
+      start_date: event.start_date ? new Date(event.start_date) : undefined,
+      end_date: event.end_date ? new Date(event.end_date) : undefined,
       location: event.location,
       type: event.type,
       imageUrl: event.image,
@@ -71,6 +74,8 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
       name: '',
       description: '',
       location: '',
+      start_date: '',
+      end_date: '',
       type: 'hackathon',
       imageUrl: '',
       registrationLink: '',
@@ -87,7 +92,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
       // Format the date properly
       const formattedData = {
         ...data,
-        date: format(data.date, 'MMMM d, yyyy'),
+        date: format(data.start_date, 'MMMM d, yyyy'),
         image: data.imageUrl,
       };
       
@@ -131,9 +136,9 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Event Title</FormLabel>
+                <FormLabel>Event Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter event title" {...field} />
+                  <Input placeholder="Enter event name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,10 +166,47 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name="date"
+              name="start_date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Event Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start text-left font-normal"
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        initialFocus
+                        className="p-3 pointer-events-auto"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+          <FormField
+              control={form.control}
+              name="end_date"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>End Date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -227,7 +269,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="hackathon">Hackathon</SelectItem>
+                    <SelectItem value="hackerthon">Hackathon</SelectItem>
                     <SelectItem value="workshop">Workshop</SelectItem>
                     <SelectItem value="meetup">Meetup</SelectItem>
                   </SelectContent>
@@ -237,7 +279,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
             )}
           />
           
-          <FormField
+          {/* <FormField
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
@@ -265,6 +307,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
                       <UploadCloud className="h-5 w-5" />
                     </Button>
                   </div>
+                  <UploadComponent /> 
                 </FormControl>
                 <FormDescription>
                   Enter a URL for the event banner image
@@ -272,7 +315,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           
           <FormField
             control={form.control}
