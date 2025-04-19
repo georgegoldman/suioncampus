@@ -95,6 +95,16 @@ const EventsSection = () => {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [filteredEvents, setFilteredEvents] = useState(events);
 
+  const [isMobile, setIsMobile] = useState(false);
+  
+      useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+      }, []);
+  
+
 
   useEffect(() => {
     const getEvents = async () => {
@@ -134,22 +144,22 @@ const EventsSection = () => {
               Join us at our upcoming events, workshops, and hackathons at universities across the country.
             </p>
           </div>
-          <Button 
+          {/* <Button 
             variant="outline" 
             onClick={() => {}}
             className="flex items-center gap-2 self-start md:self-auto"
           >
             <Filter className="h-4 w-4" />
             Filter Events
-          </Button>
+          </Button> */}
         </div>
         
         <Tabs defaultValue="all" onValueChange={setActiveTab}>
           <TabsList className="mb-8 w-full max-w-md mx-auto grid grid-cols-4">
             <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="hackerthon">Hackerthons</TabsTrigger>
-            <TabsTrigger value="workshop">Workshops</TabsTrigger>
-            <TabsTrigger value="meetup">Meetups</TabsTrigger>
+            <TabsTrigger value="hackerthon"> {isMobile ? 'H' : 'Hackerthons'} </TabsTrigger>
+            <TabsTrigger value="workshop">{isMobile? 'W': 'Workshops'}</TabsTrigger>
+            <TabsTrigger value="meetup">{isMobile? 'M': 'Meetups'}</TabsTrigger>
           </TabsList>
           
           <TabsContent value={activeTab} className="mt-0">

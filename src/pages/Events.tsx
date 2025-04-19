@@ -100,7 +100,7 @@ const Events = () => {
                 <div className=" col-md-12 justify-between mb-8">
                   <div className="col-md-12 ">
                     <div className="row">
-                    <h1 className="text-2xl col-md-6 font-bold mb-4 mt-1 sm:mb-0">Events</h1>
+                    <h1 className="text-2xl col-md-6 font-bold mt-lg-0 mt-xl-0 mt-md-0 mt-5 mb-4 mt-1 sm:mb-0"  >Events</h1>
                     
                     {/* Toggle Switch */}
                     <div className="col-md-6 ">
