@@ -25,10 +25,10 @@ const Footer = () => {
               A community-driven initiative bringing blockchain education, events, and hackathons to university campuses worldwide.
             </p>
             <div className="flex gap-4">
-              <a href="https://x.com/suioncampus" className="text-white/80 hover:text-white transition-colors">
+              <a href="https://x.com/suioncampus" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
                 <TwitterIcon className="h-5 w-5" />
               </a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
                 <LinkedinIcon className="h-5 w-5" />
               </a>
               
@@ -54,7 +54,7 @@ const Footer = () => {
           <div>
             <h4 className="font-medium text-lg mb-4">Contact</h4>
             <ul className="space-y-3 text-white/70">
-              <li>hello@suioncampus.org</li>
+              <li>suioncampus@gmail.com</li>
               <li>Global</li>
             </ul>
             <a 

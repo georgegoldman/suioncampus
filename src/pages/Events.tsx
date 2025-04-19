@@ -82,6 +82,11 @@ const Events = () => {
     fetchEvents();
   }, [activeTab, selectedEvent]);
 
+  const truncateText = (text: string, maxLength = 75) => {
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  };
+  
+
   return (
     <div>
       <Header />
@@ -224,10 +229,10 @@ const Events = () => {
                                   {/* Card */}
                                   <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
                                     <div className="flex flex-col md:flex-row justify-between">
-                                      <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
+                                      <div className="w-full md:w-1/2 md:mb-0 md:pr-4">
                                         <div className="text-sm text-gray-500 block sm:hidden">{event.start_time.getDate()}</div>
                                         <div className="text-md font-semibold">{event.name}</div>
-                                        {/* <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div> */}
+                                        <div className="text-sm text-gray-600">{truncateText(event.description)}</div>
         
                                         {/* Tags (optional) */}
                                         <div className="flex gap-2 mt-2">
