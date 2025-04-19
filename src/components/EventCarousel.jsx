@@ -133,8 +133,8 @@ export default function EventCarousel() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-10 mt-4 sm:mt-8 md:mt-10 lg:mt-20 pt-20">
-      <h2 className="text-3xl font-bold text-center mb-4">Highlights</h2>
+    <section className="max-w-6xl mx-auto px-4 py-5 mt-4 sm:mt-8 md:mt-10 lg:mt-20 pt-20">
+      <h2 className="text-3xl font-bold text-center mb-4 mt-5">Highlights</h2>
       <Swiper
         effect="coverflow"
         grabCursor={false}

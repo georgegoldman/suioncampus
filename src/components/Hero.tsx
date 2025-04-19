@@ -130,12 +130,12 @@ const Hero = (eventId: string) => {
                       <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.name}</h3>
                       <p className="text-white/70 mb-2">{pinnedEvent.start_time.getDate()} • {pinnedEvent.location}</p>
                       {/* <p className="text-white/70 mb-6">{pinnedEvent.description}</p> */}
-                      <Button 
+                      {/* <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
                         onClick={() => setShowRegistrationModal(true)}
                       >
                         View event
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 ) : (
@@ -146,12 +146,12 @@ const Hero = (eventId: string) => {
                       </div>
                       <h3 className="text-xl md:text-2xl font-medium mb-4">No pinned event</h3>
                       <p className="text-white/70 mb-6">Join our next global hackathon and build the future of Web3</p>
-                      <Button 
+                      {/* <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
                         onClick={() => scrollToElement('events')}
                       >
                         Register Now
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 )}

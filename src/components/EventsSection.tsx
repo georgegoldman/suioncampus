@@ -65,13 +65,13 @@ const EventCard = ({ event }: { event: EventItem }) => {
         </div>
         
         <div className="flex justify-between items-center">
-          <Button 
+          {/* <Button 
             variant={event.isPast ? "outline" : "default"} 
             className={event.isPast ? "" : "bg-sui-blue hover:bg-sui-blue-dark"}
             onClick={() => event.isPast ? navigate(`/events/${event.id}`) : setShowRegistrationModal(true)}
           >
-            {event.isPast ? 'View Details' : 'Register Now'}
-          </Button>
+            {event.isPast ? "View" : "Register"}
+          </Button> */}
           
           {event.isPast && (
             <Button variant="ghost" size="icon">

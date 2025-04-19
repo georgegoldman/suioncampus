@@ -69,7 +69,7 @@ export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
       location: data.location,
       image: data.image_url || '', // If no image URL, provide a default or empty string
       type: data.event_type,
-      isPast: new Date(data.start_time) < new Date(), // Check if the event is in the past
+      isPast: new Date(data.end_time) > new Date(), // Check if the event is in the past
       isPinned: data.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
     };
@@ -99,7 +99,7 @@ export const fetchUpcomingOrPastEvents = async (activeTab: string): Promise<Even
       type: event.event_type,
       start_time: new Date(formatMongoDate(event.end_time)),
       end_time: new Date(formatMongoDate(event.end_time)),
-      isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
+      isPast: new Date(event.end_time) > new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
     }));
@@ -127,7 +127,7 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
       type: event.event_type,
       start_time: new Date(formatMongoDate(event.end_time)),
       end_time: new Date(formatMongoDate(event.end_time)),
-      isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
+      isPast: new Date(event.end_time) > new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
     }));
