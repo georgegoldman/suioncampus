@@ -1,7 +1,9 @@
+import { useIsMobile } from '@/hooks/use-mobile';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Logo = ({ className = "" }: { className?: string }) => {
+  const isMobile = useIsMobile;
   return (
     <Link to="/" className={`flex items-center gap-2 ${className}`}>
       <img
@@ -9,7 +11,10 @@ const Logo = ({ className = "" }: { className?: string }) => {
         alt="Logo"
         className="h-9 w-9"
       />
-      <span className="text-xl md:text-2xl font-bold text-gradient">Sui On Campus</span>
+      <span className="text-xl md:text-2xl font-bold text-gradient">
+      {isMobile ? "SOC" : "Sui On Campus"}
+
+      </span>
     </Link>
   );
 };
