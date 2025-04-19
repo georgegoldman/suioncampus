@@ -1,9 +1,19 @@
 import { useIsMobile } from '@/hooks/use-mobile';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Logo = ({ className = "" }: { className?: string }) => {
-  const isMobile = useIsMobile;
+  // const isMobile = useIsMobile;
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
   return (
     <Link to="/" className={`flex items-center gap-2 ${className}`}>
       <img
@@ -20,3 +30,4 @@ const Logo = ({ className = "" }: { className?: string }) => {
 };
 
 export default Logo;
+

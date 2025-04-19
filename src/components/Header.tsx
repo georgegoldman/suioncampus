@@ -50,7 +50,7 @@ const Header = () => {
         
         {isMobile ? (
           <div className="flex items-center gap-4">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             {user ? (
               <UserMenu />
             ) : null}
@@ -123,7 +123,7 @@ const Header = () => {
               <></>
             )}
             <div className="flex items-center gap-4">
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
               {user ? (
                 <UserMenu />
               ) : (
