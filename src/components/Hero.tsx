@@ -4,11 +4,11 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MotionDiv from './ui/MotionDiv';
 import { scrollToElement } from '@/lib/animation';
-import { EventItem, fetchEvents,  updatePinnedStatus} from '@/data/events';
+import { EventItem, fetchEvents,  updatePinnedStatus, fetchPinnedEvents} from '@/data/events';
 import EventRegistrationModal from './EventRegistrationModal';
 
 const Hero = (eventId: string) => {
-  const [events, setEvents] = useState<EventItem[]>([]);
+  const [events, setEvents] = useState<EventItem>();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [pinnedEvent, setPinnedEvent] = useState<EventItem | null>(null);
 
@@ -16,11 +16,13 @@ const Hero = (eventId: string) => {
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const fetchedEvents = await fetchEvents();
-        setEvents(fetchedEvents);
+        const pinned = await fetchPinnedEvents();
+
+        setEvents(pinned);
         
         // Find pinned event from fetched events
-        const pinned = fetchedEvents.find(event => event.isPinned);
+        
+        
         if (pinned) {
           setPinnedEvent(pinned);
         }
@@ -35,9 +37,9 @@ const Hero = (eventId: string) => {
 
   useEffect(() => {
     const getEvents = async () => {
-      const eventsData = fetchEvents()
-      .then(pullEvents=> {
-        setEvents(pullEvents);
+      const eventsData = fetchPinnedEvents()
+      .then(pullEvent=> {
+        setEvents(pullEvent);
       });
     };
     
@@ -126,13 +128,13 @@ const Hero = (eventId: string) => {
                         <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>
                       <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.name}</h3>
-                      <p className="text-white/70 mb-2">{pinnedEvent.start_date} • {pinnedEvent.location}</p>
-                      <p className="text-white/70 mb-6">{pinnedEvent.description}</p>
+                      <p className="text-white/70 mb-2">{pinnedEvent.start_time.getDate()} • {pinnedEvent.location}</p>
+                      {/* <p className="text-white/70 mb-6">{pinnedEvent.description}</p> */}
                       <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
                         onClick={() => setShowRegistrationModal(true)}
                       >
-                        Register Now
+                        View event
                       </Button>
                     </div>
                   </div>
@@ -142,7 +144,7 @@ const Hero = (eventId: string) => {
                       <div className="w-20 h-20 rounded-full glass mx-auto flex items-center justify-center mb-6">
                         <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-medium mb-4">Hackathon Starting Soon</h3>
+                      <h3 className="text-xl md:text-2xl font-medium mb-4">No pinned event</h3>
                       <p className="text-white/70 mb-6">Join our next global hackathon and build the future of Web3</p>
                       <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"

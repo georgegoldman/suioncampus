@@ -1,10 +1,9 @@
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { format } from 'date-fns';
-import { CalendarIcon, UploadCloud } from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,17 +32,19 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { EventItem } from '@/data/events';
-import {UploadComponent} from '@/components/Cloudinary'
+import ImageUploader from '@/components/ImageUploader';
+import api from '@/api';
+import CloudinaryImage from '@/components/ImageUploader';
 
 // Define form schema
 const formSchema = z.object({
   name: z.string().min(3, { message: 'name must be at least 3 characters' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters' }),
-  start_date: z.date({ required_error: 'Please select a date' }),
-  end_date: z.date({ required_error: 'Please select a date' }),
+  start_time: z.date({ required_error: 'Please select a date' }),
+  end_time: z.date({ required_error: 'Please select a date' }),
   location: z.string().min(3, { message: 'Location must be at least 3 characters' }),
-  type: z.enum(['hackathon', 'workshop', 'meetup']),
-  imageUrl: z.string().url({ message: 'Please enter a valid URL' }).optional(),
+  event_type: z.enum(['hackathon', 'workshop', 'meetup']),
+  image_url: z.string().optional(),
   registrationLink: z.string().url({ message: 'Please enter a valid URL' }).optional().or(z.literal('')),
 });
 
@@ -57,6 +58,7 @@ interface EventFormProps {
 const EventForm = ({ event, onSuccess }: EventFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const [imageUrl, setImageUrl] = useState<string>(event?.image || '');
   
   // Initialize the form with existing event data if editing
   const form = useForm<FormValues>({
@@ -64,55 +66,63 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
     defaultValues: event ? {
       name: event.name,
       description: event.description,
-      start_date: event.start_date ? new Date(event.start_date) : undefined,
-      end_date: event.end_date ? new Date(event.end_date) : undefined,
+      start_time: event.start_time ? new Date(event.start_time) : undefined,
+      end_time: event.end_time ? new Date(event.end_time) : undefined,
       location: event.location,
-      type: event.type,
-      imageUrl: event.image,
+      event_type: event.type as 'hackathon' | 'workshop' | 'meetup',
+      image_url: event.image || '',
       registrationLink: event.registrationLink || '',
     } : {
       name: '',
       description: '',
       location: '',
-      start_date: '',
-      end_date: '',
-      type: 'hackathon',
-      imageUrl: '',
+      event_type: 'hackathon',
+      image_url: '',
       registrationLink: '',
     },
   });
 
+  // Handle image change from the ImageUploader component
+  const handleImageChange = (url: string) => {
+    setImageUrl(url);
+    form.setValue('image_url', url);
+  };
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    
+  
     try {
-      // In a real app, this would be an API call
-      console.log('Event data to save:', data);
-      
-      // Format the date properly
       const formattedData = {
         ...data,
-        date: format(data.start_date, 'MMMM d, yyyy'),
-        image: data.imageUrl,
+        start_time: new Date(data.start_time).toISOString(),
+        end_time: new Date(data.end_time).toISOString(),
+        image_url: imageUrl, // Use the uploaded image URL
+        updated_at: new Date().toISOString()
       };
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+  
+      let response;
+  
+      if (event) {
+        // Update existing event
+        response = await api.put(`/event/${event.id}`, formattedData);
+      } else {
+        // Create new event
+        response = await api.post('/event', formattedData);
+      }
+  
       toast({
-        name: event ? 'Event updated!' : 'Event created!',
-        description: event 
-          ? 'Your event has been successfully updated.' 
+        title: event ? 'Event updated!' : 'Event created!',
+        description: event
+          ? 'Your event has been successfully updated.'
           : 'Your event has been successfully created.',
       });
-      
-      // Reset form if creating new event
+  
       if (!event) {
         form.reset();
+        setImageUrl('');
       }
-      
-      // Call success callback
-      onSuccess();
+  
+      onSuccess(); // callback on successful creation/update
     } catch (error) {
       console.error('Error saving event:', error);
       toast({
@@ -125,12 +135,31 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
     }
   };
 
+  useEffect(() => {
+    console.log('Form errors updated:', form.formState.errors);
+  }, [form.formState.errors]);
+
   return (
     <div className="bg-card rounded-lg p-6 shadow-md border border-border">
       <h2 className="text-2xl font-semibold mb-6">{event ? 'Edit Event' : 'Create New Event'}</h2>
       
+      {/* Image Uploader Component */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Event Image</label>
+        <ImageUploader onUploadSuccess={handleImageChange} />
+      </div>
+      
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(
+          (data) => {
+            console.log('onSubmit triggered');
+            console.log('Form data:', data);
+            onSubmit(data);
+          },
+          (errors) => {
+            console.log('Submission errors:', errors);
+          }
+        )} className="space-y-6">
           <FormField
             control={form.control}
             name="name"
@@ -163,12 +192,12 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
             )}
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex gap-x-4">
             <FormField
               control={form.control}
-              name="start_date"
+              name="start_time"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem className="flex flex-col w-full">
                   <FormLabel>Event Date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -201,11 +230,11 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
               )}
             />
 
-          <FormField
+            <FormField
               control={form.control}
-              name="end_date"
+              name="end_time"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem className="flex flex-col w-full">
                   <FormLabel>End Date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -237,25 +266,29 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
                 </FormItem>
               )}
             />
-            
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter location" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
+
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location</FormLabel>
+                <FormControl>
+                <Textarea 
+                  placeholder="Enter Location" 
+                  className="min-h-10"
+                  {...field} 
+                />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           
           <FormField
             control={form.control}
-            name="type"
+            name="event_type"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Event Type</FormLabel>
@@ -269,7 +302,7 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="hackerthon">Hackathon</SelectItem>
+                    <SelectItem value="hackathon">Hackathon</SelectItem>
                     <SelectItem value="workshop">Workshop</SelectItem>
                     <SelectItem value="meetup">Meetup</SelectItem>
                   </SelectContent>
@@ -278,44 +311,6 @@ const EventForm = ({ event, onSuccess }: EventFormProps) => {
               </FormItem>
             )}
           />
-          
-          {/* <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Banner Image URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center gap-2">
-                    <Input 
-                      placeholder="https://example.com/image.jpg" 
-                      {...field} 
-                      value={field.value || ''}
-                    />
-                    <Button 
-                      type="button" 
-                      variant="outline"
-                      size="icon"
-                      className="shrink-0"
-                      onClick={() => {
-                        toast({
-                          title: 'Upload functionality',
-                          description: 'Image upload would be integrated with Supabase storage.',
-                        });
-                      }}
-                    >
-                      <UploadCloud className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  <UploadComponent /> 
-                </FormControl>
-                <FormDescription>
-                  Enter a URL for the event banner image
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           
           <FormField
             control={form.control}

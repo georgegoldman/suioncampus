@@ -1,12 +1,51 @@
 
 import api from "@/api";
+import { format } from "date-fns";
+
+interface MongoDateNumberLong {
+  $numberLong: string;
+}
+
+interface MongoDate {
+  $date: MongoDateNumberLong | number;
+}
+
+// Function to format MongoDB dates with proper TypeScript types
+function formatMongoDate(dateValue: MongoDate | string | undefined | null): string {
+  if (!dateValue) return '';
+  
+  let timestamp: number;
+  
+  if (typeof dateValue === 'object' && '$date' in dateValue) {
+    // It's a MongoDB date object
+    const mongoDate = dateValue.$date;
+    
+    if (typeof mongoDate === 'object' && '$numberLong' in mongoDate) {
+      // Format: { $date: { $numberLong: "1744930800000" } }
+      timestamp = parseInt(mongoDate.$numberLong);
+    } else if (typeof mongoDate === 'number') {
+      // Format: { $date: 1744930800000 }
+      timestamp = mongoDate;
+    } else {
+      return '';
+    }
+  } else if (typeof dateValue === 'string') {
+    // ISO string format
+    return format(new Date(dateValue), 'MMM d, yyyy h:mm a');
+  } else {
+    return '';
+  }
+  
+  return format(new Date(timestamp), 'MMM d, yyyy h:mm a');
+}
+
 
 export type EventItem = {
   id: string;
   name: string;
   description: string;
-  end_date: string;
-  start_date: string
+  start_time: Date;
+  end_time: Date;
   location: string;
   image: string;
   type: 'hackerthon' | 'workshop' | 'meetup';
@@ -20,23 +59,53 @@ export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
     const response = await api.get('/pinned_event');
     const data = response.data;
     // map the api to the structure
+    console.log(data.start_time)
+    const event: EventItem = {
+      id: data._id.$oid,
+      name: data.name,
+      description: data.description,
+      start_time: new Date(formatMongoDate(data.start_time)),
+      end_time: new Date(formatMongoDate(data.end_time)),
+      location: data.location,
+      image: data.image_url || '', // If no image URL, provide a default or empty string
+      type: data.event_type,
+      isPast: new Date(data.start_time) < new Date(), // Check if the event is in the past
+      isPinned: data.pinned || false, // Default value for pinned
+      registrationLink: '', // You can set a registration link here if needed
+    };
+    return event;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    return;
+  }
+}
+
+export const fetchUpcomingOrPastEvents = async (activeTab: string): Promise<EventItem[] | null> => {
+  try {
+
+    const response = await api.get(
+      activeTab == "upcoming" ? "/events/upcoming" : "/events/past"
+    );
+    
+    const data = response.data;
+    // map the api to the structure
+    console.log(data.start_time)
     const events = data.map((event) => ({
       id: event._id.$oid,
       name: event.name,
       description: event.description,
-      date: `${new Date(event.start_time).toLocaleDateString()} - ${new Date(event.end_time).toLocaleDateString()}`,
       location: event.location,
       image: event.image_url || '', // If no image URL, provide a default or empty string
       type: event.event_type,
-      start_time: event.start_time,
-      end_time: event.end_time,
+      start_time: new Date(formatMongoDate(event.end_time)),
+      end_time: new Date(formatMongoDate(event.end_time)),
       isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
     }));
-    return events;
+    return events
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error('Error fetching event:', error);
     return;
   }
 }
@@ -53,12 +122,11 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
       id: event._id.$oid,
       name: event.name,
       description: event.description,
-      date: `${new Date(event.start_time).toLocaleDateString()} - ${new Date(event.end_time).toLocaleDateString()}`,
       location: event.location,
       image: event.image_url || '', // If no image URL, provide a default or empty string
       type: event.event_type,
-      start_time: event.start_time,
-      end_time: event.end_time,
+      start_time: new Date(formatMongoDate(event.end_time)),
+      end_time: new Date(formatMongoDate(event.end_time)),
       isPast: new Date(event.start_time) < new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed

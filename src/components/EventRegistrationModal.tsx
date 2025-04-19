@@ -67,7 +67,7 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
         <DialogHeader>
           <DialogTitle>Register for {event.name}</DialogTitle>
           <DialogDescription>
-            {event.start_date} • {event.location}
+            {event.start_time.toString()} • {event.location}
           </DialogDescription>
         </DialogHeader>
         

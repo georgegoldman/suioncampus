@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Calendar, MapPin, Edit, Trash2, Eye, Pin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -25,13 +24,14 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { EventItem } from '@/data/events';
+import api from '@/api';
 
 interface EventsTableProps {
   events: EventItem[];
   onEdit: (event: EventItem) => void;
   onDelete: (eventId: string) => void;
   onViewParticipants?: (eventId: string) => void;
-  onTogglePin?: (eventId: string, isPinned: boolean) => void;
+  onTogglePin?: (eventId: string, isPinned: boolean) => Promise<void>;
 }
 
 const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin }: EventsTableProps) => {
@@ -45,6 +45,31 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
       toast({
         title: 'Event deleted',
         description: 'The event has been successfully deleted.',
+      });
+    }
+  };
+
+  const handlePinToggle = async (eventId: string, shouldPin: boolean) => {
+    try {
+      // Call the API to update pin status
+      await api.put(`/events/${eventId}/pinned`, { pinned: shouldPin });
+      
+      // If parent component provided an onTogglePin handler, call it
+      if (onTogglePin) {
+        await onTogglePin(eventId, shouldPin);
+      }
+      
+      // Show success toast
+      toast({
+        title: shouldPin ? 'Event pinned' : 'Event unpinned',
+        description: `The event has been ${shouldPin ? 'pinned' : 'unpinned'} successfully.`,
+      });
+    } catch (error) {
+      console.error('Failed to toggle pinned status:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update event pin status.',
+        variant: 'destructive',
       });
     }
   };
@@ -74,13 +99,13 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
                         {event.name}
                       </span>
                       <span className="text-xs text-muted-foreground md:hidden">
-                        {event.type} · {event.date}
+                        {event.type} · {event.start_time.toString()}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     <span className={`px-2 py-1 rounded-full text-xs ${
-                      event.type === 'hackathon' ? 'bg-sui-blue/10 text-sui-blue' :
+                      event.type === 'hackerthon' ? 'bg-sui-blue/10 text-sui-blue' :
                       event.type === 'workshop' ? 'bg-green-500/10 text-green-600' :
                       'bg-sui-purple/10 text-sui-purple'
                     }`}>
@@ -90,7 +115,7 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
                   <TableCell className="hidden md:table-cell">
                     <div className="flex items-center">
                       <Calendar className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
-                      {event.date}
+                      {event.start_time.toString()}
                     </div>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
@@ -101,19 +126,17 @@ const EventsTable = ({ events, onEdit, onDelete, onViewParticipants, onTogglePin
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end space-x-2">
-                      {onTogglePin && (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className={`h-8 ${event.isPinned ? 'bg-sui-blue/10 text-sui-blue' : ''}`}
-                          onClick={() => onTogglePin(event.id, !event.isPinned)}
-                        >
-                          <Pin className="h-3.5 w-3.5" />
-                          <span className="sr-only md:not-sr-only md:ml-2">
-                            {event.isPinned ? 'Unpin' : 'Pin'}
-                          </span>
-                        </Button>
-                      )}
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className={`h-8 ${event.isPinned ? 'bg-sui-blue/10 text-sui-blue' : ''}`}
+                        onClick={() => handlePinToggle(event.id, !event.isPinned)}
+                      >
+                        <Pin className="h-3.5 w-3.5" />
+                        <span className="sr-only md:not-sr-only md:ml-2">
+                          {event.isPinned ? 'Unpin' : 'Pin'}
+                        </span>
+                      </Button>
                       {onViewParticipants && (
                         <Button 
                           variant="outline" 

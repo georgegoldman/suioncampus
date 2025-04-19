@@ -5,15 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import api from "@/api";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
 
 
-type Event = {
-  id: string,
-  name: string,
-  start_date: string,
-  end_date: string,
-  location: string
-};
+
 
 const NoEvents = ({ past = false }) => (
   <div className="flex flex-col items-center justify-center text-center py-10">
@@ -36,8 +31,8 @@ const NoEvents = ({ past = false }) => (
 
 const Events = () => {
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
-  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
-  const [pastEvents, setPastEvents] = useState<Event[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<EventItem[]>([]);
+  const [pastEvents, setPastEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -66,13 +61,11 @@ const Events = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await api.get(
-          activeTab === "upcoming" ? "/events/upcoming" : "/events/past"
-        );
-        console.log(res.data)
+        const data = await fetchUpcomingOrPastEvents(activeTab);
+        
         activeTab === "upcoming"
-          ? setUpcomingEvents(res.data || [])
-          : setPastEvents(res.data || []);
+          ? setUpcomingEvents(data || [])
+          : setPastEvents(data || []);
       } catch (err) {
         if (err.response?.status === 404) {
           setError("No events found");
@@ -154,8 +147,8 @@ const Events = () => {
                           >
                             {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
                             <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                              <div className="text-sm font-bold text-gray-700">{event.start_date}</div>
-                              <div className="text-xs text-gray-500">{event.end_date}</div>
+                              <div className="text-sm font-bold text-gray-700">{event.start_time.getDate()}</div>
+                              <div className="text-xs text-gray-500">{event.end_time.getDate()}</div>
                             </div>
   
                             {/* Dot */}
@@ -165,9 +158,9 @@ const Events = () => {
                             <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
-                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_date}</div>
+                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_time.getDate()}</div>
                                   <div className="text-md font-semibold">{event.name}</div>
-                                  <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div>
+                                  {/* <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div> */}
   
                                   {/* Tags (optional) */}
                                   <div className="flex gap-2 mt-2">
@@ -211,8 +204,8 @@ const Events = () => {
                           >
                             {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
                             <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                              <div className="text-sm font-bold text-gray-700">{event.start_date}</div>
-                              <div className="text-xs text-gray-500">{event.end_date}</div>
+                              <div className="text-sm font-bold text-gray-700">{event.start_time.getDate()}</div>
+                              <div className="text-xs text-gray-500">{event.end_time.getDate()}</div>
                             </div>
   
                             {/* Dot */}
@@ -222,9 +215,9 @@ const Events = () => {
                             <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
-                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_date}</div>
+                                  <div className="text-sm text-gray-500 block sm:hidden">{event.start_time.getDate()}</div>
                                   <div className="text-md font-semibold">{event.name}</div>
-                                  <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div>
+                                  {/* <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div> */}
   
                                   {/* Tags (optional) */}
                                   <div className="flex gap-2 mt-2">
@@ -234,7 +227,7 @@ const Events = () => {
                                 
                                 <div className="w-full md:w-1/2">
                                   <img
-                                    src={"https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//overflowabj.jpeg"}
+                                    src={event.image}
                                     alt="event"
                                     className="rounded-md object-cover w-full h-32 md:h-auto"
                                   />
@@ -294,7 +287,7 @@ const Events = () => {
               <p className="mb-4">Sui on campus</p>
   
               <p className="font-medium mb-1">Attendees</p>
-              <p>{event.attendees}</p>
+              {/* <p>{event.attendees}</p> */}
             </div>
           </div>
         </div>
