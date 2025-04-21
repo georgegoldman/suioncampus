@@ -50,7 +50,7 @@ export const teamMembers: TeamMember[] = [
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/bawo.jpg',
     socials: {
       x: 'https://x.com/_nunubee',
-      linkedin: '#'
+      linkedin: 'https://www.linkedin.com/in/bawo-nunu-50442a234/'
     }
   },
   {
