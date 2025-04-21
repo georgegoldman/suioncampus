@@ -60,7 +60,7 @@ export const teamMembers: TeamMember[] = [
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/mykel.jpg',
     socials: {
       x: 'https://x.com/mykeltyopev',
-      linkedin: '#'
+      linkedin: 'https://www.linkedin.com/in/michael-tyopev-02a2a2191/'
     }
   },
   {
