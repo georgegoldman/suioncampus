@@ -80,7 +80,7 @@ export const teamMembers: TeamMember[] = [
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/ngbede.jpg',
     socials: {
       x: 'http://X.com/Iam_Ngbede',
-      linkedin: '#'
+      linkedin: 'https://www.linkedin.com/in/ngbede-odeh-938983170/'
     }
   },
   {

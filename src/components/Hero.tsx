@@ -7,7 +7,7 @@ import { scrollToElement } from '@/lib/animation';
 import { EventItem, fetchEvents,  updatePinnedStatus, fetchPinnedEvents} from '@/data/events';
 import EventRegistrationModal from './EventRegistrationModal';
 
-const Hero = (eventId: string) => {
+const Hero = () => {
   const [events, setEvents] = useState<EventItem>();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [pinnedEvent, setPinnedEvent] = useState<EventItem | null>(null);
