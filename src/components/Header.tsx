@@ -69,7 +69,7 @@ const Header = () => {
                       key={item.text}
                       href={item.href}
                       className={cn(
-                        "text-lg font-medium transition-colors",
+                        "text-lg font-medium",
                         location.pathname === item.href ? 
                           "text-foreground font-semibold" : 
                           "text-muted-foreground hover:text-foreground"
@@ -84,13 +84,13 @@ const Header = () => {
                     <>
                       <a 
                         href="/sign-in"
-                        className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-lg font-medium "
                       >
                         Sign In
                       </a>
                       <a 
                         href="/sign-up"
-                        className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-lg font-medium  "
                       >
                         Sign Up
                       </a>
@@ -109,7 +109,7 @@ const Header = () => {
                   key={item.text}
                   href={item.href}
                   className={cn(
-                    "font-medium transition-colors hover:text-sui-blue",
+                    "font-medium",
                     location.pathname === item.href ? 
                       "text-foreground" : 
                       "text-muted-foreground"
@@ -123,7 +123,7 @@ const Header = () => {
               <></>
             )}
             <div className="flex items-center gap-4">
-              {/* <ThemeToggle /> */}
+              <ThemeToggle />
               {user ? (
                 <UserMenu />
               ) : (
@@ -137,7 +137,7 @@ const Header = () => {
                     Sign In
                   </Button>
                   <Button 
-                    className="bg-sui-blue hover:bg-sui-blue-dark text-white"
+                    className=""
                     onClick={() => navigate('/sign-up')}
                   >
                     <UserPlus className="h-4 w-4 mr-2" />

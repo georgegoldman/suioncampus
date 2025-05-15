@@ -53,8 +53,8 @@ const Hero = () => {
           <div className="space-y-6">
             <MotionDiv animation="fade-in" delay={0.2}>
               <div className="inline-block px-3 py-1 rounded-full glass text-xs font-medium mb-4">
-                <span className="text-sui-blue inline-flex items-center">
-                  <span className="h-2 w-2 rounded-full bg-sui-blue mr-2 animate-pulse-slow"></span>
+                <span className="inline-flex items-center">
+                  <span className="h-2 w-2 rounded-full mr-2 animate-pulse-slow"></span>
                   The future of blockchain education
                 </span>
               </div>

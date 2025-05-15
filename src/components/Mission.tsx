@@ -4,7 +4,7 @@ import MotionDiv from './ui/MotionDiv';
 
 const Mission = () => {
   return (
-    <section id="mission" className="py-20 bg-white dark:bg-sui-navy-light relative overflow-hidden">
+    <section id="mission" className="py-20  relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <MotionDiv
@@ -22,7 +22,7 @@ const Mission = () => {
           <MotionDiv
             animation="fade-in"
             delay={0.1}
-            className="bg-white dark:bg-sui-navy-light/30 p-8 rounded-xl shadow-sm hover-lift border border-gray-100 dark:border-white/5"
+            className=" p-8 rounded-xl shadow-sm hover-lift border border-gray-100 dark:border-white/5"
           >
             <div className="w-14 h-14 mb-6 rounded-full bg-sui-blue/10 flex items-center justify-center">
               <svg className="w-7 h-7 text-sui-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +38,7 @@ const Mission = () => {
           <MotionDiv
             animation="fade-in"
             delay={0.2}
-            className="bg-white dark:bg-sui-navy-light/30 p-8 rounded-xl shadow-sm hover-lift border border-gray-100 dark:border-white/5"
+            className=" p-8 rounded-xl shadow-sm hover-lift border border-gray-100 "
           >
             <div className="w-14 h-14 mb-6 rounded-full bg-sui-purple/10 flex items-center justify-center">
               <svg className="w-7 h-7 text-sui-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const Mission = () => {
           <MotionDiv
             animation="fade-in"
             delay={0.3}
-            className="bg-white dark:bg-sui-navy-light/30 p-8 rounded-xl shadow-sm hover-lift border border-gray-100 dark:border-white/5"
+            className=" p-8 rounded-xl shadow-sm hover-lift border border-gray-100 dark:border-white/5"
           >
             <div className="w-14 h-14 mb-6 rounded-full bg-green-500/10 flex items-center justify-center">
               <svg className="w-7 h-7 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

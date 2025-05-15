@@ -9,7 +9,7 @@ const Footer = () => {
   };
   
   return (
-    <footer className="bg-sui-navy-dark text-white">
+    <footer className="">
       <div className="container mx-auto px-4 md:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-2">
@@ -21,14 +21,14 @@ const Footer = () => {
               />
               <span className="font-medium text-lg">Sui On Campus</span>
             </div>
-            <p className="text-white/70 mb-6 max-w-md">
+            <p className=" mb-6 max-w-md">
               A community-driven initiative bringing blockchain education, events, and hackathons to university campuses worldwide.
             </p>
             <div className="flex gap-4">
-              <a href="https://x.com/suioncampus" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+              <a href="https://x.com/suioncampus" target="_blank" rel="noopener noreferrer" className="">
                 <TwitterIcon className="h-5 w-5" />
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="">
                 <LinkedinIcon className="h-5 w-5" />
               </a>
               
@@ -42,7 +42,7 @@ const Footer = () => {
                 <li key={item}>
                   <button 
                     onClick={() => scrollToElement(item.toLowerCase().replace(' ', '-'))}
-                    className="text-white/70 hover:text-white transition-colors"
+                    className=""
                   >
                     {item}
                   </button>
@@ -53,13 +53,13 @@ const Footer = () => {
           
           <div>
             <h4 className="font-medium text-lg mb-4">Contact</h4>
-            <ul className="space-y-3 text-white/70">
+            <ul className="space-y-3">
               <li>suioncampus@gmail.com</li>
               <li>Global</li>
             </ul>
             <a 
               href="https://t.me/suinigeria" // Replace with the desired link
-              className="mt-6 bg-white text-sui-navy-dark hover:bg-white/90 py-2 px-4 rounded inline-block"
+              className="mt-6 py-2 px-4 rounded inline-block"
               id="contact"
             >
               Get in Touch
@@ -67,17 +67,17 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/50 text-sm mb-4 md:mb-0">
+        <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center">
+          <p className=" text-sm mb-4 md:mb-0">
             © {currentYear} Sui On Campus. All rights reserved.
           </p>
           <div className="flex items-center gap-8">
-            <p className="text-white/50 text-sm">
-              Powered by Sui Blockchain
+            <p className=" text-sm">
+              Powered by Sui Foundation
             </p>
             <button 
               onClick={scrollToTop}
-              className="h-10 w-10 rounded-full bg-sui-blue/20 hover:bg-sui-blue/30 flex items-center justify-center transition-colors"
+              className="h-10 w-10 rounded-full flex items-center justify-center "
             >
               <ArrowUpIcon className="h-5 w-5" />
             </button>
