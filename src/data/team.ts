@@ -34,10 +34,10 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'Mr Anayo',
+    name: 'Anayo',
     role: 'Program Manager',
     bio: 'Program Manager at Sui On Campus',
-    image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//anayo.jpeg',
+    image: 'https://pbs.twimg.com/profile_images/1915765711630200832/x1OnX5_3_400x400.jpg',
     socials: {
       x: 'https://x.com/AnayoPhd',
       linkedin: 'https://www.linkedin.com/in/emmanuel-anayo-8107a2349?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'

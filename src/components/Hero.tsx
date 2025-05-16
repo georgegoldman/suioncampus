@@ -100,7 +100,7 @@ const Hero = () => {
               <div className="pt-8 mt-8 border-t border-foreground/10">
                 <p className="text-sm text-foreground/60 mb-3">Trusted by universities Nationwide</p>
                 <div className="flex flex-wrap gap-6 items-center">
-                  {['UNN', 'UNIPORT', 'UNIUYO', 'UNIBEN', 'FUTMINNA'].map((uni, i) => (
+                  {['FUTMINNA', 'UNIBEN', 'UNN', 'UNIZIK', 'UNIPORT', 'UNIUYO', ].map((uni, i) => (
                     <div key={uni} className="text-foreground/40 text-sm font-mono">
                       {uni}
                     </div>

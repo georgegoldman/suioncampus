@@ -1,0 +1,21 @@
+{
+  "headers": {
+    "/index.html": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "max-age=3500"
+    }
+  },
+  "routes": {
+    "/*": "/index.html",
+    "/path/*": "/index.html"
+  },
+  "metadata": {
+      "link": "https://suioncampus.wal.app",
+      "image_url": "https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/suity.png",
+      "description": "suioncampus",
+      "project_url": "https://github.com/block-codeX/soc-front-end",
+      "creator": "george-goldman"
+  },
+  "site-name":"suioncampus",
+  "ignore": ["/private/*", "/secret.txt", "/images/tmp/*"]
+}

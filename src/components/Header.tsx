@@ -48,59 +48,7 @@ const Header = () => {
       <div className="container px-4 mx-auto flex items-center justify-between">
         <Logo />
         
-        {isMobile ? (
-          <div className="flex items-center gap-4">
-            {/* <ThemeToggle /> */}
-            {user ? (
-              <UserMenu />
-            ) : null}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent>
-                <nav className="flex flex-col gap-6 mt-12">
-                  {user ? (
-                    <>
-                    {navItems.map((item) => (
-                    <a 
-                      key={item.text}
-                      href={item.href}
-                      className={cn(
-                        "text-lg font-medium",
-                        location.pathname === item.href ? 
-                          "text-foreground font-semibold" : 
-                          "text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {item.text}
-                    </a>
-                  ))}
-                    </>
-                  ) : null}
-                  {!user && (
-                    <>
-                      <a 
-                        href="/sign-in"
-                        className="text-lg font-medium "
-                      >
-                        Sign In
-                      </a>
-                      <a 
-                        href="/sign-up"
-                        className="text-lg font-medium  "
-                      >
-                        Sign Up
-                      </a>
-                    </>
-                  )}
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
-        ) : (
+      
           <div className="flex items-center gap-8">
             {user ? (<>
               <nav className="flex items-center gap-8">
@@ -129,25 +77,24 @@ const Header = () => {
               ) : (
                 <>
                   <Button 
-                    variant="ghost" 
-                    className="flex items-center gap-2"
+                    // variant="ghost" 
+                    className=""
                     onClick={() => navigate('/sign-in')}
                   >
-                    <LogIn className="h-4 w-4" />
                     Sign In
                   </Button>
-                  <Button 
+                  {/* <Button 
                     className=""
                     onClick={() => navigate('/sign-up')}
                   >
                     <UserPlus className="h-4 w-4 mr-2" />
                     Sign Up
-                  </Button>
+                  </Button> */}
                 </>
               )}
             </div>
           </div>
-        )}
+        
       </div>
     </header>
   );
