@@ -22,7 +22,7 @@ const Logo = ({ className = "" }: { className?: string }) => {
         className="h-9 w-9"
       />
       <span className="text-xl md:text-2xl font-bold text-gradient">
-      {isMobile ? "SOC" : "Sui On Campus"}
+      {isMobile ? "" : "Sui On Campus"}
 
       </span>
     </Link>
