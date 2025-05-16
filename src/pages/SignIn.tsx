@@ -69,7 +69,7 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 py-32 flex justify-center">
+      <div className="container mx-auto px-4 py-32 col-md-0 col-12 flex justify-center">
         <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-xl shadow-sm border">
           <div className="text-center">
             <h1 className="text-2xl font-bold">Sign In</h1>
@@ -106,7 +106,11 @@ const SignIn = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full
+              bg-blue-100 text-blue-800 hover:bg-blue-200 
+             dark:bg-blue-900 dark:text-blue-100 dark:hover:bg-blue-800 
+             transition duration-200
+              " disabled={isLoading}>
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
