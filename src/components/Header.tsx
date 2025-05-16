@@ -78,7 +78,9 @@ const Header = () => {
                 <>
                   <Button 
                     // variant="ghost" 
-                    className=""
+                    className="bg-gray-200 text-gray-700 hover:bg-gray-300 
+             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
+             transition duration-200"
                     onClick={() => navigate('/sign-in')}
                   >
                     Sign In

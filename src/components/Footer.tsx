@@ -77,7 +77,11 @@ const Footer = () => {
             </p>
             <button 
               onClick={scrollToTop}
-              className="h-10 w-10 rounded-full flex items-center justify-center "
+              className="h-10 w-10 rounded-full flex items-center justify-center
+              bg-gray-200 text-gray-700 hover:bg-gray-300 
+             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
+             transition duration-200
+               "
             >
               <ArrowUpIcon className="h-5 w-5" />
             </button>
