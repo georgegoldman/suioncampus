@@ -116,28 +116,46 @@ const Hero = () => {
               <div className="absolute inset-10 glass rounded-3xl overflow-hidden hover-lift">
                 {pinnedEvent ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    {/* Background Image */}
                     <div 
                       className="absolute inset-0 bg-cover bg-center z-0" 
                       style={{ backgroundImage: `url(${pinnedEvent.image})` }}
                     >
                       <div className="absolute inset-0 bg-sui-navy-dark/70"></div>
                     </div>
-                    
-                    <div className="text-white text-center px-6 z-10 relative">
-                      <div className="w-20 h-20 rounded-full glass mx-auto flex items-center justify-center mb-6">
-                        <div className="w-12 h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
+
+                    {/* Foreground Content */}
+                    <div className="text-white text-center px-4 sm:px-6 z-10 relative max-w-md w-full">
+                      
+                      {/* Animated Icon */}
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full glass mx-auto flex items-center justify-center mb-4 sm:mb-6">
+                        <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-sui-blue animate-pulse-slow"></div>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-medium mb-2">{pinnedEvent.name}</h3>
-                      <p className="text-white/70 mb-2">{pinnedEvent.start_time.getDate()} • {pinnedEvent.location}</p>
-                      {/* <p className="text-white/70 mb-6">{pinnedEvent.description}</p> */}
-                      {/* <Button 
+
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-medium mb-1 sm:mb-2">
+                        {pinnedEvent.name}
+                      </h3>
+
+                      {/* Date and Location */}
+                      <p className="text-white/70 text-sm sm:text-base mb-1 sm:mb-2">
+                        {pinnedEvent.start_time.getDate()} • {pinnedEvent.location}
+                      </p>
+
+                      {/* Optional Description or Button (uncomment if needed) */}
+                      {/* 
+                      <p className="text-white/70 text-sm sm:text-base mb-4">{pinnedEvent.description}</p>
+                      <Button 
                         className="bg-white text-sui-navy hover:bg-white/90 rounded-full"
                         onClick={() => setShowRegistrationModal(true)}
                       >
                         View event
-                      </Button> */}
+                      </Button> 
+                      */}
+                      
                     </div>
                   </div>
+
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-white text-center px-6">
