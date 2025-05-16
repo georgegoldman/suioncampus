@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { LogIn, Menu, UserPlus } from 'lucide-react';
+import { LogIn, Menu, UserPlus,CalendarIcon, ImageIcon } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -32,8 +32,8 @@ const Header = () => {
   const isHomePage = location.pathname === '/';
   
   const navItems = [
-    { text: 'Events', href: '/events' },
-    { text: 'Gallery', href: '/gallery' },
+    { text: 'Events', href: '/events', icon: <CalendarIcon className="h-5 w-5" /> },
+  { text: 'Gallery', href: '/gallery', icon: <ImageIcon className="h-5 w-5" /> },
   ];
 
   return (
@@ -57,15 +57,16 @@ const Header = () => {
                   key={item.text}
                   href={item.href}
                   className={cn(
-                    "font-medium",
-                    location.pathname === item.href ? 
-                      "text-foreground" : 
-                      "text-muted-foreground"
+                    "font-medium flex items-center gap-2 transition-colors",
+                    location.pathname === item.href 
+                      ? "text-gray-900 dark:text-white" 
+                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   )}
                 >
-                  {item.text}
+                  <span>{item.icon}</span>
+                  <span className="hidden sm:inline">{item.text}</span>
                 </a>
-              ))}
+                            ))}
             </nav>
             </>) : (
               <></>
