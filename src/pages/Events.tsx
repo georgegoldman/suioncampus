@@ -222,13 +222,13 @@ const Events = () => {
           >
             <div className="p-4 sm:p-6 overflow-y-auto h-full">
   {/* Top-right buttons */}
-  <div className="flex justify-end items-center space-x-3 mb-2">
+  <div className="flex justify-between items-center space-x-3 mb-2">
     <button
       onClick={() => window.open(`/events/${selectedEvent.id}`, '_blank')}
       className="px-3 py-1.5 rounded-md text-sm font-medium
-                 bg-blue-500 text-white hover:bg-blue-600
-                 dark:bg-blue-600 dark:hover:bg-blue-700
-                 transition-colors duration-200"
+                 bg-gray-200 text-gray-700 hover:bg-gray-300 
+             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
+             transition duration-200"
     >
       Event Page
     </button>
@@ -280,10 +280,9 @@ const Events = () => {
     w-full
     mb-2
     px-4 py-2 rounded-md font-semibold
-    bg-blue-400 text-white
-    hover:bg-blue-500
-    dark:bg-blue-600 dark:hover:bg-blue-700
-    transition-colors duration-300
+    bg-gray-200 text-gray-700 hover:bg-gray-300 
+             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
+             transition duration-200
   ">
     One Click Apply
   </button>
