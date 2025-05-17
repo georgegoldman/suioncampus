@@ -7,7 +7,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
 import {TimelineEvent} from "@/components/TimelineEvent";
-import { MapPin, Tag, Calendar, Slash } from 'lucide-react';
+import { MapPin, Tag, Calendar, User } from 'lucide-react';
 
 
 
@@ -305,8 +305,10 @@ const Events = () => {
   <h3 className="font-medium mb-2">About Event</h3>
   <p className="mb-4">{selectedEvent.description}</p>
 
-  <p className="font-medium mb-1">Attendees</p>
-  {/* <p>{event.attendees}</p> */}
+  <p className="font-medium mb-1" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <User size={20} />
+     {selectedEvent.attendees.length}</p>
+  
 </div>
 
           </div>

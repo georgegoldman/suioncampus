@@ -19,7 +19,7 @@ const Logo = ({ className = "" }: { className?: string }) => {
       <img
         src="https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/suity.png" // Replace with your image link
         alt="Logo"
-        className="h-9 w-9"
+        className="h-5 w-5"
       />
       <span className="text-xl md:text-2xl font-bold text-gradient">
       {isMobile ? "" : "Sui On Campus"}

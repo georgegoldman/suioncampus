@@ -39,6 +39,11 @@ function formatMongoDate(dateValue: MongoDate | string | undefined | null): stri
   return format(new Date(timestamp), 'MMM d, yyyy h:mm a');
 }
 
+interface Attendees {
+  user_id: string,
+  name: string,
+  email: string
+}
 
 export type EventItem = {
   id: string;
@@ -51,6 +56,7 @@ export type EventItem = {
   type: 'hackerthon' | 'workshop' | 'meetup';
   registrationLink?: string;
   isPast?: boolean;
+  attendees?: Attendees[];
   isPinned?: boolean;
 
 };
@@ -70,6 +76,7 @@ export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
       location: data.location,
       image: data.image_url || '', // If no image URL, provide a default or empty string
       type: data.event_type,
+      attendees: data.attendees,
       isPast: new Date(data.end_time) > new Date(), // Check if the event is in the past
       isPinned: data.pinned || false, // Default value for pinned
       registrationLink: '', // You can set a registration link here if needed
@@ -102,6 +109,7 @@ export const fetchUpcomingOrPastEvents = async (activeTab: string): Promise<Even
       end_time: new Date(formatMongoDate(event.end_time)),
       isPast: new Date(event.end_time) > new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
+      attendees: event.attendees,
       registrationLink: '', // You can set a registration link here if needed
     }));
     return events
@@ -130,6 +138,7 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
       end_time: new Date(formatMongoDate(event.end_time)),
       isPast: new Date(event.end_time) > new Date(), // Check if the event is in the past
       isPinned: event.pinned || false, // Default value for pinned
+      attendees: event.attendees,
       registrationLink: '', // You can set a registration link here if needed
     }));
 
