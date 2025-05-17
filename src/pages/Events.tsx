@@ -92,44 +92,48 @@ const Events = () => {
       <Header />
       <main className="flex-1 pt-16 md:pt-24 pb-16">
         <div className="container px-4 sm:px-6">
-          <div className="mb-8">
+          <div className="">
             {/* Header Section with Responsive Layout */}
             <div className="row">
               <div className="col-md-3"></div>
               <div className="col-md-6">
-                <div className=" col-md-12 justify-between mb-8">
+                <div className=" col-md-12 justify-between">
                   <div className="col-md-12 ">
                     <div className="row">
-                    <h1 className="text-2xl col-md-6 font-bold mt-lg-0 mt-xl-0 mt-md-0 mt-5 mb-4 mt-1 sm:mb-0"  >Events</h1>
-                    
-                    {/* Toggle Switch */}
-                    <div className="col-md-6 ">
-                      <div className="relative flex sm:w-52 bg-gray-200 rounded-full p-1 overflow-hidden">
-                        <motion.div
-                          layout
-                          initial={false}
-                          animate={{ x: activeTab === "past" ? "100%" : "0%" }}
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          className="absolute top-0 left-0 w-1/2 h-full bg-white border border-black rounded-full shadow-md z-0"
-                        />
-                        <button
-                          onClick={() => setActiveTab("upcoming")}
-                          className={`z-10 w-1/2 text-sm py-2 transition-colors duration-300 ${
-                            activeTab === "upcoming" ? "text-black font-semibold" : "text-gray-500"
-                          }`}
-                        >
-                          Upcoming
-                        </button>
-                        <button
-                          onClick={() => setActiveTab("past")}
-                          className={`z-10 w-1/2 text-sm py-2 transition-colors duration-300 ${
-                            activeTab === "past" ? "text-black font-semibold" : "text-gray-500"
-                          }`}
-                        >
-                          Past
-                        </button>
-                      </div>
-                    </div>
+<div className="flex mt-16 items-center justify-between flex-wrap gap-4 w-full">
+  {/* Heading */}
+  <h1 className="text-2xl font-bold">Events</h1>
+
+  {/* Toggle Switch */}
+  <div className="relative flex w-40 bg-gray-200 rounded-full p-1 overflow-hidden">
+    <motion.div
+      layout
+      initial={false}
+      animate={{ x: activeTab === "past" ? "100%" : "0%" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className="absolute top-0 left-0 w-1/2 h-full bg-white border border-black rounded-full shadow-md z-0"
+    />
+    <button
+      onClick={() => setActiveTab("upcoming")}
+      className={`z-10 w-1/2 text-sm py-2 transition-colors duration-300 ${
+        activeTab === "upcoming" ? "text-black font-semibold" : "text-gray-500"
+      }`}
+    >
+      Upcoming
+    </button>
+    <button
+      onClick={() => setActiveTab("past")}
+      className={`z-10 w-1/2 text-sm py-2 transition-colors duration-300 ${
+        activeTab === "past" ? "text-black font-semibold" : "text-gray-500"
+      }`}
+    >
+      Past
+    </button>
+  </div>
+</div>
+
+
+
                     </div>
                   </div>
                 
@@ -138,7 +142,7 @@ const Events = () => {
                 <div className="col-12">
                   {/* Events Content */}
 
-                  <div className="mt-5 p-3">
+                  <div className=" p-3">
                     <AnimatePresence mode="wait">
                       {activeTab === "upcoming" ? (
                         <motion.div
@@ -148,7 +152,7 @@ const Events = () => {
                           exit={{ opacity: 0, x: 20 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <h2 className="text-lg font-semibold mb-2">Upcoming Events</h2>
+                          {/* <h2 className="text-lg font-semibold mb-2">Upcoming Events</h2> */}
                           {loading && <p>Loading upcoming events...</p>}
                           {!loading && error === "No events found" && <NoEvents />}
                           {!loading && !error && upcomingEvents.length === 0 && <NoEvents />}
@@ -157,7 +161,7 @@ const Events = () => {
                               {upcomingEvents.map((event) => (
                                 <div 
                                   key={event.id} 
-                                  className="mb-8 flex items-start relative"
+                                  className=" flex items-start relative"
                                   onClick={() => openEventModal(event)}
                                 >
                                   {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
@@ -205,7 +209,7 @@ const Events = () => {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <h2 className="text-lg font-semibold mb-2">Past Events</h2>
+                          {/* <h2 className="text-lg font-semibold mb-2">Past Events</h2> */}
                           {loading && <p>Loading past events...</p>}
                           {!loading && error === "No events found" && <NoEvents past />}
                           {!loading && !error && pastEvents.length === 0 && <NoEvents past />}
@@ -278,15 +282,15 @@ const Events = () => {
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Overlay */}
           <div
-            className="absolute inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-in-out"
+            className="absolute inset-0 bg-black/20 dark:bg-white/10 transition-opacity duration-300 ease-in-out"
             onClick={closeEventModal}
           ></div>
   
           {/* Slide-in Panel */}
           <div
-            className={`relative bg-white w-full sm:w-2/3 md:w-1/2 lg:w-1/3 h-full shadow-lg transform transition-transform duration-300 ease-in-out ${
-              showModal ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm w-full sm:w-2/3 md:w-1/2 lg:w-1/3 h-full shadow-lg transform transition-transform duration-300 ease-in-out ${
+    showModal ? 'translate-x-0' : 'translate-x-full'
+  }`}
           >
             <div className="p-4 sm:p-6 overflow-y-auto h-full">
               <button onClick={closeEventModal} className="float-right text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
