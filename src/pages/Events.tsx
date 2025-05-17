@@ -6,6 +6,8 @@ import api from "@/api";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
+import {TimelineEvent} from "@/components/TimelineEvent";
+
 
 
 
@@ -137,128 +139,51 @@ const Events = () => {
                     </div>
                   </div>
                 
-                <div className="row">
+                <div className="row mt-3">
 
                 <div className="col-12">
                   {/* Events Content */}
 
-                  <div className=" p-3">
+                  <div className="">
                     <AnimatePresence mode="wait">
                       {activeTab === "upcoming" ? (
-                        <motion.div
-                          key="upcoming"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {/* <h2 className="text-lg font-semibold mb-2">Upcoming Events</h2> */}
-                          {loading && <p>Loading upcoming events...</p>}
-                          {!loading && error === "No events found" && <NoEvents />}
-                          {!loading && !error && upcomingEvents.length === 0 && <NoEvents />}
-                          {!loading && !error && upcomingEvents.length > 0 && (
-                            <div className="relative border-l-2 border-gray-300 ml-2 sm:ml-6 mt-8 ">
-                              {upcomingEvents.map((event) => (
-                                <div 
-                                  key={event.id} 
-                                  className=" flex items-start relative"
-                                  onClick={() => openEventModal(event)}
-                                >
-                                  {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
-                                  <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                                    <div className="text-sm font-bold text-gray-700">{event.start_time.getDate()}</div>
-                                    <div className="text-xs text-gray-500">{event.end_time.getDate()}</div>
-                                  </div>
-        
-                                  {/* Dot */}
-                                  <div className="w-1 h-4 bg-blue-500 d-none rounded-full mt-1 -ml-1 sm:ml-1 z-10"></div>
-        
-                                  {/* Card */}
-                                  <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
-                                    <div className="flex flex-col md:flex-row justify-between">
-                                      <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
-                                        <div className="text-sm text-gray-500 block sm:hidden">{event.start_time.getDate()}</div>
-                                        <div className="text-md font-semibold">{event.name}</div>
-                                        {/* <div className="text-sm text-gray-600">By {event.host_id["$oid"]}</div> */}
-        
-                                        {/* Tags (optional) */}
-                                        <div className="flex gap-2 mt-2">
-                                          {/* Add tags here */}
-                                        </div>
-                                      </div>
-                                      
-                                      <div className="w-full md:w-1/2">
-                                        <img
-                                          src={"https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//overflowabj.jpeg"}
-                                          alt="event"
-                                          className="rounded-md object-cover w-full h-32 md:h-auto"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="past"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {/* <h2 className="text-lg font-semibold mb-2">Past Events</h2> */}
-                          {loading && <p>Loading past events...</p>}
-                          {!loading && error === "No events found" && <NoEvents past />}
-                          {!loading && !error && pastEvents.length === 0 && <NoEvents past />}
-                          {!loading && !error && pastEvents.length > 0 && (
-                            <div className="relative border-l-2 border-gray-300 ml-2 sm:ml-6 mt-8">
-                              {pastEvents.map((event) => (
-                                <div 
-                                  key={event.id} 
-                                  className="mb-8 flex items-start relative"
-                                  onClick={() => openEventModal(event)}
-                                >
-                                  {/* Date indicator - hidden on mobile, visible on tablet/desktop */}
-                                  <div className="hidden sm:block absolute -left-28 text-right w-24 pr-1">
-                                    <div className="text-sm font-bold text-gray-700">{event.start_time.getDate()}</div>
-                                    <div className="text-xs text-gray-500">{event.end_time.getDate()}</div>
-                                  </div>
-        
-                                  {/* Dot */}
-                                  <div className="w-1 h-4 bg-blue-500 rounded-full mt-1 -ml-1 sm:ml-1 z-10"></div>
-        
-                                  {/* Card */}
-                                  <div className="ml-4 rounded-xl shadow-md p-3 sm:p-4 w-full">
-                                    <div className="flex flex-col md:flex-row justify-between">
-                                      <div className="w-full md:w-1/2 md:mb-0 md:pr-4">
-                                        <div className="text-sm text-gray-500 block sm:hidden">{event.start_time.getDate()}</div>
-                                        <div className="text-md font-semibold">{event.name}</div>
-                                        <div className="text-sm text-gray-600">{truncateText(event.description)}</div>
-        
-                                        {/* Tags (optional) */}
-                                        <div className="flex gap-2 mt-2">
-                                          {/* Add tags here */}
-                                        </div>
-                                      </div>
-                                      
-                                      <div className="w-full md:w-1/2 max-w-sm">
-                                        <img
-                                          src={event.image}
-                                          alt="event"
-                                          className="rounded-md object-cover w-full h-32 h-32 md:h-48"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </motion.div>
-                      )}
+  <motion.div
+    key="upcoming"
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 20 }}
+    transition={{ duration: 0.3 }}
+  >
+    {loading ? (
+      <p className="text-gray-500">Loading upcoming events...</p>
+    ) : upcomingEvents.length === 0 ? (
+      <NoEvents past={false} />
+    ) : (
+      upcomingEvents.map((event) => (
+        <TimelineEvent key={event.id} event={event} onClick={() => openEventModal(event)} />
+      ))
+    )}
+  </motion.div>
+) : (
+  <motion.div
+    key="past"
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -20 }}
+    transition={{ duration: 0.3 }}
+  >
+    {loading ? (
+      <p className="text-gray-500">Loading past events...</p>
+    ) : pastEvents.length === 0 ? (
+      <NoEvents past />
+    ) : (
+      pastEvents.map((event) => (
+        <TimelineEvent key={event.id} event={event} onClick={() => openEventModal(event)} />
+      ))
+    )}
+  </motion.div>
+)}
+
                     </AnimatePresence>
                   </div>
 
@@ -302,8 +227,8 @@ const Events = () => {
   />
 </div>
 
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">{selectedEvent.name}</h2>
+              <div className="mb-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold">{selectedEvent.name}</h1>
               </div>
               <h3 className="font-medium mb-2">About Event</h3>
               <p className="mb-4">{selectedEvent.description}</p>

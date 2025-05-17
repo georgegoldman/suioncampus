@@ -52,6 +52,7 @@ export type EventItem = {
   registrationLink?: string;
   isPast?: boolean;
   isPinned?: boolean;
+
 };
 
 export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
