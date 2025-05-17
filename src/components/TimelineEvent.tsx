@@ -1,3 +1,6 @@
+import { MapPin, Tag } from 'lucide-react';
+
+
 export function TimelineEvent({ event, onClick }) {
   const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   const formatDate = (date) => `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
@@ -40,38 +43,46 @@ export function TimelineEvent({ event, onClick }) {
 
     {/* Event card */}
 <div className="flex-1 min-w-0">
-  {/* Event card */}
-<div className="bg-gray-200 rounded-lg overflow-hidden shadow-lg flex items-start flex-row gap-4 dark:bg-gray-800 dark:bg-opacity-90 w-full max-w-full min-w-0">
-  {/* Event content */}
-<div className="p-2 sm:p-3 md:p-4 lg:p-6 flex-grow min-w-0 overflow-hidden">
-  <h2
-    className="text-lg sm:text-xl md:text-2xl font-bold mb-3 break-words max-w-full text-gray-900 dark:text-gray-100"
-  >
-    {event.name}
-  </h2>
-  {/* other event info */}
-</div>
+      <div className="bg-gray-200 lg:pl-4 rounded-lg overflow-hidden shadow-lg flex items-start flex-row gap-4 dark:bg-gray-800 dark:bg-opacity-90 w-full max-w-full min-w-0">
+        {/* Event content */}
+        <div className="p-2 sm:p-3 md:p-4 lg:p-6 flex-grow min-w-0 overflow-hidden">
+          <h2
+            className="text-lg sm:text-xl md:text-2xl font-bold mb-2 break-words max-w-full text-gray-900 dark:text-gray-100"
+          >
+            {event.name}
+          </h2>
 
+          {/* Event type with Tag icon */}
+          <p className="flex items-center text-sm sm:text-base font-medium text-indigo-600 dark:text-indigo-400 mb-2">
+            <Tag className="h-5 w-5 mr-2 text-indigo-500 dark:text-indigo-300 flex-shrink-0" />
+            {event.type}
+          </p>
 
-  {/* Event image */}
-<div className="p-2 flex-shrink-0 overflow-hidden 
+          {/* Event location with lucide-react icon */}
+          <p className="flex items-center text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-3 truncate">
+            <MapPin className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+            {event.location}
+          </p>
+
+          {/* other event info */}
+        </div>
+
+        {/* Event image */}
+        <div className="p-2 flex-shrink-0 overflow-hidden 
                 w-[110px] h-[110px] 
                 sm:w-[130px] sm:h-[130px] 
                 md:w-[150px] md:h-[150px] 
-                lg:w-[170px] lg:h-[170px] 
-                xl:w-[180px] xl:h-[180px]">
-  <img
-    src={event.image}
-    alt="event"
-    className="w-full h-full object-cover rounded-md"
-  />
-</div>
+                lg:w-[160px] lg:h-[160px] 
+                xl:w-[140px] xl:h-[140px]">
+          <img
+            src={event.image}
+            alt="event"
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
+      </div>
+    </div>
 
-
-
-</div>
-
-</div>
   </div>
 </div>
 
