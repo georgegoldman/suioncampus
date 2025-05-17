@@ -294,13 +294,14 @@ const Events = () => {
           >
             <div className="p-4 sm:p-6 overflow-y-auto h-full">
               <button onClick={closeEventModal} className="float-right text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-              <div className="pt-5 mb-4">
-                <img
-                  src={selectedEvent.image}
-                  alt="event"
-                  className="rounded-md object-cover w-full"
-                />
-              </div>
+              <div className="pt-5 mb-4 flex justify-center">
+  <img
+    src={selectedEvent.image}
+    alt="event"
+    className="rounded-md object-cover w-full sm:w-4/5 md:w-3/5 lg:w-1/2 xl:w-[40%]"
+  />
+</div>
+
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">{selectedEvent.name}</h2>
               </div>
