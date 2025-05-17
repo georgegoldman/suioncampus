@@ -7,7 +7,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
 import {TimelineEvent} from "@/components/TimelineEvent";
-import { MapPin, Tag, Calendar } from 'lucide-react';
+import { MapPin, Tag, Calendar, Slash } from 'lucide-react';
 
 
 
@@ -224,14 +224,29 @@ const Events = () => {
   {/* Top-right buttons */}
   <div className="flex justify-between items-center space-x-3 mb-2">
     <button
-      onClick={() => window.open(`/events/${selectedEvent.id}`, '_blank')}
-      className="px-3 py-1.5 rounded-md text-sm font-medium
-                 bg-gray-200 text-gray-700 hover:bg-gray-300 
+  onClick={() => window.open(`/events/${selectedEvent.id}`, '_blank')}
+  className="ps-3  py-1 rounded-md text-sm font-medium
+             bg-gray-200 text-gray-700 hover:bg-gray-300 
              dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
-             transition duration-200"
-    >
-      Event Page
-    </button>
+             transition duration-200 flex items-center gap-2"
+>
+  Event Page
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="w-10 h-6 sm:w-12 sm:h-8 md:w-14 md:h-10 lg:w-16 lg:h-12"
+  fill="none"
+  viewBox="0 0 48 48"
+  stroke="currentColor"
+  strokeWidth={1.5}
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M32 16l-12 12M32 16l-6 0M32 16l0 6"
+  />
+</svg>
+
+</button>
 
     <button
       onClick={closeEventModal}
