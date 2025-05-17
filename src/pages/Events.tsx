@@ -7,6 +7,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
 import {TimelineEvent} from "@/components/TimelineEvent";
+import { MapPin, Tag, Calendar } from 'lucide-react';
 
 
 
@@ -39,6 +40,8 @@ const Events = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  const formatDate = (date) => `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
 
   const openEventModal = (event) => {
     setSelectedEvent(event);
@@ -218,34 +221,80 @@ const Events = () => {
   }`}
           >
             <div className="p-4 sm:p-6 overflow-y-auto h-full">
-              <button onClick={closeEventModal} className="float-right text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-              <div className="pt-5 mb-4 flex justify-center">
-  <img
-    src={selectedEvent.image}
-    alt="event"
-    className="rounded-md object-cover w-full sm:w-4/5 md:w-3/5 lg:w-1/2 xl:w-[40%]"
-  />
+  {/* Top-right buttons */}
+  <div className="flex justify-end items-center space-x-3 mb-2">
+    <button
+      onClick={() => window.open(`/events/${selectedEvent.id}`, '_blank')}
+      className="px-3 py-1.5 rounded-md text-sm font-medium
+                 bg-blue-500 text-white hover:bg-blue-600
+                 dark:bg-blue-600 dark:hover:bg-blue-700
+                 transition-colors duration-200"
+    >
+      Event Page
+    </button>
+
+    <button
+      onClick={closeEventModal}
+      className="text-2xl leading-none text-gray-500 hover:text-gray-800
+                 dark:text-gray-400 dark:hover:text-gray-200"
+    >
+      &times;
+    </button>
+  </div>
+
+  <div className="pt-5 mb-4 flex justify-center">
+    <img
+      src={selectedEvent.image}
+      alt="event"
+      className="rounded-md object-cover w-full sm:w-4/5 md:w-3/5 lg:w-1/2 xl:w-[40%]"
+    />
+  </div>
+
+  <div className="mb-2">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold">
+      {selectedEvent.name}
+    </h1>
+  </div>
+
+  <p className="font-medium mb-1"><strong>Hosted by: Sui on campus</strong></p>
+
+  <div className="flex items-start text-sm text-gray-700 dark:text-gray-300 mb-4 space-x-6">
+    {/* Date/Time */}
+    <div className="flex items-center">
+      <Calendar className="mr-2 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 dark:text-gray-300" />
+      <p className="text-sm sm:text-base md:text-lg">
+        Start: {`${formatDate(selectedEvent.start_time)} ${formatTime(selectedEvent.start_time)}`}
+      </p>
+    </div>
+
+    {/* Location */}
+    <div className="flex items-center">
+      <MapPin className="mr-2 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+      <p className="text-sm sm:text-base md:text-lg">
+        {selectedEvent.location}
+      </p>
+    </div>
+  </div>
+
+  <button className="
+    w-full
+    mb-2
+    px-4 py-2 rounded-md font-semibold
+    bg-blue-400 text-white
+    hover:bg-blue-500
+    dark:bg-blue-600 dark:hover:bg-blue-700
+    transition-colors duration-300
+  ">
+    One Click Apply
+  </button>
+
+  <h3 className="font-medium mb-2">About Event</h3>
+  <p className="mb-4">{selectedEvent.description}</p>
+
+  <p className="font-medium mb-1">Attendees</p>
+  {/* <p>{event.attendees}</p> */}
 </div>
 
-              <div className="mb-4">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold">{selectedEvent.name}</h1>
-              </div>
-              <h3 className="font-medium mb-2">About Event</h3>
-              <p className="mb-4">{selectedEvent.description}</p>
-  
-              <div className="flex items-start text-sm text-gray-600 mb-4">
-                <span className="material-symbols-outlined mr-2">
-                  calendar_month
-                </span>
-                <p>Start: {selectedEvent.start_date}</p>
-              </div>
-  
-              <p className="font-medium mb-1">Hosted by</p>
-              <p className="mb-4">Sui on campus</p>
-  
-              <p className="font-medium mb-1">Attendees</p>
-              {/* <p>{event.attendees}</p> */}
-            </div>
           </div>
         </div>
       )}

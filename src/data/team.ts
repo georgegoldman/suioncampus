@@ -85,8 +85,8 @@ export const teamMembers: TeamMember[] = [
   },
   {
     name: 'Michael Drey',
-    role: 'Graphic Designer',
-    bio: 'Graphic Designer at Sui On Campus',
+    role: 'Brand',
+    bio: 'Brand Lead at Sui On Campus',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/design%20.jpg',
     socials: {
       x: 'http://X.com/mdgraphics04',
