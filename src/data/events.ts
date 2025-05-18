@@ -61,12 +61,38 @@ export type EventItem = {
 
 };
 
+export const fetchAnEvent = async (eventId: string): Promise<EventItem | null> => {
+  try {
+    console.log("getting here")
+    const response = await api.get(`/event/${eventId}`);
+    const data = response.data;
+    const event: EventItem = {
+      id: data._id.$oid,
+      name: data.name,
+      description: data.description,
+      start_time: new Date(formatMongoDate(data.start_time)),
+      end_time: new Date(formatMongoDate(data.end_time)),
+      location: data.location,
+      image: data.image_url || '', // If no image URL, provide a default or empty string
+      type: data.event_type,
+      attendees: data.attendees,
+      isPast: new Date(data.end_time) > new Date(), // Check if the event is in the past
+      isPinned: data.pinned || false, // Default value for pinned
+      registrationLink: '', // You can set a registration link here if needed
+    }
+    return event;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return;
+  }
+}
+
 export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
   try {
     const response = await api.get('/pinned_event');
     const data = response.data;
     // map the api to the structure
-    console.log(data.start_time)
+    // console.log(data.start_time)
     const event: EventItem = {
       id: data._id.$oid,
       name: data.name,

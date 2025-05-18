@@ -224,7 +224,7 @@ const Events = () => {
   {/* Top-right buttons */}
   <div className="flex justify-between items-center space-x-3 mb-2">
     <button
-  onClick={() => window.open(`/events/${selectedEvent.id}`, '_blank')}
+  onClick={() => window.open(`/event/${selectedEvent.id}`, '_blank')}
   className="ps-3  py-1 rounded-md text-sm font-medium
              bg-gray-200 text-gray-700 hover:bg-gray-300 
              dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
