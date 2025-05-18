@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import api from "@/api";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { EventItem, fetchUpcomingOrPastEvents } from "@/data/events";
+import { EventItem, fetchUpcomingOrPastEvents, joinEvent } from "@/data/events";
 import {TimelineEvent} from "@/components/TimelineEvent";
 import { MapPin, Tag, Calendar, User } from 'lucide-react';
+import { useAuth } from "@/contexts/AuthContext";
 
 
 
@@ -38,10 +39,11 @@ const Events = () => {
   const [pastEvents, setPastEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventItem>(null);
   const [showModal, setShowModal] = useState(false);
   const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   const formatDate = (date) => `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+  const { user } = useAuth();
 
   const openEventModal = (event) => {
     setSelectedEvent(event);
@@ -90,6 +92,20 @@ const Events = () => {
   const truncateText = (text: string, maxLength = 75) => {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
+
+const handleJoinevent = async (eventId: string) => {
+  // console.log(user._id.$oid)
+    if (!user) {
+      alert("please log in to join the event.");
+      return;
+    }
+
+    const result = await joinEvent(eventId, {user_id: user._id.$oid, email: user.email, name: user.name});
+    console.log(result)
+    if (result) {
+      alert (result)
+    }
+  }
   
 
   return (
@@ -291,16 +307,26 @@ const Events = () => {
     </div>
   </div>
 
-  <button className="
+{selectedEvent.attendees.some(
+  (attendee) =>{
+    const userId = user._id?.$oid?.toString(); // safely get user ID
+
+   return (attendee.user_id.$oid !== user._id.$oid.toString())
+  }
+) && (<button
+  className="
     w-full
     mb-2
     px-4 py-2 rounded-md font-semibold
     bg-gray-200 text-gray-700 hover:bg-gray-300 
-             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
-             transition duration-200
-  ">
-    One Click Apply
-  </button>
+    dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
+    transition duration-200
+  "
+  onClick={() => handleJoinevent(selectedEvent.id)}
+>
+  One Click Apply
+</button>)}
+
 
   <h3 className="font-medium mb-2">About Event</h3>
   <p className="mb-4">{selectedEvent.description}</p>

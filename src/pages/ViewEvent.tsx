@@ -1,10 +1,13 @@
 import Header from "@/components/Header";
 import ManageAccessCard from "@/components/ManageAccessCard";
 import { MapPin, Tag, Calendar, User, ArrowUpRight } from 'lucide-react';
-import { fetchAnEvent, EventItem } from "@/data/events";
+import { fetchAnEvent, EventItem, joinEvent } from "@/data/events";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+
+
+  
 
 const ViewEvent = () => {
     const { eventId } = useParams<{ eventId: string }>();
@@ -32,6 +35,8 @@ return;
         loadEvent();
 
     }, [eventId]);
+
+    
     if (loading) return <div className="text-center mt-10">Loading event...</div>;
     if (!event) return <div className="text-center mt-10 text-red-500">Event not found.</div>;
     return (
@@ -60,7 +65,9 @@ return;
                                     <hr />
                                     <div className="d-flex justify-content-between py-2">
                                         <p>SUIONCAMPUS</p>
-                                        <p><a href="https://x.com/suioncampus">X</a></p>
+                                        <p><a href="https://x.com/suioncampus" target="blank" >
+                                        <i className="fa-brands fa-x-twitter"></i>
+                                        </a></p>
                                     </div>
                                     <a href="mailto:support@suioncampus.org">Contact the Host</a>
                                 </div>
@@ -89,9 +96,20 @@ return;
 
                                     </div>
 
-<div className=" mt-10 bg-gray-200 text-gray-700 hover:bg-gray-300 
-             dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 
-             transition duration-200  rounded-xl shadow-lg overflow-hidden border border-zinc-800">
+                                    <div className="mt-3 flex gap-3">
+  <button className="flex-1 bg-zinc-200 text-black font-semibold py-2 rounded-lg hover:bg-zinc-300 transition">
+    Edit
+  </button>
+  <button className="flex-1 bg-zinc-200 text-black font-semibold py-2 rounded-lg hover:bg-zinc-300 transition">
+    Change Photo
+  </button>
+</div>
+
+
+                                    
+<div className="mt-10 bg-gray-200 text-gray-700 hover:bg-gray-300 
+             dark:bg-transparent dark:text-white dark:hover:bg-zinc-800
+             transition duration-200 rounded-xl shadow-lg overflow-hidden border border-zinc-800">
   <div className="px-6 py-4">
     <div className="text-gray-700 dark:text-white text-sm font-medium mb-2">Registration</div>
     <p className="text-sm mb-4">
@@ -101,7 +119,6 @@ return;
       <img className="h-10 w-10 rounded-full" src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=112,height=112/avatars/ai/5f445565-7f26-44b4-9aa3-afe408c1d159.jpg" alt="Avatar" />
       <div>
         <div className="font-semibold">{user.name}</div>
-        {/* <div className="dark:text-white text-sm">georgegoldmanjohn.o@gmail.com</div> */}
       </div>
     </div>
     <button className="w-full dark:bg-white dark:text-black font-semibold py-2 rounded-lg hover:bg-zinc-200 transition">
@@ -109,6 +126,7 @@ return;
     </button>
   </div>
 </div>
+
 
 <p className="mt-3">About Event</p>
 <hr />

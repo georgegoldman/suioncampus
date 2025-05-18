@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 import type { Config } from "tailwindcss";
 
@@ -158,6 +159,8 @@ export default {
 	plugins: [
 		require("tailwindcss-animate"),
 		require('@tailwindcss/line-clamp'),
+		require('tailwind-scrollbar-hide'),
+
 
 	],
 } satisfies Config;

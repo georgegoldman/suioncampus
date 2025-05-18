@@ -1,4 +1,4 @@
-import { MapPin, Tag } from 'lucide-react';
+import { MapPin, Tag, Maximize } from 'lucide-react';
 
 
 export function TimelineEvent({ event, onClick }) {
@@ -19,7 +19,7 @@ export function TimelineEvent({ event, onClick }) {
   };
 
   return (
-    <div className="relative mb-8 cursor-pointer flex" onClick={onClick}>
+    <div className="relative mb-8 flex">
   {/* Timeline side (dot + dotted line) */}
   <div className="flex flex-col items-center mr-4">
     {/* Dot */}
@@ -43,9 +43,9 @@ export function TimelineEvent({ event, onClick }) {
 
     {/* Event card */}
 <div className="flex-1 min-w-0">
-      <div className="bg-gray-200 lg:pl-4 rounded-lg overflow-hidden shadow-lg flex items-start flex-row gap-4 dark:bg-gray-800 dark:bg-opacity-90 w-full max-w-full min-w-0">
+      <div className="bg-gray-200 lg:pl-1 rounded-lg overflow-hidden shadow-lg flex items-start flex-row gap-4 dark:bg-gray-800 dark:bg-opacity-90 w-full max-w-full min-w-0">
         {/* Event content */}
-        <div className="p-2 sm:p-3 md:p-4 lg:p-6 flex-grow min-w-0 overflow-hidden">
+        <div className="p-2 sm:p-3 md:p-4 lg:p-2 flex-grow min-w-0 overflow-hidden">
           <h2
             className="text-lg sm:text-xl md:text-2xl font-bold mb-2 break-words max-w-full text-gray-900 dark:text-gray-100"
           >
@@ -63,6 +63,26 @@ export function TimelineEvent({ event, onClick }) {
             <MapPin className="h-5 w-5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" />
             {event.location}
           </p>
+
+<button
+  onClick={() => onClick()}
+  className="
+    ps-3 py-1 rounded-md text-sm font-medium
+    bg-gray-200 text-gray-700 hover:bg-gray-300
+    dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700
+    shadow-sm hover:shadow-md
+    transition-shadow duration-300 ease-in-out
+    flex items-center gap-2
+  "
+>
+  Maximize
+  <Maximize className="w-5 h-5 transform rotate-45" />
+</button>
+
+
+
+
+
 
           {/* other event info */}
         </div>

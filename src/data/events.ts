@@ -40,7 +40,7 @@ function formatMongoDate(dateValue: MongoDate | string | undefined | null): stri
 }
 
 interface Attendees {
-  user_id: string,
+  user_id: {$oid: string},
   name: string,
   email: string
 }
@@ -56,7 +56,7 @@ export type EventItem = {
   type: 'hackerthon' | 'workshop' | 'meetup';
   registrationLink?: string;
   isPast?: boolean;
-  attendees?: Attendees[];
+  attendees?: [Attendees];
   isPinned?: boolean;
 
 };
@@ -84,6 +84,20 @@ export const fetchAnEvent = async (eventId: string): Promise<EventItem | null> =
   } catch (error) {
     console.error("Error fetching events:", error);
     return;
+  }
+}
+
+export const joinEvent = async (eventId: string, user: {user_id:string, name: string, email: string}): Promise<{msg: string} | undefined > => {
+  try {
+    const response = await api.put(`/event/join/${eventId}`, {
+  "user_id": user.user_id,
+  "name": user.name,
+  "email": user.email
+});
+    
+    if (response.status === 200) return response.data;
+  } catch (error) {
+    console.error(error);
   }
 }
 

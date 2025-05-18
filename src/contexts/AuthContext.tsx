@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 
 export type User = {
+  _id: { $oid: string };
   name: string;
   email: string;
   tel?: string;
