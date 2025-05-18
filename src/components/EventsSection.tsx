@@ -158,8 +158,8 @@ const EventsSection = () => {
           <TabsList className="mb-8 w-full max-w-md mx-auto grid grid-cols-4 gap-2">
             <TabsTrigger value="all" className="truncate px-2 py-2 text-center text-xs sm:text-sm md:text-base">All</TabsTrigger>
             <TabsTrigger value="hackerthon"className="truncate px-2 py-2 text-center text-xs sm:text-sm md:text-base"> Hackerthon </TabsTrigger>
-            <TabsTrigger value="workshop" className="truncate px-2 py-2 text-center text-xs sm:text-sm md:text-base">Workshops</TabsTrigger>
-            <TabsTrigger value="meetup" className="truncate text-center text-xs sm:text-sm md:text-base">Meetups</TabsTrigger>
+            <TabsTrigger value="workshop" className="truncate px-2 py-2 text-center text-xs sm:text-sm md:text-base">Workshop</TabsTrigger>
+            <TabsTrigger value="meetup" className="truncate text-center text-xs sm:text-sm md:text-base">Meetup</TabsTrigger>
           </TabsList>
           
           <TabsContent value={activeTab} className="mt-0">
