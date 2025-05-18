@@ -53,7 +53,7 @@ return;
                                     />
                                     <div className="my-2">
                                         {/* { ['admin', 'superadmin'].includes(user?.role) &&  <ManageAccessCard /> } */}
-                                        {!user?.admin && <ManageAccessCard />}
+                                        {user?.admin && <ManageAccessCard />}
                                         
                                     </div>
                                     <p className="lg:py-2 lg:pt-5 pt-3 py-1"><strong>Hosted by</strong></p>
