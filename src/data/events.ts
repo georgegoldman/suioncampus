@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import api from "@/api";
 import { format } from "date-fns";
@@ -59,6 +60,31 @@ export type EventItem = {
   attendees?: [Attendees];
   isPinned?: boolean;
 
+};
+
+// Add this function to your events.ts file:
+
+interface UpdateEventRequest {
+  name: string;
+  description: string;
+  location: string;
+  event_type: string;
+  start_time: string; // ISO string format
+  end_time: string; // ISO string format
+}
+
+export const updateEvent = async (eventId: string, eventData: UpdateEventRequest): Promise<any> => {
+  try {
+    const response = await api.put(`/event/${eventId}`, eventData);
+    
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('Failed to update event');
+  } catch (error) {
+    console.error('Error updating event:', error);
+    throw error; // Re-throw to allow handling in component
+  }
 };
 
 export const fetchAnEvent = async (eventId: string): Promise<EventItem | null> => {
