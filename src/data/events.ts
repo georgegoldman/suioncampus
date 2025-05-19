@@ -90,6 +90,16 @@ export const updateEvent = async (eventId: string, eventData: UpdateEventRequest
   }
 };
 
+export const deleteEvent = async (eventId: string): Promise<any> => {
+  try {
+    const response = await api.delete(`/event/${eventId}`)
+    if (response.status === 200) return response.data;
+    throw new Error("Delete Operation failed")
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const updateEevntImage = async (eventId: string, eventImageString: string): Promise<any> => {
   try {
     const updated_at = new Date().toISOString();
@@ -105,6 +115,22 @@ export const updateEevntImage = async (eventId: string, eventImageString: string
     }
     throw new Error('failed to update event image');
 
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createEvent = async (name: string, location: string, host_id: string, 
+  description: string, event_type: string,
+  start_time: string,
+  end_time: string
+) => {
+  try {
+    const newEvent = {name, location, host_id, description, start_time, end_time}
+    const response = await api.post(`/event`)
+    if (response.status === 200){
+      return response.data
+    }
   } catch (error) {
     throw error
   }
@@ -149,6 +175,20 @@ export const joinEvent = async (eventId: string, user: {user_id:string, name: st
     console.error(error);
   }
 }
+
+// Function to update pinned status - ensures only one event is pinned at a time
+export const updatePinnedStatus = async (eventId: string, newPinnedStatus: boolean): Promise<EventItem[]> => {
+  try {
+    const response = await api.put(`/event/pin/${eventId}`, {
+      "pin": newPinnedStatus 
+    }); // Await the events data
+    
+    if (response.status === 200) return response.data;
+  } catch (error) {
+    console.error("Error updating pinned status:", error);
+    throw error; // Re-throw to allow handling in the component
+  }
+};
 
 export const fetchPinnedEvents = async (): Promise<EventItem | null> => {
   try {
@@ -239,17 +279,3 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
     return []; // Return an empty array in case of an error
   }
 }
-
-// Function to update pinned status - ensures only one event is pinned at a time
-export const updatePinnedStatus = async (eventId: string): Promise<EventItem[]> => {
-  try {
-    const theEvents = await fetchEvents(); // Await the events data
-    return theEvents.map(event => ({
-      ...event,
-      isPinned: event.id === eventId
-    }));
-  } catch (error) {
-    console.error("Error updating pinned status:", error);
-    throw error; // Re-throw to allow handling in the component
-  }
-};

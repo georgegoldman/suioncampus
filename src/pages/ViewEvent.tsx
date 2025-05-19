@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import ManageAccessCard from "@/components/ManageAccessCard";
 import { MapPin, Tag, Calendar, User, ArrowUpRight } from 'lucide-react';
-import { fetchAnEvent, EventItem, joinEvent, updateEvent, updateEevntImage, updatePinnedStatus } from "@/data/events";
+import { fetchAnEvent, EventItem, joinEvent, updateEvent, updateEevntImage, updatePinnedStatus, deleteEvent } from "@/data/events";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -30,6 +30,31 @@ const ViewEvent = () => {
         type: 'meetup'
     });
 
+    const handleCloseEvent = async () => {
+        try {
+            await deleteEvent(eventId);
+            toast.success(`${event.name} deleted succesfully`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            })
+        } catch (error) {
+            // reverting the previouse state
+            toast.error(`Delete operation for ${event.name} failed`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+
+        }
+    }
+
         const handleTogglePinned = async () => {
         try {
             // Update local state optimistically for better UX
@@ -40,7 +65,7 @@ const ViewEvent = () => {
             });
             
             // Call the function to update the pinned status
-            await updatePinnedStatus(eventId);
+            await updatePinnedStatus(eventId, newPinnedStatus);
             
             // Show success toast notification
             toast.success(`Event ${newPinnedStatus ? 'pinned' : 'unpinned'} successfully!`, {
@@ -273,7 +298,7 @@ const ViewEvent = () => {
                                         className="rounded-md object-cover w-full h-full"
                                     />
                                     <div className="my-2">
-                                        {user?.admin && <ManageAccessCard />}
+                                        {/* {user?.admin && <ManageAccessCard />} */}
                                     </div>
                                     <p className="lg:py-2 lg:pt-5 pt-3 py-1"><strong>Hosted by</strong></p>
                                     <hr />
@@ -284,6 +309,14 @@ const ViewEvent = () => {
                                         </a></p>
                                     </div>
                                     <a href="mailto:support@suioncampus.org">Contact the Host</a>
+                                    {user.admin && (
+                                        <button 
+                                        onClick={handleCloseEvent}
+                                        className="w-full border border-red-500 text-red-500 dark:border-red-600 dark:text-red-600 font-semibold py-1 my-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-100 transition">
+  Close Event
+</button>
+
+                                    )}
                                 </div>
 
                                 <div className="col-md-7 col-12 h-full lg:px-1 relative">
@@ -550,6 +583,7 @@ const ViewEvent = () => {
                                     >
                                         Update Event
                                     </button>
+
                                 </form>
                             </div>
                         </div>

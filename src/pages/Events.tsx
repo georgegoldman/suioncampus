@@ -44,6 +44,7 @@ const Events = () => {
   const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   const formatDate = (date) => `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
   const { user } = useAuth();
+  const [showAddEventModal, setShowAddEventModal] = useState(false);
 
   const openEventModal = (event) => {
     setSelectedEvent(event);
@@ -124,6 +125,9 @@ const handleJoinevent = async (eventId: string) => {
 <div className="flex mt-16 items-center justify-between flex-wrap gap-4 w-full">
   {/* Heading */}
   <h1 className="text-2xl font-bold">Events</h1>
+  {/* Add Event Button */}
+    
+    {/* Toggle Switch */}
 
   {/* Toggle Switch */}
   <div className="relative flex w-40 bg-gray-200 rounded-full p-1 overflow-hidden">
@@ -340,6 +344,19 @@ const handleJoinevent = async (eventId: string) => {
           </div>
         </div>
       )}
+      {/* Floating Add Event Button */}
+
+      {user?.admin && (<a
+      href="/create/event"
+  onClick={() => setShowAddEventModal(true)} // Replace this with your actual add event logic
+  className="fixed bottom-8 right-8 z-50 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300"
+  title="Add Event"
+>
+  <FaCalendarAlt className="w-6 h-6" />
+</a>)}
+
+
+
     </div>
   );
 };

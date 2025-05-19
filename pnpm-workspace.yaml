@@ -1,4 +1,5 @@
 onlyBuiltDependencies:
+  - '@heroui/shared-utils'
   - '@swc/core'
   - esbuild
   - protobufjs
