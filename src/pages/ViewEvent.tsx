@@ -1,11 +1,14 @@
 import Header from "@/components/Header";
 import ManageAccessCard from "@/components/ManageAccessCard";
 import { MapPin, Tag, Calendar, User, ArrowUpRight } from 'lucide-react';
-import { fetchAnEvent, EventItem, joinEvent, updateEvent } from "@/data/events";
+import { fetchAnEvent, EventItem, joinEvent, updateEvent, updateEevntImage, updatePinnedStatus } from "@/data/events";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import AutoGrowingTextarea from "@/components/AutoGrowingTextarea";
+import useImageUploader from "@/components/ImageUploader";
+import { toast } from 'react-toastify';
+
 
 const ViewEvent = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -26,6 +29,51 @@ const ViewEvent = () => {
         location: '',
         type: 'meetup'
     });
+
+        const handleTogglePinned = async () => {
+        try {
+            // Update local state optimistically for better UX
+            const newPinnedStatus = !event.isPinned;
+            setEvent({
+                ...event,
+                isPinned: newPinnedStatus
+            });
+            
+            // Call the function to update the pinned status
+            await updatePinnedStatus(eventId);
+            
+            // Show success toast notification
+            toast.success(`Event ${newPinnedStatus ? 'pinned' : 'unpinned'} successfully!`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+            
+            console.log(`Successfully ${newPinnedStatus ? 'pinned' : 'unpinned'} event:`, eventId);
+        } catch (error) {
+            // Revert to previous state if operation fails
+            setEvent({
+                ...event,
+                isPinned: event.isPinned
+            });
+            
+            // Show error toast notification
+            toast.error("Failed to update pin status. Please try again.", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true
+            });
+            
+            console.error('Error updating pinned status:', error);
+        }
+    };
+
     
     const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     const formatDate = (date) => `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
@@ -64,6 +112,25 @@ const ViewEvent = () => {
         const day = String(d.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
+
+    const { FileInput, triggerFileInput, loading: uploadingImage } = useImageUploader((imageUrl) => {
+        // Handle the successful upload
+        if (event && imageUrl) {
+            // Update the event with new image
+            setEvent({
+            ...event,
+            image: imageUrl
+            });
+            
+            updateEevntImage(eventId, imageUrl)
+            .then(() => {
+                console.log('Successfully updated event image');
+            })
+            .catch((error) => {
+                console.error('Error updating event image:', error);
+            });
+        }
+    })
     
     // Helper functions to get hours and minutes from Date
     const getHoursFromDate = (date) => {
@@ -166,10 +233,12 @@ const ViewEvent = () => {
                 location: updatedEvent.location,
                 event_type: updatedEvent.type,
                 start_time: updatedEvent.start_time.toISOString(),
-                end_time: updatedEvent.end_time.toISOString()
+                end_time: updatedEvent.end_time.toISOString(),
+                updated_at: new Date().toISOString(),
             };
             
             // Call the API to update the event
+            // console.log(eventUpdateData)
             await updateEvent(eventId, eventUpdateData);
             
             // Update local state after successful API call
@@ -238,16 +307,38 @@ const ViewEvent = () => {
                                             <span>{event.location}</span>
                                         </p>
                                     </div>
-
+                                    <FileInput />
                                     <div className="mt-3 flex gap-3">
                                         <button onClick={() => openEventModal(event)}
                                         className="flex-1 bg-zinc-200 text-black font-semibold py-2 rounded-lg hover:bg-zinc-300 transition">
                                             Edit
                                         </button>
-                                        <button className="flex-1 bg-zinc-200 text-black font-semibold py-2 rounded-lg hover:bg-zinc-300 transition">
-                                            Change Photo
-                                        </button>
+                                        <button 
+        onClick={triggerFileInput}
+        className="flex-1 bg-zinc-200 text-black font-semibold py-2 rounded-lg hover:bg-zinc-300 transition"
+        disabled={uploadingImage}
+      >
+        {uploadingImage ? 'Uploading...' : 'Change Photo'}
+      </button>
+      
                                     </div>
+                                    {/* <p>{event.isPinned}</p> */}
+                                    {user?.admin && (
+                                        <div className="mt-3 flex items-center">
+                                            <div className="flex items-center">
+                                                <input
+                                                    type="checkbox"
+                                                    id="isPinned"
+                                                    checked={event.isPinned || false}
+                                                    onChange={handleTogglePinned}
+                                                    className="mr-2 h-4 w-4"
+                                                />
+                                                <label htmlFor="isPinned" className="text-sm font-medium cursor-pointer">
+                                                    {event.isPinned ? 'Pinned to top' : 'Pin this event to top'}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="mt-10 bg-gray-200 text-gray-700 hover:bg-gray-300 
                                         dark:bg-transparent dark:text-white dark:hover:bg-zinc-800
@@ -363,7 +454,7 @@ const ViewEvent = () => {
                                         >
                                             <option value="meetup">Meetup</option>
                                             <option value="workshop">Workshop</option>
-                                            <option value="hackerthon">Hackaton</option>
+                                            <option value="hackerthon">Hackerthon</option>
                                         </select>
                                     </div>
 

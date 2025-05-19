@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import api from "@/api";
@@ -71,10 +72,12 @@ interface UpdateEventRequest {
   event_type: string;
   start_time: string; // ISO string format
   end_time: string; // ISO string format
+  updated_at: string
 }
 
 export const updateEvent = async (eventId: string, eventData: UpdateEventRequest): Promise<any> => {
   try {
+    console.log(eventData)
     const response = await api.put(`/event/${eventId}`, eventData);
     
     if (response.status === 200) {
@@ -86,6 +89,26 @@ export const updateEvent = async (eventId: string, eventData: UpdateEventRequest
     throw error; // Re-throw to allow handling in component
   }
 };
+
+export const updateEevntImage = async (eventId: string, eventImageString: string): Promise<any> => {
+  try {
+    const updated_at = new Date().toISOString();
+    const image_url = eventImageString;
+    const payload = {
+      image_url,
+      updated_at,
+    }
+
+    const response = await api.put(`/event/image/${eventId}`, payload);
+    if (response.status === 200) {
+      return response.data;
+    }
+    throw new Error('failed to update event image');
+
+  } catch (error) {
+    throw error
+  }
+}
 
 export const fetchAnEvent = async (eventId: string): Promise<EventItem | null> => {
   try {
@@ -219,9 +242,14 @@ export const fetchEvents = async (): Promise<EventItem[]>  => {
 
 // Function to update pinned status - ensures only one event is pinned at a time
 export const updatePinnedStatus = async (eventId: string): Promise<EventItem[]> => {
-  const theEvents = await fetchEvents(); // Await the events data
-  return theEvents.map(event => ({
-    ...event,
-    isPinned: event.id === eventId
-  }));
+  try {
+    const theEvents = await fetchEvents(); // Await the events data
+    return theEvents.map(event => ({
+      ...event,
+      isPinned: event.id === eventId
+    }));
+  } catch (error) {
+    console.error("Error updating pinned status:", error);
+    throw error; // Re-throw to allow handling in the component
+  }
 };

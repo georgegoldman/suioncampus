@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,17 +17,31 @@ import Events from "./pages/Events";
 import ViewEvent from "./pages/ViewEvent";
 import ManageEvent from "./pages/ManageEvent";
 
+// React Toastify import
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const queryClient = new QueryClient();
 
 const App = () => (
-
-  
-
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <TooltipProvider>
+        {/* Toast containers */}
         <Toaster />
         <Sonner />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        
         <AuthProvider>
           <BrowserRouter>
             <Routes>
@@ -39,10 +52,9 @@ const App = () => (
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/event/:eventId" element={<ViewEvent />}/>
-              <Route path="/event/manage/:eventId" element={<ManageEvent />}/>
+              <Route path="/event/:eventId" element={<ViewEvent />} />
+              <Route path="/event/manage/:eventId" element={<ManageEvent />} />
               {/* <Route path="/my-events" element={<MyEvents />} /> */}
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
