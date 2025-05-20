@@ -17,7 +17,7 @@ const Logo = ({ className = "" }: { className?: string }) => {
   return (
     <Link to="/" className={`flex items-center gap-2 ${className}`}>
       <img
-        src="https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/suity.png" // Replace with your image link
+        src="SOC ICON SEA SVG.svg" // Replace with your image link
         alt="Logo"
         className="h-5 w-5"
       />
