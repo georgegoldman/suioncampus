@@ -349,7 +349,9 @@ const handleJoinevent = async (eventId: string) => {
       {user?.admin && (<a
       href="/create/event"
   onClick={() => setShowAddEventModal(true)} // Replace this with your actual add event logic
-  className="fixed bottom-8 right-8 z-50 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300"
+  className="fixed bottom-8 right-8 z-50  hover:bg-blue-200 
+             dark:bg-blue-900 dark:text-blue-100 dark:hover:bg-blue-800 
+             transition duration-200 p-4 rounded-full shadow-lg transition-all duration-300"
   title="Add Event"
 >
   <FaCalendarAlt className="w-6 h-6" />

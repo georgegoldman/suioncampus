@@ -233,7 +233,7 @@ export const fetchUpcomingOrPastEvents = async (activeTab: string): Promise<Even
       name: event.name,
       description: event.description,
       location: event.location,
-      image: event.image_url || '', // If no image URL, provide a default or empty string
+      image: event.image_url || 'https://res.cloudinary.com/georgegoldman/image/upload/c_thumb,w_200,g_face/v1747747289/suioncampus/SOC_LOGO_czms9t.jpg', // If no image URL, provide a default or empty string
       type: event.event_type,
       start_time: new Date(formatMongoDate(event.end_time)),
       end_time: new Date(formatMongoDate(event.end_time)),

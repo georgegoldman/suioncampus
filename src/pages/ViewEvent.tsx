@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import ManageAccessCard from "@/components/ManageAccessCard";
 import { MapPin, Tag, Calendar, User, ArrowUpRight } from 'lucide-react';
 import { fetchAnEvent, EventItem, joinEvent, updateEvent, updateEevntImage, updatePinnedStatus, deleteEvent } from "@/data/events";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import AutoGrowingTextarea from "@/components/AutoGrowingTextarea";
@@ -17,6 +17,7 @@ const ViewEvent = () => {
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const { user } = useAuth();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -41,6 +42,8 @@ const ViewEvent = () => {
                 pauseOnHover: true,
                 draggable: true
             })
+            navigate('/events')
+            
         } catch (error) {
             // reverting the previouse state
             toast.error(`Delete operation for ${event.name} failed`, {
