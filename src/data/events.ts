@@ -120,14 +120,15 @@ export const updateEevntImage = async (eventId: string, eventImageString: string
   }
 }
 
-export const createEvent = async (name: string, location: string, host_id: string, 
+export const createEvent = async (name: string, location: string, image_url: string, host_id: string, 
   description: string, event_type: string,
   start_time: string,
-  end_time: string
+  end_time: string,
 ) => {
   try {
-    const newEvent = {name, location, host_id, description, start_time, end_time}
-    const response = await api.post(`/event`)
+    console.log(image_url)
+    const newEvent = {name, location, image_url, host_id, description, event_type, start_time, end_time}
+    const response = await api.post(`/event`, newEvent)
     if (response.status === 200){
       return response.data
     }
