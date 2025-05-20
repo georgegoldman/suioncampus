@@ -52,9 +52,9 @@ const EventCard = ({ event }: { event: EventItem }) => {
         <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{event.description}</p>
         
         <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-muted-foreground">
+          {/* <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2" /> {event.start_time.getDate()} - {event.end_time.getDate()}
-          </div>
+          </div> */}
           <div className="flex items-center text-sm text-muted-foreground">
             <MapPin className="h-4 w-4 mr-2" /> {event.location}
           </div>
