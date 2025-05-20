@@ -33,7 +33,7 @@ const Header = () => {
   
   const navItems = [
     { text: 'Events', href: '/events', icon: <CalendarIcon className="h-5 w-5" /> },
-  { text: 'Gallery', href: '/gallery', icon: <ImageIcon className="h-5 w-5" /> },
+  // { text: 'Gallery', href: '/gallery', icon: <ImageIcon className="h-5 w-5" /> },
   ];
 
   return (
