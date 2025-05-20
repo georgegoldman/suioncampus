@@ -6,6 +6,7 @@ import { fetchEvents, EventItem } from '@/data/events';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventRegistrationModal from './EventRegistrationModal';
+import { date } from 'zod';
 
 // Correct the type issue with the size property
 const EventCard = ({ event }: { event: EventItem }) => {
@@ -52,14 +53,19 @@ const EventCard = ({ event }: { event: EventItem }) => {
         
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4 mr-2" /> {event.start_time.getDate()}
+            <Calendar className="h-4 w-4 mr-2" /> {event.start_time.getDate()} - {event.end_time.getDate()}
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <MapPin className="h-4 w-4 mr-2" /> {event.location}
           </div>
           {!event.isPast && (
             <div className="flex items-center text-sm text-emerald-500">
-              <Users className="h-4 w-4 mr-2" /> Registration Open
+              <Users className="h-4 w-4 mr-2" /> {new Date() > new Date(event.end_time) ? (
+  <span style={{ color: 'red' }}>Registration Closed</span>
+) : (
+  <span style={{ color: 'green' }}>Registration Open</span>
+)}
+
             </div>
           )}
         </div>
