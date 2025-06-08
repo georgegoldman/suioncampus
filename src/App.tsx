@@ -21,6 +21,7 @@ import ManageEvent from "./pages/ManageEvent";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateEvent from "./pages/CreateEvent";
+import MentorshipProgram from "./pages/MentorshipProgram";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
               <Route path="/event/:eventId" element={<ViewEvent />} />
               <Route path="/event/manage/:eventId" element={<ManageEvent />} />
               <Route path="/create/event" element={<CreateEvent />} />
+              <Route path="/mentorship-program" element={<MentorshipProgram />} />
               {/* <Route path="/my-events" element={<MyEvents />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>

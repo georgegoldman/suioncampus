@@ -7,6 +7,7 @@ import TeamSection from '@/components/TeamSection';
 import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 import EventCarousel from '@/components/EventCarousel';
+import Billboard from '@/components/Billboard';
 
 
 const Index = () => {
@@ -33,6 +34,7 @@ const Index = () => {
       <main>
         <EventCarousel />
         <Hero />
+        <Billboard />
         <EventsSection />
         <Mission />
         <TeamSection />

@@ -34,7 +34,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'Anayo',
+    name: 'Anayo Emmanuel',
     role: 'Program Manager',
     bio: 'Program Manager at Sui On Campus',
     image: 'https://pbs.twimg.com/profile_images/1915765711630200832/x1OnX5_3_400x400.jpg',
@@ -54,7 +54,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'Mykel Tyopev',
+    name: 'Tyopev Mykel',
     role: 'Legal Adviser ',
     bio: 'Sui on Campus Student Club Coordinator ',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/mykel.jpg',
@@ -64,7 +64,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'Onyedikachi George-Goldman John',
+    name: 'John George-Goldman Onyedikachi',
     role: 'Developer Relations',
     bio: 'Developer Relations Lead',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus/new/gold.jpg',
@@ -94,7 +94,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    name: 'Mr Breakforth',
+    name: 'Isaac Breakforth',
     role: 'Head Developer Marketer & Event Coordination',
     bio: 'Logistic Lead at Sui On Campus',
     image: 'https://cocozqaswhyugfbilbxk.supabase.co/storage/v1/object/public/suioncampus//breakforth.jpeg',
