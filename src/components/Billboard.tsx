@@ -37,7 +37,7 @@ const OcliqueVisual: React.FC<OcliqueVisualProps> = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/mentorship-program");
+    navigate("/mentorship-page");
   };
 
   return (
