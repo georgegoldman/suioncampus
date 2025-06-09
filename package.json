@@ -73,6 +73,7 @@
     "react-easy-crop": "^5.4.1",
     "react-hook-form": "^7.53.0",
     "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0",
     "react-resizable-panels": "^2.1.3",
     "react-router-dom": "^6.26.2",
     "react-textarea-autosize": "^8.5.9",

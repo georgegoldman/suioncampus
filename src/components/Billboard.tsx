@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface OcliqueVisualProps {
   mainTitle?: string;
@@ -11,280 +11,118 @@ interface OcliqueVisualProps {
   className?: string;
 }
 
-const OcliqueVisual: React.FC<OcliqueVisualProps> = ({ 
-  mainTitle = "MENTORSHIP\nPROGRAM",
+const pixelImages = [
+  "/mentorship/undraw_educator_6dgp.svg",
+  "/mentorship/undraw_instant-support_oav0.svg",
+  "/mentorship/undraw_online-learning_tgmv.svg",
+  "/mentorship/undraw_professor_d7zn.svg",
+  "/mentorship/undraw_quiz_zvhe.svg",
+  "/mentorship/undraw_social-interaction_6fi7.svg",
+  "/mentorship/undraw_teacher_s628.svg",
+  "/mentorship/undraw_teaching_58yg.svg",
+  "/mentorship/undraw_youtube-tutorial_xgp1.svg",
+  "/mentorship/undraw_online-learning_tgmv.svg",  // repeated if you want 11 total
+  "/mentorship/undraw_professor_d7zn.svg",
+];
+
+const OcliqueVisual: React.FC<OcliqueVisualProps> = ({
+  mainTitle = "SUI ON CAMPUS MENTORSHIP\nPROGRAM",
   subtitle = "",
-  categories = ["Frontend", "Backend", "UIUX", "Product"],
-  tagline = "Product, Project\nManager.",
-  brandText = "AMBASADOR",
+  categories = [],
+  tagline = "",
+  brandText = "",
   year = "2025",
-  className = "" 
+  className = "",
 }) => {
-  const [activeAnimation, setActiveAnimation] = useState(false);
   const navigate = useNavigate();
 
-  // Animate the pixel art on click
   const handleClick = () => {
-    setActiveAnimation(true);
-
-
-    setTimeout(() => {
-        setActiveAnimation(false);
-        navigate("/mentorship-program"); //<-- Replace with your actual route
-    }, 2000);
+    navigate("/mentorship-program");
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 ${className}`}>
-      <style jsx>{`
-        .poster {
-          width: 100%;
-          max-width: 600px;
-          aspect-ratio: 3/4;
-          background: #000000;
-          padding: 40px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          font-family: 'Arial', -apple-system, BlinkMacSystemFont, sans-serif;
-          cursor: pointer;
-          transition: transform 0.2s ease;
-        }
+    <div className={`min-h-screen w-full flex items-center justify-center p-4 ${className}`}>
+      <div
+        onClick={handleClick}
+        className="poster w-full bg-black text-white cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-95 hover:shadow-[0_0_15px_rgba(100,149,255,0.7)]"
+        title="Click to enter Mentorship Program"
+      >
+        <div className="w-full max-w-[1200px] mx-auto p-10 sm:p-8 md:p-10 flex flex-col justify-between font-sans">
+          {/* Header */}
+          <div className="flex justify-between items-start mb-10 flex-col md:flex-row md:items-start md:gap-4">
+            <h1 className="text-[clamp(32px,8vw,64px)] font-black leading-[0.85] tracking-tight uppercase whitespace-pre-line text-left md:text-left">
+              <center>{mainTitle}</center>
+            </h1>
+          </div>
 
-        .poster:hover {
-          transform: scale(1.02);
-        }
-
-        .poster:active {
-          transform: scale(0.98);
-        }
-
-        .header-section {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 40px;
-        }
-
-        .main-title {
-          font-size: clamp(32px, 8vw, 64px);
-          font-weight: 900;
-          color: white;
-          line-height: 0.85;
-          letter-spacing: -0.02em;
-          white-space: pre-line;
-          text-transform: uppercase;
-          margin: 0;
-        }
-
-        .circle {
-          width: clamp(60px, 12vw, 100px);
-          height: clamp(60px, 12vw, 100px);
-          background: white;
-          border-radius: 50%;
-          flex-shrink: 0;
-        }
-
-        .categories {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 40px;
-          flex-wrap: wrap;
-          gap: 20px;
-        }
-
-        .category {
-          color: white;
-          font-size: clamp(16px, 3vw, 24px);
-          font-weight: 300;
-          opacity: 0.9;
-        }
-
-        .pixel-art-container {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 40px 0;
-          position: relative;
-        }
-
-        .pixel-art {
-          width: 100%;
-          max-width: 400px;
-          height: 200px;
-          position: relative;
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
-          grid-template-rows: repeat(8, 1fr);
-          gap: 2px;
-        }
-
-        .pixel-block {
-          background: #32FF32;
-          transition: all 0.3s ease;
-          transform: scale(1);
-        }
-
-        .pixel-block.animate {
-          animation: pixelPop 0.6s ease-in-out;
-        }
-
-        @keyframes pixelPop {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(50, 255, 50, 0.8); }
-          100% { transform: scale(1); }
-        }
-
-        /* Define the exact pixel pattern from the image */
-        .pixel-1 { grid-column: 1/4; grid-row: 1/3; }
-        .pixel-2 { grid-column: 1/4; grid-row: 5/7; }
-        .pixel-3 { grid-column: 3/6; grid-row: 3/5; }
-        .pixel-4 { grid-column: 5/8; grid-row: 1/3; }
-        .pixel-5 { grid-column: 7/12; grid-row: 3/5; }
-        .pixel-6 { grid-column: 9/12; grid-row: 1/3; }
-        .pixel-7 { grid-column: 1/3; grid-row: 7/9; }
-        .pixel-8 { grid-column: 3/5; grid-row: 5/9; }
-        .pixel-9 { grid-column: 5/7; grid-row: 7/9; }
-        .pixel-10 { grid-column: 7/9; grid-row: 5/9; }
-        .pixel-11 { grid-column: 9/12; grid-row: 7/9; }
-
-        .footer-section {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          margin-top: 40px;
-        }
-
-        .tagline {
-          color: white;
-          font-size: clamp(14px, 2.5vw, 18px);
-          font-weight: 300;
-          line-height: 1.4;
-          white-space: pre-line;
-        }
-
-        .tagline .green-text {
-          color: #32FF32;
-          font-weight: 500;
-        }
-
-        .brand-info {
-          text-align: right;
-          color: white;
-        }
-
-        .brand-name {
-          font-size: clamp(16px, 2.5vw, 20px);
-          font-weight: 600;
-          margin-bottom: 4px;
-        }
-
-        .year {
-          font-size: clamp(14px, 2vw, 16px);
-          opacity: 0.7;
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-          .poster {
-            padding: 30px 20px;
-            aspect-ratio: 3/4.5;
-          }
-
-          .categories {
-            flex-direction: column;
-            gap: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-          }
-
-          .header-section {
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-          }
-
-          .main-title {
-            text-align: center;
-          }
-
-          .pixel-art {
-            height: 150px;
-          }
-
-          .footer-section {
-            flex-direction: column;
-            gap: 20px;
-            text-align: center;
-          }
-
-          .brand-info {
-            text-align: center;
-          }
-
-          .tagline {
-            text-align: center;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .poster {
-            padding: 20px 15px;
-          }
-
-          .pixel-art {
-            height: 120px;
-            gap: 1px;
-          }
-
-          .categories {
-            gap: 10px;
-          }
-        }
-      `}</style>
-
-      <div className="poster" onClick={handleClick}>
-        <div className="header-section">
-          <h1 className="main-title">{mainTitle}</h1>
-          <div className="circle"></div>
-        </div>
-
-        <div className="categories">
-          {categories.map((category, index) => (
-            <span key={index} className="category">{category}</span>
-          ))}
-        </div>
-
-        <div className="pixel-art-container">
-          <div className="pixel-art">
-            {[...Array(11)].map((_, index) => (
-              <div 
-                key={index} 
-                className={`pixel-block pixel-${index + 1} ${activeAnimation ? 'animate' : ''}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              />
+          {/* Categories */}
+          <div className="flex flex-wrap justify-between gap-5 mb-2 text-[clamp(16px,3vw,24px)] font-light opacity-90 text-left md:text-left">
+            {categories.map((cat, i) => (
+              <span key={i}>{cat}</span>
             ))}
           </div>
-        </div>
 
-        <div className="footer-section">
-          <div className="tagline">
-            {tagline.split('green').map((part, index, array) => (
-              <React.Fragment key={index}>
-                {part}
-                {index < array.length - 1 && <span className="green-text">green</span>}
-              </React.Fragment>
-            ))}
+          {/* Pixel Art with Images */}
+          <div className="flex-1 flex items-center justify-center my-10 relative">
+            <div className="w-full max-w-[400px] md:max-w-[600px] h-[200px] md:h-[280px] grid grid-cols-12 grid-rows-8 gap-0.5 sm:h-[150px] xs:h-[120px]">
+              {pixelImages.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`pixel-${i + 1}`}
+                  className={`animate-pixel-pop pixel-${i + 1}`}
+                  style={{ animationDelay: `${i * 0.3}s`, objectFit: "contain", width: "100%", height: "100%" }}
+                />
+              ))}
+            </div>
           </div>
-          <div className="brand-info">
-            <div className="brand-name">{brandText}</div>
-            <div className="year">{year}</div>
+
+          {/* Footer */}
+          <div className="flex justify-between items-end mt-10 flex-col md:flex-row gap-5 text-center md:text-left">
+            <div className="text-[clamp(14px,2.5vw,18px)] font-light leading-snug whitespace-pre-line">
+              {tagline.split("green").map((part, index, array) => (
+                <React.Fragment key={index}>
+                  {part}
+                  {index < array.length - 1 && (
+                    <span className="text-[#32FF32] font-medium">green</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+            <div className="text-right">
+              <div className="text-[clamp(16px,2.5vw,20px)] font-semibold">{brandText}</div>
+              <div className="text-[clamp(14px,2vw,16px)] opacity-70">{year}</div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Custom animation keyframes */}
+      <style>
+        {`
+          @keyframes pixel-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(50, 165, 250, 0.8); }
+            100% { transform: scale(1); }
+          }
+
+          .animate-pixel-pop {
+            animation: pixel-pop 1.2s ease-in-out infinite;
+          }
+
+          .pixel-1 { grid-column: 1 / 4; grid-row: 1 / 3; }
+          .pixel-2 { grid-column: 1 / 4; grid-row: 5 / 7; }
+          .pixel-3 { grid-column: 3 / 6; grid-row: 3 / 5; }
+          .pixel-4 { grid-column: 5 / 8; grid-row: 1 / 3; }
+          .pixel-5 { grid-column: 7 / 12; grid-row: 3 / 5; }
+          .pixel-6 { grid-column: 9 / 12; grid-row: 1 / 3; }
+          .pixel-7 { grid-column: 1 / 3; grid-row: 7 / 9; }
+          .pixel-8 { grid-column: 3 / 5; grid-row: 5 / 9; }
+          .pixel-9 { grid-column: 5 / 7; grid-row: 7 / 9; }
+          .pixel-10 { grid-column: 7 / 9; grid-row: 5 / 9; }
+          .pixel-11 { grid-column: 9 / 12; grid-row: 7 / 9; }
+        `}
+      </style>
     </div>
   );
 };
