@@ -10,7 +10,7 @@ const BrickLayoutSection = () => {
           <span className="text-base sm:text-lg md:text-xl">Active</span>
         </div>
         <div className="text-xl sm:text-2xl md:text-3xl font-semibold mb-2">Mentors</div>
-        <div className="text-3xl sm:text-5xl md:text-6xl font-bold">50+</div>
+        {/* <div className="text-3xl sm:text-5xl md:text-6xl font-bold">50+</div> */}
       </div>
     )
   },
@@ -46,7 +46,7 @@ const BrickLayoutSection = () => {
       <div className="text-center text-green-100 dark:text-green-200">
         <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">Students</div>
         <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">Per Cohort</div>
-        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">20–30</div>
+        {/* <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">20–30</div> */}
       </div>
     )
   }
