@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 const MentorshipDetail = () => {
         const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate("/mentorship-form");
-    }
+      const handleClick = (url: string) => {
+        window.open(url, '_blank');
+      };
+
   return (
     <div className="min-h-screen  from-indigo-500 via-purple-600 to-purple-800 relative overflow-hidden">
       {/* Floating Background Elements */}
@@ -151,8 +152,9 @@ const MentorshipDetail = () => {
             Whether you're looking to learn or share your expertise, we have opportunities for both mentees and mentors.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button 
-            onClick={handleClick}
+            
+            <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfnsjBFENvITIZsZwXgYWsOSW9m5I8upOfwu9eAAU1OfwxDWA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer"
             className="group text-white bg-gradient-to-r from-indigo-500 to-purple-600  px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 min-w-[200px]">
               <span className="flex items-center justify-center">
                 Apply as Mentee
@@ -160,16 +162,18 @@ const MentorshipDetail = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </span>
-            </button>
+            </a>
             
-            <button className="group bg-white text-purple-600 px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 border-2 border-white hover:bg-purple-50 min-w-[200px]">
+            <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfnsjBFENvITIZsZwXgYWsOSW9m5I8upOfwu9eAAU1OfwxDWA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer"
+            className="group bg-white text-purple-600 px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 border-2 border-white hover:bg-purple-50 min-w-[200px]">
               <span className="flex items-center justify-center">
                 Apply as Mentor
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                 </svg>
               </span>
-            </button>
+            </a>
           </div>
           
           <div className="mt-8  text-opacity-80 text-sm">

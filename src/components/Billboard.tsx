@@ -36,14 +36,14 @@ const OcliqueVisual: React.FC<OcliqueVisualProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleTo = () => {
     navigate("/mentorship-page");
   };
 
   return (
     <div className={`min-h-screen w-full flex items-center justify-center p-4 ${className}`}>
       <div
-        onClick={handleClick}
+        onClick={handleTo}
         className="poster w-full bg-black text-white cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-95 hover:shadow-[0_0_15px_rgba(100,149,255,0.7)]"
         title="Click to enter Mentorship Program"
       >
