@@ -2,61 +2,56 @@ import React from 'react';
 
 const BrickLayoutSection = () => {
   const contentBlocks = [
-    {
-      content: (
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="flex items-center gap-2 sm:gap-3 mb-3">
-            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-400 rounded-full"></div>
-            <span className="text-lg sm:text-xl text-gray-200 dark:text-gray-300">Active</span>
-          </div>
-          <div className="text-2xl sm:text-3xl text-gray-200 dark:text-gray-300 mb-3">Mentors</div>
-          <div className="text-5xl sm:text-6xl font-bold">50+</div>
+  {
+    content: (
+      <div className="flex flex-col items-center justify-center text-center text-gray-200 dark:text-gray-300">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3">
+          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-400 rounded-full" />
+          <span className="text-base sm:text-lg md:text-xl">Active</span>
         </div>
+        <div className="text-xl sm:text-2xl md:text-3xl font-semibold mb-2">Mentors</div>
+        <div className="text-3xl sm:text-5xl md:text-6xl font-bold">50+</div>
+      </div>
+    )
+  },
+  {
+    content: (
+      <div className="text-right text-gray-200 dark:text-gray-300">
+        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Business</div>
+        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">Track</div>
+      </div>
+    )
+  },
+  {
+    content: (
+      <div className="text-gray-200 dark:text-gray-300 text-left sm:text-center">
+        <div className="text-lg sm:text-xl md:text-2xl font-bold mb-1">Engineering</div>
+        <div className="text-base sm:text-lg mb-1">Track</div>
+        <div className="text-sm sm:text-base md:text-lg">Move Development</div>
+        <div className="text-sm sm:text-base md:text-lg">dApp Building</div>
+      </div>
 
-
-
-      )
-    },
-    {
-      content: (
-        <div className="text-right">
-          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Business</div>
-          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">Track</div>
-        </div>
-
-      )
-    },
-    {
-      content: (
-        <>
-          <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Engineering</div>
-          <div className="text-xl sm:text-2xl mb-2">Track</div>
-          <div className="text-lg sm:text-xl">Move Development</div>
-          <div className="text-lg sm:text-xl">dApp Building</div>
-        </>
-
-      )
-    },
-    {
-      content: (
-        <div className="text-center text-white dark:text-gray-100">
-          <div className="text-xl sm:text-2xl lg:text-3xl font-bold">SUI</div>
-          <div className="text-sm sm:text-base lg:text-lg">Blockchain</div>
-        </div>
-
-      )
-    },
-    {
-      content: (
-        <div className='text-center'>
-        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-green-100 dark:text-green-200 mb-2">Students</div>
-        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-green-100 dark:text-green-200 mb-2">Per Cohort</div>
+    )
+  },
+  {
+    content: (
+      <div className="text-center text-white dark:text-gray-100">
+        <div className="text-xl sm:text-2xl lg:text-3xl font-bold">SUI</div>
+        <div className="text-sm sm:text-base lg:text-lg">Blockchain</div>
+      </div>
+    )
+  },
+  {
+    content: (
+      <div className="text-center text-green-100 dark:text-green-200">
+        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">Students</div>
+        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">Per Cohort</div>
         <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">20–30</div>
+      </div>
+    )
+  }
+];
 
-        </div>
-      )
-    }
-  ];
   return (
     <>
       {/* Google Font Link */}

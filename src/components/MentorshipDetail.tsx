@@ -33,7 +33,7 @@ const MentorshipDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white bg-opacity-90 backdrop-blur-lg rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group">
             <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold text-xl mr-4">
                 ⏱
               </div>
               <h3 className="text-2xl font-semibold text-purple-700">Duration</h3>
@@ -45,7 +45,7 @@ const MentorshipDetail = () => {
 
           <div className="bg-white bg-opacity-90 backdrop-blur-lg rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group">
             <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold text-xl mr-4">
                 👥
               </div>
               <h3 className="text-2xl font-semibold text-purple-700">Structure</h3>
@@ -57,7 +57,7 @@ const MentorshipDetail = () => {
 
           <div className="bg-white bg-opacity-90 backdrop-blur-lg rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group">
             <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold text-xl mr-4">
                 🎯
               </div>
               <h3 className="text-2xl font-semibold text-purple-700">Focus</h3>
@@ -73,7 +73,7 @@ const MentorshipDetail = () => {
           <div className="bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl p-10 text-center shadow-2xl hover:shadow-3xl hover:-translate-y-4 hover:scale-105 transition-all duration-500 relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
             <h3 className="text-3xl font-bold text-purple-700 mb-4">Business Track</h3>
-            <div className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600  px-6 py-2 rounded-full text-sm font-medium mb-6">
               Project-Based
             </div>
             <p className="text-gray-600 text-lg leading-relaxed">
@@ -85,7 +85,7 @@ const MentorshipDetail = () => {
           <div className="bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl p-10 text-center shadow-2xl hover:shadow-3xl hover:-translate-y-4 hover:scale-105 transition-all duration-500 relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
             <h3 className="text-3xl font-bold text-purple-700 mb-4">Engineering Track</h3>
-            <div className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-block bg-gradient-to-r from-indigo-500 to-purple-600  px-6 py-2 rounded-full text-sm font-medium mb-6">
               Individualistic
             </div>
             <p className="text-gray-600 text-lg leading-relaxed">
@@ -103,7 +103,7 @@ const MentorshipDetail = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border-l-4 border-indigo-500 hover:translate-x-2 transition-all duration-300 relative group">
-              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold">
                 1
               </div>
               <h4 className="text-xl font-semibold text-purple-700 mb-3 mt-2">Master Sui Development Stack</h4>
@@ -113,7 +113,7 @@ const MentorshipDetail = () => {
             </div>
 
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border-l-4 border-indigo-500 hover:translate-x-2 transition-all duration-300 relative group">
-              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold">
                 2
               </div>
               <h4 className="text-xl font-semibold text-purple-700 mb-3 mt-2">Real-World Contributions</h4>
@@ -123,7 +123,7 @@ const MentorshipDetail = () => {
             </div>
 
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border-l-4 border-indigo-500 hover:translate-x-2 transition-all duration-300 relative group">
-              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold">
                 3
               </div>
               <h4 className="text-xl font-semibold text-purple-700 mb-3 mt-2">Business Skills Development</h4>
@@ -133,7 +133,7 @@ const MentorshipDetail = () => {
             </div>
 
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border-l-4 border-indigo-500 hover:translate-x-2 transition-all duration-300 relative group">
-              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center  font-bold">
                 4
               </div>
               <h4 className="text-xl font-semibold text-purple-700 mb-3 mt-2">Problem-Solving Experience</h4>
@@ -146,14 +146,14 @@ const MentorshipDetail = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Join?</h2>
-          <p className="text-xl text-white text-opacity-90 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Join?</h2>
+          <p className="text-xl text-opacity-90 mb-8 max-w-2xl mx-auto">
             Whether you're looking to learn or share your expertise, we have opportunities for both mentees and mentors.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <button 
             onClick={handleClick}
-            className="group bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 min-w-[200px]">
+            className="group text-white bg-gradient-to-r from-indigo-500 to-purple-600  px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 min-w-[200px]">
               <span className="flex items-center justify-center">
                 Apply as Mentee
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,8 +172,8 @@ const MentorshipDetail = () => {
             </button>
           </div>
           
-          <div className="mt-8 text-white text-opacity-80 text-sm">
-            <p>Questions about the program? <a href="#contact" className="underline hover:text-white transition-colors">Contact us</a></p>
+          <div className="mt-8  text-opacity-80 text-sm">
+            <p>Questions about the program? <a href="#contact" className="underline hover: transition-colors">Contact us</a></p>
           </div>
         </div>
       </div>
