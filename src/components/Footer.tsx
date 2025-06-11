@@ -54,7 +54,7 @@ const Footer = () => {
           <div>
             <h4 className="font-medium text-lg mb-4">Contact</h4>
             <ul className="space-y-3">
-              <li>suioncampus@gmail.com</li>
+              <li><a href="mailto:info@suioncampus.org">info@suioncampus.org</a></li>
               <li>Global</li>
             </ul>
             <a 

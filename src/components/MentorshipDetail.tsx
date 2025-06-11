@@ -9,7 +9,7 @@ const MentorshipDetail = () => {
         navigate("/mentorship-form");
     }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-800 relative overflow-hidden">
+    <div className="min-h-screen  from-indigo-500 via-purple-600 to-purple-800 relative overflow-hidden">
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/12 w-20 h-20 bg-white bg-opacity-10 rounded-full animate-pulse"></div>
@@ -24,7 +24,7 @@ const MentorshipDetail = () => {
     Sui on Campus Mentorship Program
   </h1>
   <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-6 leading-relaxed">
-    A structured initiative designed to guide and nurture top student talent into becoming impactful contributors to the Sui blockchain ecosystem.
+    A structured initiative designed to guide and nurture top talents students and young innovators.
   </p>
 </div>
 
