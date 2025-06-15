@@ -180,7 +180,7 @@ const MentorshipDetail = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfnsjBFENvITIZsZwXgYWsOSW9m5I8upOfwu9eAAU1OfwxDWA/viewform?usp=dialog"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdqZYwRcN0K-B8MeIIgU-1NjHMKFZDI4sEUDLW7Dx8N0LrKnA/viewform?usp=header"
               target="_blank"
               rel="noopener noreferrer"
               className="group text-white bg-gradient-to-r from-indigo-500 to-purple-600  px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 transform hover:scale-105 min-w-[200px]"
@@ -231,13 +231,16 @@ const MentorshipDetail = () => {
           <div className="mt-8 text-opacity-80 text-sm">
             <p>
               Questions about the program?{" "}
-              <Link
-                target="_blank"
-                to="mailto:info@suioncampus.org"
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "mailto:info@suioncampus.org";
+                }}
+                href="mailto:info@suioncampus.org"
                 className="underline hover:text-purple-600 transition-colors"
               >
                 Contact us
-              </Link>
+              </a>
             </p>
           </div>
         </div>
